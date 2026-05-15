@@ -1,0 +1,13 @@
+{
+  "description": "Enforce managed challenges on programmatic or non-browser automated client traffic profiles targeting authentication and registration endpoints.",
+  "expression": "(http.request.uri.path in {\"/api/auth/login\" \"/api/auth/register-worker\" \"/api/auth/register-employer\"} and cf.client.bot) or (cf.threat_score > 15 and not cf.client.bot)",
+  "action": "managed_challenge",
+  "logging": {
+    "enabled": true
+  },
+  "categories": [
+    "Bot Management",
+    "Brute Force Protection"
+  ],
+  "enabled": true
+}
