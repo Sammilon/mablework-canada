@@ -1,0 +1,10 @@
+{
+  "id": "rule_canada_only_enforcement",
+  "description": "Block all non-Canadian traffic targeting core authentication, registration, and tenant dashboard interfaces.",
+  "expression": "(http.request.uri.path contains \"/api/auth/\" or http.request.uri.path contains \"/admin/\" or http.request.uri.path contains \"/employer-dashboard/\" or http.request.uri.path contains \"/worker-dashboard/\") and ip.src.country ne \"CA\"",
+  "action": "block",
+  "logging": {
+    "enabled": true
+  },
+  "enabled": true
+}
