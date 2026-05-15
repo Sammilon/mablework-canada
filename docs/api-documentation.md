@@ -14,6 +14,8 @@ This document defines the standard REST API endpoints, required payloads, authen
 
 ## 1. Authentication Endpoints (`/api/auth`)
 
+---
+
 ### Register Worker
 
 * **Endpoint:** `POST /api/auth/register-worker`
@@ -42,6 +44,85 @@ This document defines the standard REST API endpoints, required payloads, authen
     "preferredContactMethod": "Google Chat",
     "googleChatEmail": "jane.doe.chat@example.com"
   }
+
+```
+* **Success Response (201 Created)**
+```
+ {
+  "success": true,
+  "message": "Worker registration initiated successfully. Profile status: Pending Vetting.",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  }
+```
+
+# User Login
+* **Endpoint:** `POST /api/auth/login`
+* **Access:** Public
+* **Payload Structure**
+```{
+  "email": "user@example.com",
+  "password": "securePassword123"
 }
-...
-#
+```
+
+* **Success Response (200 OK)**
+```
+{
+  "success": true,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "role": "Worker"
+}
+```
+# 2. Workforce & Operations (`/api/employer`)
+
+**Create Workforce Request**
+* **Endpoint:** `POST /api/employer/request-workforce`
+* **Access:** Private (Employer Only)
+* **Payload Structure**
+```
+{
+  "industry": "Logistics",
+  "requiredStaffCount": 5,
+  "durationDays": 14,
+  "description": "Need warehouse operators for seasonal fulfillment shift spikes."
+}
+```
+* **Success Response (201 Created)**
+```
+{
+  "success": true,
+  "requestId": "REQ-88392-2026",
+  "status": "Submitted"
+}
+```
+#3. Administrative Verification Engine (`/api/admin`)
+**Update Verification Status**
+* **Endpoint:** `PATCH /api/admin/verify-user/:id`
+* **Access: Private** (Admin Only)
+**Payload Structure**
+```
+{
+  "role": "Worker",
+  "status": "Verified",
+  "notes": "Identification credentials and work preferences cleared against standards."
+}
+```
+* **Success Response (200 OK)**
+```
+{
+  "success": true,
+  "message": "Target account status successfully shifted to Verified."
+}
+```
+
+## Standard Server Response Codes
+
+| Status Code | Context | Meaning |
+| :--- | :--- | :--- |
+| **200 OK** | Fetch/Update | Request succeeded and data is returned |
+| **201 Created** | Submissions | Resource successfully created |
+| **400 Bad Request** | Validation | Missing or invalid payload |
+| **401 Unauthorized** | Auth | JWT token required or invalid |
+| **403 Forbidden** | Access | Permission denied |
+| **404 Not Found** | Routing | Endpoint does not exist |
+| **500 Server Error** | System | Internal server error |
