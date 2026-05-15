@@ -1,0 +1,19 @@
+{
+  "name": "mablework-canada",
+  "version": "1.0.0",
+  "description": "Workforce management and corporate staffing platform for MableWork Canada",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "node backend/app.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "staffing",
+    "recruitment",
+    "workforce-management",
+    "canada"
+  ],
+  "author": "",
+  "license": "ISC"
+}
