@@ -1,0 +1,25 @@
+{
+  "rules": [
+    {
+      "id": "rule_injection_mitigation",
+      "description": "Block common Cross-Site Scripting (XSS) and database query injection patterns in request strings",
+      "expression": "(http.request.uri.query contains \"<script>\" or http.request.uri.query contains \"javascript:\" or http.request.uri.query contains \"$\") or (http.request.body.mime eq \"application/json\" and (http.request.uri.path contains \"/api/\" and (http.request.body.raw contains \"$gt\" or http.request.body.raw contains \"$ne\")))",
+      "action": "block",
+      "enabled": true
+    },
+    {
+      "id": "rule_path_traversal_protection",
+      "description": "Prevent directory traversal and unauthorized relative file system path attacks",
+      "expression": "(http.request.uri.path contains \"..\" or http.request.uri.path contains \"etc/passwd\" or http.request.uri.path contains \"proc/self\")",
+      "action": "block",
+      "enabled": true
+    },
+    {
+      "id": "rule_sensitive_endpoint_protection",
+      "description": "Apply strict challenge tokens to public config file requests and exposed metrics paths",
+      "expression": "(http.request.uri.path in {\"/.env\" \"/package.json\" \"/package-lock.json\" \"/git\"})",
+      "action": "block",
+      "enabled": true
+    }
+  ]
+}
