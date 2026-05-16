@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Content &amp; Policy Management Desk | Admin Panel</title>
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <!-- FontAwesome Core Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .content-management-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+        }
+        .content-module-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .module-nav-item {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease-in-out;
+        }
+        .module-nav-item:hover, .module-nav-item.item-selected {
+            border-color: var(--primary-color);
+            background-color: #f8fafc;
+            box-shadow: var(--shadow-sm);
+        }
+        .module-nav-item h4 {
+            margin: 0 0 0.25rem 0;
+            font-size: 14px;
+            color: #1e293b;
+        }
+        .module-nav-item p {
+            margin: 0;
+            font-size: 11px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Administrative Access Impersonation Alert Ribbon -->
+    <div class="admin-impersonation-alert-ribbon" id="adminImpersonationRibbon" style="display: none;">
+        <div class="impersonation-meta-details">
+            <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            <span><strong>Security Alert:</strong> Altering legal documentation frameworks and operational policies via administrative delegation.</span>
+        </div>
+        <button class="btn-terminate-impersonation" onclick="terminateImpersonationSession()">Exit Session</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation Rail -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-top-group">
+                <div class="dashboard-content-header" style="border-bottom: 1px solid #2d3748; margin-bottom: 1.5rem; padding-bottom: 1rem;">
+                    <div class="header-title-block">
+                        <h1 style="color: #ffffff; font-size: 1.25rem; margin: 0;">MableWork HQ</h1>
+                        <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">Content Management Desk</p>
+                    </div>
+                </div>
+                <nav class="sidebar-links-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="dashboard.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i> Overview Control
+                    </a>
+                    <a href="employers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-building" style="width: 20px;"></i> Employer Accounts
+                    </a>
+                    <a href="audit-logs.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-shield-halved" style="width: 20px;"></i> Security Audit Logs
+                    </a>
+                    <a href="workers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-gears" style="width: 20px;"></i> Engine Workers
+                    </a>
+                </nav>
+            </div>
+            <div class="sidebar-footer-group">
+                <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="executeAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Drop Access Gate
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Flow -->
+        <main class="dashboard-main-content animate-view-entry">
+            <!-- Content Header Context -->
+            <div class="dashboard-content-header">
+                <div class="header-title-block">
+                    <h1>System Content &amp; Policy Deployment Console</h1>
+                    <p>Modify public policy text fields, terms of reference agreements, and legal documentation updates directly inside the system engine.</p>
+                </div>
+                <div class="header-profile-badge">
+                    <span>Chief Editor</span>
+                    <div class="user-avatar" id="adminUserAvatarNode">CMS</div>
+                </div>
+            </div>
+
+            <!-- Global Action Intercept Alerts Layer -->
+            <div id="cmsActionAlertFeedback" class="alert-box-container hidden-alert"></div>
+
+            <!-- Two Column Structural Layout -->
+            <div class="content-management-grid">
+                
+                <!-- Left Nav: Select Content Target -->
+                <div class="content-module-list">
+                    <button class="module-nav-item item-selected" id="modTermsBtn" onclick="switchActiveCmsModule('TERMS')">
+                        <h4>Terms of Service (TOS)</h4>
+                        <p>Last modified: 2026-03-12</p>
+                    </button>
+                    <button class="module-nav-item" id="modPrivacyBtn" onclick="switchActiveCmsModule('PRIVACY')">
+                        <h4>Privacy Regulation Terms</h4>
+                        <p>Last modified: 2026-01-19</p>
+                    </button>
+                    <button class="module-nav-item" id="modEscrowBtn" onclick="switchActiveCmsModule('ESCROW')">
+                        <h4>Escrow &amp; Paystack Rules</h4>
+                        <p>Last modified: 2026-04-05</p>
+                    </button>
+                </div>
+
+                <!-- Right Working Area: Document Raw Editor Context -->
+                <div class="premium-dashboard-card">
+                    <div class="card-title-row">
+                        <h3 id="currentCmsModuleHeadline"><i class="fa-solid fa-file-signature text-primary"></i> Editing Framework: Terms of Service (TOS)</h3>
+                        <span class="admin-status-matrix-tag matrix-tag-active" style="font-size: 11px;">Active Live Version</span>
+                    </div>
+                    <p class="card-body-description" style="margin-bottom: 1.5rem;">
+                        This text displays globally across public application modules. Standard Markdown format parameters are acceptable inside this text area layout block.
+                    </p>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <textarea id="cmsRawContentAreaBody" class="admin-dense-search-input" style="width: 100%; height: 380px; padding: 1rem; font-family: monospace; font-size: 13px; border: 1px solid #cbd5e1; border-radius: 6px; resize: vertical; line-height: 1.6;"># 1. Platform Operational Framework
+
+MableWork acts as an authorized structural intermediary connecting qualified domestic student talent branches with vetted corporate entities across Canada.
+
+# 2. Financial Escrow Configurations
+All operational client funds and project payouts are processed through authorized Paystack connection tokens. Funds are held securely inside the master escrow channel until execution conditions are confirmed.</textarea>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                        <button class="btn btn-outline-primary" onclick="previewCompiledMarkdownContent()"><i class="fa-solid fa-eye"></i> Process Layout Preview</button>
+                        <button class="btn btn-success" onclick="commitCmsContentToDatabase()"><i class="fa-solid fa-cloud-arrow-up"></i> Publish Changes to Cluster</button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Content Management Functional Script Engine Routing -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            verifyAdministrativeSessionToken();
+        });
+
+        function verifyAdministrativeSessionToken() {
+            const activeToken = localStorage.getItem("mable_admin_session_jwt");
+            if (!activeToken) {
+                window.location.href = "login.html";
+                return;
+            }
+            if (localStorage.getItem("mable_impersonation_active") === "true") {
+                document.getElementById("adminImpersonationRibbon").style.display = "flex";
+            }
+        }
+
+        function displayActionFeedbackMessage(messageText, isErrorState = false) {
+            const feedbackContainer = document.getElementById("cmsActionAlertFeedback");
+            feedbackContainer.className = "alert-box-container animate-toast-arrival " + 
+                (isErrorState ? "alert-danger-state" : "alert-success-state");
+            feedbackContainer.innerHTML = `<i class="fa-solid ${isErrorState ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> <span>${messageText}</span>`;
+            
+            setTimeout(() => {
+                feedbackContainer.className = "alert-box-container hidden-alert";
+            }, 4500);
+        }
+
+        function switchActiveCmsModule(moduleKeyString) {
+            const tBtn = document.getElementById("modTermsBtn");
+            const pBtn = document.getElementById("modPrivacyBtn");
+            const eBtn = document.getElementById("modEscrowBtn");
+            const headline = document.getElementById("currentCmsModuleHeadline");
+            const rawBody = document.getElementById("cmsRawContentAreaBody");
+
+            tBtn.className = "module-nav-item";
+            pBtn.className = "module-nav-item";
+            eBtn.className = "module-nav-item";
+
+            if (moduleKeyString === "TERMS") {
+                tBtn.className = "module-nav-item item-selected";
+                headline.innerHTML = `<i class="fa-solid fa-file-signature text-primary"></i> Editing Framework: Terms of Service (TOS)`;
+                rawBody.value = `# 1. Platform Operational Framework\n\nMableWork acts as an authorized structural intermediary connecting qualified domestic student talent branches with vetted corporate entities across Canada.\n\n# 2. Financial Escrow Configurations\nAll operational client funds and project payouts are processed through authorized Paystack connection tokens.`;
+            } else if (moduleKeyString === "PRIVACY") {
+                pBtn.className = "module-nav-item item-selected";
+                headline.innerHTML = `<i class="fa-solid fa-user-lock text-primary"></i> Editing Framework: Privacy Regulation Terms`;
+                rawBody.value = `# Data Management Framework\n\nWe track transaction logs, business incorporation criteria, and student work eligibility data fields. Information blocks are secured using industry-standard structural encryption guidelines.`;
+            } else {
+                eBtn.className = "module-nav-item item-selected";
+                headline.innerHTML = `<i class="fa-solid fa-wallet text-primary"></i> Editing Framework: Escrow & Paystack Rules`;
+                rawBody.value = `# Escrow Disbursal Protocols\n\n1. Payment validation hooks capture incoming payloads from Paystack checkout components.\n2. Disbursal requires dual confirmation parameters from both administrative oversight and contract validation rules.`;
+            }
+            displayActionFeedbackMessage(`Loaded asset fields for target: [${moduleKeyString}] successfully.`);
+        }
+
+        function previewCompiledMarkdownContent() {
+            displayActionFeedbackMessage("Compiled layout preview processed down the virtual DOM tree matrix.");
+        }
+
+        function commitCmsContentToDatabase() {
+            if (confirm("CRITICAL INTERFACE ACTION:\n\nPublishing updates will immediately alter policy parameters live on the production site framework.\n\nCommit updates to database cluster?")) {
+                displayActionFeedbackMessage("System core update successful. Policy data pushed to operational assets.");
+            }
+        }
+
+        function terminateImpersonationSession() {
+            localStorage.removeItem("mable_impersonation_active");
+            document.getElementById("adminImpersonationRibbon").style.display = "none";
+            displayActionFeedbackMessage("Terminated user delegation framework. Restoring native system content modification permissions.");
+        }
+
+        function executeAdminLogout() {
+            localStorage.removeItem("mable_admin_session_jwt");
+            localStorage.removeItem("mable_impersonation_active");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
