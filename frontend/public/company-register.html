@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Registration | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../src/css/variables.css">
+    <link rel="stylesheet" href="../src/css/global.css">
+    <link rel="stylesheet" href="../src/css/components/loader.css">
+    <link rel="stylesheet" href="../src/css/components/navbar.css">
+    <link rel="stylesheet" href="../src/css/pages/register-forms.css">
+    <link rel="stylesheet" href="../src/css/components/footer.css">
+    
+    <!-- Google Fonts & Icons Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Cloudflare Turnstile Security Script Embed -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <!-- Stripe Elements Secure Pipeline Script -->
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Loading Corporate Registration Engine...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <!-- Header -->
+        <header class="main-header">
+            <nav class="nav-container">
+                <div class="nav-brand">
+                    <a href="/index.html" class="brand-link">
+                        <span class="brand-text">MableWork</span>
+                        <span class="brand-region">Canada</span>
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="/register.html" class="nav-item"><i class="fas fa-arrow-left"></i> Change Account Type</a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Registration Form Container -->
+        <main class="form-layout-main">
+            <section class="form-card-container">
+                <header class="form-section-header">
+                    <span class="badge company-badge">Employer Workspace</span>
+                    <h1>Corporate Account Setup</h1>
+                    <p>Provide your business operational metrics to initialize credential processing and secure access placement channels.</p>
+                </header>
+
+                <form id="company-registration-form" enctype="multipart/form-data" class="premium-step-form">
+                    
+                    <!-- SECTION 1: COMPANY INFORMATION -->
+                    <fieldset class="form-step-group">
+                        <legend><i class="fas fa-building"></i> Company Information</legend>
+                        <div class="form-grid-2x2">
+                            <div class="form-field">
+                                <label for="company-name">Company Legal Name <span class="required">*</span></label>
+                                <input type="text" id="company-name" name="companyName" required placeholder="e.g., Toronto Industrial Contracting Inc.">
+                            </div>
+                            <div class="form-field">
+                                <label for="business-reg-number">Business Registration Number (BN) <span class="required">*</span></label>
+                                <input type="text" id="business-reg-number" name="businessRegNumber" required placeholder="9-digit Federal or Provincial ID">
+                            </div>
+                            <div class="form-field">
+                                <label for="industry-type">Industry Type <span class="required">*</span></label>
+                                <select id="industry-type" name="industryType" required>
+                                    <option value="">Select Corporate Sector</option>
+                                    <option value="construction">Construction & Trades</option>
+                                    <option value="manufacturing">Manufacturing & Logistics</option>
+                                    <option value="engineering">Engineering & Technical Services</option>
+                                    <option value="transportation">Transportation & Warehousing</option>
+                                    <option value="technology">Information Technology</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="company-website">Company Website</label>
+                                <input type="url" id="company-website" name="companyWebsite" placeholder="https://www.yourcompany.ca">
+                            </div>
+                        </div>
+                        <div class="form-field full-width">
+                            <label for="company-description">Company Description <span class="required">*</span></label>
+                            <textarea id="company-description" name="companyDescription" rows="4" required placeholder="Briefly outline your core operational scale and standard corporate activities..."></textarea>
+                        </div>
+                    </fieldset>
+
+                    <!-- SECTION 2: CONTACT INFORMATION -->
+                    <fieldset class="form-step-group">
+                        <legend><i class="fas fa-address-book"></i> Contact Information</legend>
+                        <div class="form-grid-3x1">
+                            <div class="form-field">
+                                <label for="contact-name">Contact Person Full Name <span class="required">*</span></label>
+                                <input type="text" id="contact-name" name="contactPersonName" required placeholder="e.g., Robert Harrison">
+                            </div>
+                            <div class="form-field">
+                                <label for="business-email">Business Email Address <span class="required">*</span></label>
+                                <input type="email" id="business-email" name="email" required placeholder="e.g., hr@yourcompany.ca">
+                            </div>
+                            <div class="form-field">
+                                <label for="phone-number">Phone Number <span class="required">*</span></label>
+                                <input type="tel" id="phone-number" name="phoneNumber" required placeholder="e.g., +1 (416) 555-0192">
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- SECTION 3: ADDRESS INFORMATION -->
+                    <fieldset class="form-step-group">
+                        <legend><i class="fas fa-map-location-dot"></i> Address Information</legend>
+                        <div class="form-grid-2x2">
+                            <div class="form-field full-width">
+                                <label for="company-address">Full Company Address <span class="required">*</span></label>
+                                <input type="text" id="company-address" name="address" required placeholder="Street address, Suite, Unit number">
+                            </div>
+                            <div class="form-field">
+                                <label for="company-city">City <span class="required">*</span></label>
+                                <input type="text" id="company-city" name="city" required placeholder="e.g., Calgary">
+                            </div>
+                            <div class="form-field">
+                                <label for="company-province">Province / Territory <span class="required">*</span></label>
+                                <select id="company-province" name="province" required>
+                                    <option value="">Select Province</option>
+                                    <option value="ON">Ontario</option>
+                                    <option value="BC">British Columbia</option>
+                                    <option value="AB">Alberta</option>
+                                    <option value="QC">Quebec</option>
+                                    <option value="NS">Nova Scotia</option>
+                                    <option value="MB">Manitoba</option>
+                                    <option value="SK">Saskatchewan</option>
+                                    <option value="NB">New Brunswick</option>
+                                    <option value="NL">Newfoundland and Labrador</option>
+                                    <option value="PE">Prince Edward Island</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="company-postal">Postal Code <span class="required">*</span></label>
+                                <input type="text" id="company-postal" name="postalCode" required placeholder="e.g., M5V 2T6" pattern="[A-Za-z]\d[A-Za-z]\s?\d[A-Za-z]\d">
+                            </div>
+                            <div class="form-field">
+                                <label for="company-country">Country</label>
+                                <input type="text" id="company-country" name="country" value="Canada" readonly class="disabled-input">
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- SECTION 4: WORKFORCE DETAILS -->
+                    <fieldset class="form-step-group">
+                        <legend><i class="fas fa-users-gear"></i> Workforce Requirements</legend>
+                        <div class="form-grid-3x1">
+                            <div class="form-field">
+                                <label for="workers-needed-type">Type of Workers Needed <span class="required">*</span></label>
+                                <input type="text" id="workers-needed-type" name="typeOfWorkersNeeded" required placeholder="e.g., Certified Structural Welders">
+                            </div>
+                            <div class="form-field">
+                                <label for="estimated-workers">Estimated Number of Workers <span class="required">*</span></label>
+                                <input type="number" id="estimated-workers" name="estimatedNumberWorkers" min="1" required placeholder="e.g., 5">
+                            </div>
+                            <div class="form-field">
+                                <label for="employment-type">Employment Type <span class="required">*</span></label>
+                                <select id="employment-type" name="employmentType" required>
+                                    <option value="Full-Time">Full-Time Placement</option>
+                                    <option value="Part-Time">Part-Time Shifts</option>
+                                    <option value="Temporary">Temporary / Project-Based</option>
+                                    <option value="Remote">Remote Execution</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- SECTION 5: PREFERRED COMMUNICATION METHOD -->
+                    <fieldset class="form-step-group">
+                        <legend><i class="fas fa-comments"></i> Preferred Communication Method</legend>
+                        <div class="form-radio-flex-row">
+                            <label class="radio-card">
+                                <input type="radio" name="preferredCommunicationMethod" value="Website Chat" checked>
+                                <div class="radio-card-content">
+                                    <i class="fas fa-message"></i>
+                                    <span>Website Chat</span>
+                                </div>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="preferredCommunicationMethod" value="Email">
+                                <div class="radio-card-content">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>Email Channels</span>
+                                </div>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="preferredCommunicationMethod" value="Google Chat">
+                                <div class="radio-card-content">
+                                    <i class="fab fa-google"></i>
+                                    <span>Google Chat</span>
+                                </div>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <!-- SECTION 6: VERIFICATION UPLOADS -->
+                    <fieldset class="form-step-group">
+                        <legend><i class="fas fa-cloud-arrow-up"></i> Verification Uploads</legend>
+                        <div class="form-grid-2x1">
+                            <div class="form-field">
+                                <label for="reg-document">Business Registration Document <span class="required">*</span> <span class="label-format-info">(PDF, JPG, PNG)</span></label>
+                                <input type="file" id="reg-document" name="businessRegistrationDoc" accept=".pdf, .jpg, .jpeg, .png" required class="file-custom-input">
+                            </div>
+                            <div class="form-field">
+                                <label for="company-logo">Company Logo <span class="label-format-info">(Optional - JPG, PNG)</span></label>
+                                <input type="file" id="company-logo" name="companyLogo" accept=".jpg, .jpeg, .png" class="file-custom-input">
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- SECTION 7: ONE-TIME PAYMENT INFORMATION -->
+                    <fieldset class="form-step-group security-payment-panel">
+                        <legend><i class="fas fa-credit-card"></i> Activation Clearance Fee</legend>
+                        <div class="stripe-pricing-summary-box">
+                            <div class="pricing-headline">
+                                <h3>One-Time Employer Access Fee</h3>
+                                <span class="currency-badge">500.00 CAD</span>
+                            </div>
+                            <p>Required to activate multi-provincial database parsing, pipeline messaging, and background check allocations.</p>
+                            
+                            <!-- Dynamic Stripe Element Placeholder Mount Frame -->
+                            <div id="stripe-card-mount-element" class="stripe-field-mount">
+                                <!-- Stripe Element injects here cleanly via JS -->
+                            </div>
+                            <!-- Error container tracking payment workflow validations -->
+                            <div id="payment-errors-root" class="form-validation-error-text" role="alert"></div>
+                        </div>
+                    </fieldset>
+
+                    <!-- SECTION 8: ACCOUNT SECURITY -->
+                    <fieldset class="form-step-group">
+                        <legend><i class="fas fa-vault"></i> Account Protection Parameters</legend>
+                        <div class="form-grid-2x1">
+                            <div class="form-field">
+                                <label for="password">Account Password <span class="required">*</span></label>
+                                <input type="password" id="password" name="password" minlength="8" required placeholder="Minimum 8 characters, complex mix">
+                            </div>
+                            <div class="form-field">
+                                <label for="confirm-password">Confirm Password <span class="required">*</span></label>
+                                <input type="password" id="confirm-password" required placeholder="Re-enter password string">
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- SECTION 9: RISK REDUCTION & MANDATES -->
+                    <fieldset class="form-step-group legal-agreements-panel">
+                        <legend><i class="fas fa-gavel"></i> Compliance Certifications</legend>
+                        <div class="checkbox-stack">
+                            <label class="checkbox-row">
+                                <input type="checkbox" name="agreeToPrivacy" required>
+                                <span class="checkbox-text">I explicitly agree to the platform's <a href="/privacy.html" target="_blank">Privacy Policy</a> and audit directives under PIPEDA rules.</span>
+                            </label>
+                            <label class="checkbox-row">
+                                <input type="checkbox" name="agreeToTerms" required>
+                                <span class="checkbox-text">I verify and accept the structural <a href="/terms.html" target="_blank">Terms & Conditions</a> governing employer actions.</span>
+                            </label>
+                            <label class="checkbox-row">
+                                <input type="checkbox" name="confirmCanadianOperation" required>
+                                <span class="checkbox-text"><strong>I solemnly confirm that this business entity is fully authorized and actively operating within Canadian jurisdictions.</strong></span>
+                            </label>
+                        </div>
+
+                        <!-- Cloudflare Turnstile CAPTCHA Injection Matrix -->
+                        <div class="captcha-wrapper-container">
+                            <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="light"></div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Form Execution Core Actions Block -->
+                    <div class="form-submission-action-bar">
+                        <button type="submit" id="submit-btn" class="btn btn-primary btn-xl">
+                            <span class="btn-text">Process Authorization & Register</span>
+                            <span class="btn-spinner-icon hidden"><i class="fas fa-circle-notch fa-spin"></i></span>
+                        </button>
+                    </div>
+
+                </form>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-container">
+                <p>&copy; 2026 MableWork Canada. All Rights Reserved. Regulated Enterprise Hiring Platform.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Core Application Operational Logic Script Binding -->
+    <script src="../src/js/api.js"></script>
+    <script src="../src/js/utils/loader.js"></script>
+    <script src="../src/js/pages/company-register.js"></script>
+</body>
+</html>
