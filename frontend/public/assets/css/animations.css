@@ -1,0 +1,144 @@
+/**
+ * MABLEWORK CANADA - SYSTEM PROPULSION & ANIMATION ENGINES
+ * Coordinates hardware-accelerated transitions, viewport reveals, and loading states.
+ */
+
+/* ==========================================================================
+   1. KEYFRAME DICTIONARIES (TRANSITION MAPS)
+   ========================================================================== */
+
+/* Structural Dropdown / Popover Reveal */
+@keyframes menu-slide-down-reveal {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Toast Alert Banner Influx */
+@keyframes toast-slide-in-right {
+    from {
+        opacity: 0;
+        transform: translateX(100%) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+/* Modal Enclosure Entrance Vector */
+@keyframes modal-scale-up-center {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -48%) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Content Loading Placeholder Sweep */
+@keyframes skeleton-shimmer-sweep {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Global Content Section Fade-In */
+@keyframes view-fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================================
+   2. INTERACTIVE CLASSES AUTOMATION UTILITIES
+   ========================================================================== */
+.animate-reveal-dropdown {
+    animation: menu-slide-down-reveal 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-toast-arrival {
+    animation: toast-slide-in-right 0.25s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animate-modal-entry {
+    animation: modal-scale-up-center 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-view-entry {
+    animation: view-fade-in-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================================================
+   3. SKELETON LAYOUT PLACEHOLDERS (ASYNCHRONOUS LOAD MATRICES)
+   ========================================================================== */
+.skeleton-loader-node {
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer-sweep 1.5s infinite linear;
+    border-radius: 4px;
+    display: inline-block;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Content-Type Variants for Fluid Wireframes */
+.skeleton-loader-node.type-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+}
+
+.skeleton-loader-node.type-title {
+    width: 45%;
+    height: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.skeleton-loader-node.type-paragraph-line {
+    width: 100%;
+    height: 0.875rem;
+    margin-bottom: 0.375rem;
+}
+
+.skeleton-loader-node.type-paragraph-line:last-child {
+    width: 75%;
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   4. REDUCED MOTION ACCESSIBILITY COMPLIANCE (OS LEVEL RESPECT)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+        animation-delay: -1ms !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        background-attachment: scroll !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+    }
+    
+    .skeleton-loader-node {
+        background: #e5e7eb !important;
+        animation: none !important;
+    }
+}
