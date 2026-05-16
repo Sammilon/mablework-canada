@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Account Type | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../src/css/variables.css">
+    <link rel="stylesheet" href="../src/css/global.css">
+    <link rel="stylesheet" href="../src/css/components/loader.css">
+    <link rel="stylesheet" href="../src/css/components/navbar.css">
+    <link rel="stylesheet" href="../src/css/pages/register-portal.css">
+    <link rel="stylesheet" href="../src/css/components/footer.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Premium Interface Vectors -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Opening Secure Registration...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <!-- Platform Navigation Bar Header -->
+        <header class="main-header">
+            <nav class="nav-container">
+                <div class="nav-brand">
+                    <a href="/index.html" class="brand-link">
+                        <span class="brand-text">MableWork</span>
+                        <span class="brand-region">Canada</span>
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="/index.html" class="nav-item">Home</a>
+                    <a href="/workforce.html" class="nav-item">Find Workforce</a>
+                    <a href="/jobs.html" class="nav-item">Browse Jobs</a>
+                    <div class="nav-auth-group">
+                        <a href="/login.html" class="btn btn-secondary">Sign In</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Account Type Selection Content -->
+        <main class="portal-selection-layout">
+            <section class="selection-container">
+                <header class="portal-header">
+                    <span class="badge">Registration Portal</span>
+                    <h1>Begin Your Journey with MableWork</h1>
+                    <p>Select your account classification below to access our regulated Canadian matching environment.</p>
+                </header>
+
+                <!-- Dual Segment Selection Grid -->
+                <div class="portal-selection-grid">
+                    
+                    <!-- Choice Card 1: Corporate Enterprise (Company) -->
+                    <div class="selection-card" onclick="window.location.href='/company-register.html'">
+                        <div class="card-icon-wrapper">
+                            <i class="fas fa-building-enterprise"></i>
+                        </div>
+                        <h2>Register as a Company</h2>
+                        <p>For corporate entities, contractors, and hiring managers looking to recruit background-vetted Canadian technical specialists.</p>
+                        <ul class="card-perks">
+                            <li><i class="fas fa-check"></i> Post open project scopes</li>
+                            <li><i class="fas fa-check"></i> Access verified credential pools</li>
+                            <li><i class="fas fa-check"></i> Secure Stripe corporate processing</li>
+                        </ul>
+                        <div class="portal-card-action">
+                            <span class="btn btn-primary full-width">Continue as Employer <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+
+                    <!-- Choice Card 2: Technical Specialist (Worker) -->
+                    <div class="selection-card" onclick="window.location.href='/worker-register.html'">
+                        <div class="card-icon-wrapper">
+                            <i class="fas fa-user-helmet-safety"></i>
+                        </div>
+                        <h2>Register as a Worker</h2>
+                        <p>For skilled trade professionals, specialists, and candidates looking for placements within regulated Canadian industries.</p>
+                        <ul class="card-perks">
+                            <li><i class="fas fa-check"></i> Verified verification badge tracking</li>
+                            <li><i class="fas fa-check"></i> Flexible availability settings</li>
+                            <li><i class="fas fa-check"></i> Real-time WebSocket messaging</li>
+                        </ul>
+                        <div class="portal-card-action">
+                            <span class="btn btn-secondary full-width">Continue as Candidate <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="portal-fallback-footer">
+                    <p>Already possess a verified profile? <a href="/login.html">Access your account here</a>.</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Professional Platform Corporate Footer Layout -->
+        <footer class="main-footer">
+            <div class="footer-container">
+                <p>&copy; 2026 MableWork Canada. All Rights Reserved. Regulated Enterprise Hiring Platform.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../src/js/api.js"></script>
+    <script src="../src/js/utils/loader.js"></script>
+</body>
+</html>
