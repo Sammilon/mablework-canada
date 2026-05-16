@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Document Vetting Desk - Admin Panel</title>
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <!-- FontAwesome Core Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .verification-split-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2rem;
+        }
+        .document-preview-vault {
+            background-color: #f1f5f9;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            height: 480px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+        .document-tab-strip {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+        .doc-tab {
+            padding: 0.5rem 1rem;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .doc-tab.tab-active {
+            color: var(--primary-color);
+            background-color: #eff6ff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Administrative Access Impersonation Alert Ribbon -->
+    <div class="admin-impersonation-alert-ribbon" id="adminImpersonationRibbon" style="display: none;">
+        <div class="impersonation-meta-details">
+            <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            <span><strong>Security Alert:</strong> Executing corporate legal document analysis under structural administrative delegation. Action footprints are tracked.</span>
+        </div>
+        <button class="btn-terminate-impersonation" onclick="terminateImpersonationSession()">Exit Session</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation Rail -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-top-group">
+                <div class="dashboard-content-header" style="border-bottom: 1px solid #2d3748; margin-bottom: 1.5rem; padding-bottom: 1rem;">
+                    <div class="header-title-block">
+                        <h1 style="color: #ffffff; font-size: 1.25rem; margin: 0;">MableWork HQ</h1>
+                        <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">Legal Verification Desk</p>
+                    </div>
+                </div>
+                <nav class="sidebar-links-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="dashboard.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i> Overview Control
+                    </a>
+                    <a href="employers.html" style="color: #ffffff; background-color: #1f2937; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem; font-weight: 600;">
+                        <i class="fa-solid fa-building" style="width: 20px;"></i> Employer Accounts
+                    </a>
+                    <a href="audit-logs.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-shield-halved" style="width: 20px;"></i> Security Audit Logs
+                    </a>
+                    <a href="workers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-gears" style="width: 20px;"></i> Engine Workers
+                    </a>
+                </nav>
+            </div>
+            <div class="sidebar-footer-group">
+                <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="executeAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Drop Access Gate
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Flow -->
+        <main class="dashboard-main-content animate-view-entry">
+            <!-- Content Header Context -->
+            <div class="dashboard-content-header">
+                <div class="header-title-block">
+                    <h1 id="corporateVettingTitle">Corporate Vault Audit: Ontario Care Providers</h1>
+                    <p>Analyze uploaded governmental documentation, cross-check identity details against CRA registries, and finalize platform operational status.</p>
+                </div>
+                <div class="header-profile-badge">
+                    <span>Vetting Officer</span>
+                    <div class="user-avatar" id="adminUserAvatarNode">VET</div>
+                </div>
+            </div>
+
+            <!-- Global Action Intercept Alerts Layer -->
+            <div id="vettingActionAlertFeedback" class="alert-box-container hidden-alert"></div>
+
+            <!-- Split Verification Context Workspace -->
+            <div class="verification-split-grid">
+                
+                <!-- Left: Document Review Window Frame -->
+                <div class="premium-dashboard-card">
+                    <div class="document-tab-strip">
+                        <button class="doc-tab tab-active" id="tabBtnCra" onclick="switchActiveDocumentView('CRA')"><i class="fa-solid fa-file-invoice"></i> CRA Incorporation Certificate</button>
+                        <button class="doc-tab" id="tabBtnTax" onclick="switchActiveDocumentView('TAX')"><i class="fa-solid fa-file-shield"></i> Business License Proof</button>
+                    </div>
+
+                    <div class="document-preview-vault" id="documentPreviewViewport">
+                        <i class="fa-solid fa-file-pdf text-danger" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                        <h4 style="margin: 0 0 0.5rem 0; color: #1e293b;" id="previewDocTitle">Ontario_Care_Inc_CRA_78291.pdf</h4>
+                        <p style="font-size: 12px; max-width: 320px; margin: 0 0 1.5rem 0;">Cryptographic secure storage handshake active. Content verified matching hash sequence.</p>
+                        <button class="btn btn-outline-primary btn-sm" onclick="simulateExternalDocumentDownload()"><i class="fa-solid fa-download"></i> Open in New Sandboxed Window</button>
+                    </div>
+                </div>
+
+                <!-- Right: Audit Decisions & Reporting Panel -->
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <!-- Legal Profile Summary Card -->
+                    <div class="premium-dashboard-card">
+                        <h3 style="margin-top: 0;"><i class="fa-solid fa-scale-balanced text-primary"></i> Profile Metadata Match</h3>
+                        <table class="profile-details-summary-table" style="width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 1rem;">
+                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                <td style="padding: 0.5rem 0; color: #64748b; font-weight: 500;">Legal Trade Entity</td>
+                                <td style="padding: 0.5rem 0; font-weight: 600; color: #1e293b; text-align: right;">Ontario Care Providers Inc.</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                <td style="padding: 0.5rem 0; color: #64748b; font-weight: 500;">Assigned CRA Number</td>
+                                <td style="padding: 0.5rem 0; font-weight: 600; color: #0f172a; font-family: monospace; text-align: right;">890412354-RC0002</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                <td style="padding: 0.5rem 0; color: #64748b; font-weight: 500;">Compliance Queue Date</td>
+                                <td style="padding: 0.5rem 0; font-weight: 600; color: #1e293b; text-align: right;">2026-05-15 14:22</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem 0; color: #64748b; font-weight: 500;">Risk Analysis Engine</td>
+                                <td style="padding: 0.5rem 0; font-weight: 700; color: #16a34a; text-align: right;"><i class="fa-solid fa-shield"></i> LOW RISK PASSED</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Actions Form Entry Block -->
+                    <div class="premium-dashboard-card">
+                        <h3><i class="fa-solid fa-gavel text-warning"></i> Resolution Verdict</h3>
+                        <div style="margin-top: 1rem; margin-bottom: 1rem;">
+                            <label style="display: block; font-size: 12px; font-weight: 600; color: #4b5563; margin-bottom: 0.25rem;">Internal Compliance Log Note</label>
+                            <textarea id="complianceReviewOfficerNotes" class="admin-dense-search-input" style="width: 100%; height: 90px; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 4px; resize: none;" placeholder="Provide explicit reasoning logs detailing document resolution metrics..."></textarea>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <button class="btn btn-success" style="width: 100%;" onclick="executeVettingDecisionGate('APPROVE')"><i class="fa-solid fa-circle-check"></i> Authorize Corporate Account</button>
+                            <button class="btn btn-outline-danger" style="width: 100%;" onclick="executeVettingDecisionGate('REJECT')"><i class="fa-solid fa-circle-xmark"></i> Issue Document Rejection Fault</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Vetting Verification Operational Core Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            verifyAdministrativeSessionToken();
+        });
+
+        function verifyAdministrativeSessionToken() {
+            const activeToken = localStorage.getItem("mable_admin_session_jwt");
+            if (!activeToken) {
+                window.location.href = "login.html";
+                return;
+            }
+            if (localStorage.getItem("mable_impersonation_active") === "true") {
+                document.getElementById("adminImpersonationRibbon").style.display = "flex";
+            }
+        }
+
+        function displayActionFeedbackMessage(messageText, isErrorState = false) {
+            const feedbackContainer = document.getElementById("vettingActionAlertFeedback");
+            feedbackContainer.className = "alert-box-container animate-toast-arrival " + 
+                (isErrorState ? "alert-danger-state" : "alert-success-state");
+            feedbackContainer.innerHTML = `<i class="fa-solid ${isErrorState ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> <span>${messageText}</span>`;
+            
+            setTimeout(() => {
+                feedbackContainer.className = "alert-box-container hidden-alert";
+            }, 4500);
+        }
+
+        function switchActiveDocumentView(docTypeKey) {
+            const tabCra = document.getElementById("tabBtnCra");
+            const tabTax = document.getElementById("tabBtnTax");
+            const titleNode = document.getElementById("previewDocTitle");
+
+            tabCra.className = "doc-tab";
+            tabTax.className = "doc-tab";
+
+            if (docTypeKey === "CRA") {
+                tabCra.className = "doc-tab tab-active";
+                titleNode.innerText = "Ontario_Care_Inc_CRA_78291.pdf";
+            } else {
+                tabTax.className = "doc-tab tab-active";
+                titleNode.innerText = "Municipal_Operating_License_ON_2026.pdf";
+            }
+            displayActionFeedbackMessage(`Switched document context frame to: ${docTypeKey} verification asset.`);
+        }
+
+        function simulateExternalDocumentDownload() {
+            displayActionFeedbackMessage("Opening cryptographically isolated proxy stream window for detailed layout preview.");
+        }
+
+        function executeVettingDecisionGate(verdictStatusString) {
+            const officialNotes = document.getElementById("complianceReviewOfficerNotes").value.trim();
+            if (!officialNotes) {
+                alert("Please add explicit audit logs or decision tracking notes prior to submitting account resolutions.");
+                return;
+            }
+
+            if (verdictStatusString === "APPROVE") {
+                displayActionFeedbackMessage("Corporate onboarding cycle closed. Operational clearance dispatched to target account.");
+            } else {
+                displayActionFeedbackMessage("Document rejection logged. Automated revision portal notification pushed to employer access node.", true);
+            }
+            
+            setTimeout(() => {
+                window.location.href = "employers.html";
+            }, 2000);
+        }
+
+        function terminateImpersonationSession() {
+            localStorage.removeItem("mable_impersonation_active");
+            document.getElementById("adminImpersonationRibbon").style.display = "none";
+            displayActionFeedbackMessage("Terminated user delegation framework. Restoring native compliance officer permissions.");
+        }
+
+        function executeAdminLogout() {
+            localStorage.removeItem("mable_admin_session_jwt");
+            localStorage.removeItem("mable_impersonation_active");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
