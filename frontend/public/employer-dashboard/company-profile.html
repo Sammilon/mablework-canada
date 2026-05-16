@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Corporate Profile | Employer Dashboard | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../../src/css/variables.css">
+    <link rel="stylesheet" href="../../src/css/global.css">
+    <link rel="stylesheet" href="../../src/css/components/loader.css">
+    <link rel="stylesheet" href="../../src/css/components/dashboard-layout.css">
+    <link rel="stylesheet" href="../../src/css/pages/dashboard/employer-profile.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Premium Visual Icons Vector Pack -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Loading Corporate Records...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <div class="dashboard-wrapper">
+            
+            <!-- Internal Employer Navigation Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <span class="brand-text">MableWork</span>
+                    <span class="brand-region">Corporate</span>
+                </div>
+                <nav class="sidebar-menu">
+                    <a href="dashboard.html" class="menu-item"><i class="fas fa-chart-line"></i> Operations Center</a>
+                    <a href="workforce-request.html" class="menu-item"><i class="fas fa-layer-plus"></i> Request Workforce</a>
+                    <a href="active-placements.html" class="menu-item"><i class="fas fa-users-gear"></i> Active Rosters</a>
+                    <a href="billing.html" class="menu-item"><i class="fas fa-credit-card-blank"></i> Corporate Invoicing</a>
+                    <a href="compliance-vault.html" class="menu-item"><i class="fas fa-building-shield"></i> Risk Mitigation</a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button id="sidebar-logout-trigger" class="btn btn-outline-danger btn-sm full-width"><i class="fas fa-power-off"></i> Terminate Portal Session</button>
+                </div>
+            </aside>
+
+            <!-- Main Work Area Stream Layer -->
+            <main class="dashboard-main-content">
+                
+                <!-- Internal Context Header -->
+                <header class="dashboard-content-header">
+                    <div class="header-title-block">
+                        <h1>Enterprise Institutional Identity</h1>
+                        <p>Maintain corporate registry definitions, verify operational tax parameters, and manage financial clearance anchors.</p>
+                    </div>
+                    <div class="header-profile-badge">
+                        <div class="user-avatar" id="nav-avatar-fallback">HQ</div>
+                        <span id="user-display-name">Enterprise Admin</span>
+                    </div>
+                </header>
+
+                <!-- Feedback Banner Center -->
+                <div id="profile-alert-center" class="alert-box-container hidden-alert"></div>
+
+                <!-- Profile Data Input Layout Layout Form -->
+                <form id="employer-profile-registry-form" class="interactive-dashboard-form">
+                    <div class="profile-dashboard-grid">
+                        
+                        <!-- Left Layout Area: Primary Enterprise Input Columns -->
+                        <div class="profile-input-fields-column">
+                            
+                            <!-- Block 1: Legal Registration Schema -->
+                            <div class="premium-dashboard-card">
+                                <div class="card-title-row">
+                                    <h3><i class="fas fa-building-columns"></i> Statutory Registration Parameters</h3>
+                                </div>
+                                <div class="card-form-inputs-grid dual-column">
+                                    <div class="form-field-group">
+                                        <label for="profile-legal-name">Registered Corporate Entity Name <span class="required">*</span></label>
+                                        <input type="text" id="profile-legal-name" name="legalName" required placeholder="e.g., MableTech Solutions Inc.">
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="profile-cra-bn">CRA Business Number (9-Digit BN) <span class="required">*</span></label>
+                                        <input type="text" id="profile-cra-bn" name="craBusinessNumber" required placeholder="e.g., 123456789BC0001">
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="profile-industry">Industry Classification Domain</label>
+                                        <select id="profile-industry" name="industryClassification">
+                                            <option value="TECH">Technology Services & SaaS Operations</option>
+                                            <option value="FINANCE">Financial Platforms & Brokerage Logistics</option>
+                                            <option value="LOGISTICS">Supply Chain & Freight Fulfillment Networks</option>
+                                            <option value="HEALTH">Digital Health Records & Patient Support</option>
+                                            <option value="RETAIL">E-Commerce Frameworks & Retail Solutions</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="profile-size">Total Corporate Scale Headcount</label>
+                                        <select id="profile-size" name="companyScale">
+                                            <option value="1-10">1 - 10 Personnel (Early Startup)</option>
+                                            <option value="11-50">11 - 50 Personnel (Emerging Scaleup)</option>
+                                            <option value="51-200" selected>51 - 200 Personnel (Mid-Enterprise)</option>
+                                            <option value="201+">201+ Personnel (Large Institutional Scale)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Block 2: Operational Contacts Routing Nodes -->
+                            <div class="premium-dashboard-card">
+                                <div class="card-title-row">
+                                    <h3><i class="fas fa-address-book"></i> Communication & Primary Routing Endpoints</h3>
+                                </div>
+                                <div class="card-form-inputs-grid dual-column">
+                                    <div class="form-field-group">
+                                        <label for="profile-admin-email">Corporate Administrative Email <span class="required">*</span></label>
+                                        <input type="email" id="profile-admin-email" name="adminEmail" required placeholder="ops@mabletech.ca">
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="profile-billing-email">Dedicated Accounts Payable Email <span class="required">*</span></label>
+                                        <input type="email" id="profile-billing-email" name="billingEmail" required placeholder="invoices@mabletech.ca">
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="profile-contact-phone">Operational Direct Contact Line <span class="required">*</span></label>
+                                        <input type="tel" id="profile-contact-phone" name="contactPhone" required placeholder="+1 (555) 019-2831">
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="profile-website">Official Domain Web URL</label>
+                                        <input type="url" id="profile-website" name="websiteUrl" placeholder="https://mabletech.ca">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Block 3: HQ Physical Headquarters Coordinates -->
+                            <div class="premium-dashboard-card">
+                                <div class="card-title-row">
+                                    <h3><i class="fas fa-map-location-dot"></i> Principal Place of Business Address</h3>
+                                </div>
+                                <div class="card-form-inputs-grid dual-column">
+                                    <div class="form-field-group full-width-input">
+                                        <label for="profile-address-line1">Street Location Address Line 1 <span class="required">*</span></label>
+                                        <input type="text" id="profile-address-line1" name="addressLine1" required placeholder="e.g., 250 Yonge Street, Suite 1400">
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="profile-city">City Location <span class="required">*</span></label>
+                                        <input type="text" id="profile-city" name="city" required placeholder="Toronto">
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="profile-province">Province Jurisdiction Enclosure <span class="required">*</span></label>
+                                        <select id="profile-province" name="province" required>
+                                            <option value="ON" selected>Ontario (ON)</option>
+                                            <option value="QC">Quebec (QC)</option>
+                                            <option value="BC">British Columbia (BC)</option>
+                                            <option value="AB">Alberta (AB)</option>
+                                            <option value="MB">Manitoba (MB)</option>
+                                            <option value="NS">Nova Scotia (NS)</option>
+                                            <option value="NB">New Brunswick (NB)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="profile-postal">Postal Code Matrix <span class="required">*</span></label>
+                                        <input type="text" id="profile-postal" name="postalCode" required placeholder="M5B 2L7" maxlength="7">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Right Layout Area: Persistent Actions Sidebar Summary -->
+                        <div class="profile-metadata-sidebar-column">
+                            
+                            <!-- Dynamic Entity Trust Verification State Summary -->
+                            <div class="premium-dashboard-card compliance-verification-card text-center">
+                                <h4>Registry Validation Matrix</h4>
+                                <div id="registry-verification-status-badge" class="profile-badge-rendering badge-verified">
+                                    <i class="fas fa-shield-check"></i> Profile Verified
+                                </div>
+                                <p class="sidebar-help-text mt-2">Legal entity structural checks run against provincial company ledgers to authorize continuous high-volume escrow sourcing privileges.</p>
+                            </div>
+
+                            <!-- Static Regulatory Compliance Help Card -->
+                            <div class="premium-dashboard-card statutory-guardrails-notice-card">
+                                <h4><i class="fas fa-scale-balanced"></i> Corporate Tax Auditing</h4>
+                                <p class="sidebar-help-text">Tax assessment configurations, localized provincial workplace filings, and automated T4A summary routing sequences map directly to your registered business number parameters to enforce structural conformity.</p>
+                            </div>
+
+                            <!-- Floating Action Execution Control Card Box -->
+                            <div class="profile-form-sticky-action-box">
+                                <button type="submit" id="save-corporate-profile-btn" class="btn btn-primary full-width btn-lg">
+                                    <span class="btn-text"><i class="fas fa-floppy-disk"></i> Commit Profile Records</span>
+                                    <span class="btn-spinner-icon hidden"><i class="fas fa-circle-notch fa-spin"></i></span>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../../src/js/api.js"></script>
+    <script src="../../src/js/utils/loader.js"></script>
+    <script src="../../src/js/pages/dashboard/employer-profile.js"></script>
+</body>
+</html>
