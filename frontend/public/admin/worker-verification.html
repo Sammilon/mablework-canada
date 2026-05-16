@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Workers & Queue Management - Admin Control Panel</title>
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <!-- FontAwesome Core Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Administrative Access Impersonation Alert Ribbon -->
+    <div class="admin-impersonation-alert-ribbon" id="adminImpersonationRibbon" style="display: none;">
+        <div class="impersonation-meta-details">
+            <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            <span><strong>Security Alert:</strong> You are currently operating inside administrative impersonation mode. All system transactions are audited.</span>
+        </div>
+        <button class="btn-terminate-impersonation" onclick="terminateImpersonationSession()">Exit Session</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation Rail -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-top-group">
+                <div class="dashboard-content-header" style="border-bottom: 1px solid #2d3748; margin-bottom: 1.5rem; padding-bottom: 1rem;">
+                    <div class="header-title-block">
+                        <h1 style="color: #ffffff; font-size: 1.25rem; margin: 0;">MableWork HQ</h1>
+                        <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">System Supervision Platform</p>
+                    </div>
+                </div>
+                <nav class="sidebar-links-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="dashboard.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i> Overview Control
+                    </a>
+                    <a href="audit-logs.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-shield-halved" style="width: 20px;"></i> Security Audit Logs
+                    </a>
+                    <a href="workers.html" style="color: #ffffff; background-color: #1f2937; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem; font-weight: 600;">
+                        <i class="fa-solid fa-gears" style="width: 20px;"></i> Engine Workers
+                    </a>
+                    <a href="settings.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-sliders" style="width: 20px;"></i> System Settings
+                    </a>
+                </nav>
+            </div>
+            <div class="sidebar-footer-group">
+                <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="executeAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Drop Access Gate
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Flow -->
+        <main class="dashboard-main-content animate-view-entry">
+            <!-- Content Header Context -->
+            <div class="dashboard-content-header">
+                <div class="header-title-block">
+                    <h1>Engine Workers &amp; Queue Infrastructure</h1>
+                    <p>Supervise core background jobs, asynchronous candidate messaging workers, and transactional emails.</p>
+                </div>
+                <div class="header-profile-badge">
+                    <span>Admin Operator</span>
+                    <div class="user-avatar" id="adminUserAvatarNode">HQ</div>
+                </div>
+            </div>
+
+            <!-- Global Action Intercept Alerts Layer -->
+            <div id="workerActionAlertFeedback" class="alert-box-container hidden-alert"></div>
+
+            <!-- Queue Metric Summary Strips -->
+            <section class="metrics-summary-ribbon id-metrics-row-margin" style="margin-bottom: 2rem;">
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-success-soft text-success">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Active Daemons</span>
+                        <span class="metric-value" id="activeDaemonsCounter">8 / 8</span>
+                    </div>
+                </div>
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-primary-soft text-primary">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Jobs In Queue</span>
+                        <span class="metric-value" id="pendingQueueJobsCounter">142</span>
+                    </div>
+                </div>
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-info-soft text-info">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Throughput Rate</span>
+                        <span class="metric-value" id="throughputRatePerformance">42/min</span>
+                    </div>
+                </div>
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-warning-soft text-warning">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Failed Job Pool</span>
+                        <span class="metric-value" id="failedJobsPoolCounter">3</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- High Density Control Actions Panel -->
+            <div class="admin-action-filtering-dock">
+                <div class="filter-controls-group">
+                    <button class="btn btn-primary btn-sm" onclick="triggerWorkerPoolRefresh()">
+                        <i class="fa-solid fa-rotate"></i> Poll System States
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm" onclick="dispatchManualQueueFlush()">
+                        <i class="fa-solid fa-broom"></i> Purge Temporary Queues
+                    </button>
+                </div>
+                <div class="batch-emergency-interceptors">
+                    <button class="btn btn-danger btn-sm" onclick="triggerEmergencyGlobalThrottling()">
+                        <i class="fa-solid fa-hand"></i> Stop Global Processing Engines
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active Background Daemons Block Matrix -->
+            <div class="premium-dashboard-card">
+                <div class="card-title-row">
+                    <h3><i class="fa-solid fa-microchip text-primary"></i> Asynchronous Process Supervisors</h3>
+                    <span class="admin-status-matrix-tag matrix-tag-active">All Engines Operational</span>
+                </div>
+                <p class="card-body-description" style="margin-bottom: 1.5rem;">
+                    Monitors live system loops responsible for transactional updates, third-party profile scraping, processing candidate CV extraction files, and matching logic.
+                </p>
+
+                <div class="table-responsive-wrapper">
+                    <table class="admin-audit-log-table">
+                        <thead>
+                            <tr>
+                                <th>Worker Process Key</th>
+                                <th>Target Sub-System Queue</th>
+                                <th>Assigned Threads</th>
+                                <th>Memory Cap Usage</th>
+                                <th>Uptime Stream</th>
+                                <th>System Status Flag</th>
+                                <th style="text-align: right;">Worker Commands</th>
+                            </tr>
+                        </thead>
+                        <tbody id="backgroundWorkersStatusMatrix">
+                            <!-- Dynamic Engine Rows Generated Via API Runtime -->
+                            <tr>
+                                <td style="font-weight: 600;">mable-worker-daemon-01</td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-system">candidate_cv_processing</span></td>
+                                <td>4 Allocated Threads</td>
+                                <td>42.4 MB / 128 MB</td>
+                                <td>14d 6h 12m</td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-active">Active</span></td>
+                                <td style="text-align: right;">
+                                    <button class="btn btn-outline-danger btn-xs" onclick="restartIndividualDaemonInstance('mable-worker-daemon-01')">
+                                        <i class="fa-solid fa-power-off"></i> Reboot
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">mable-worker-daemon-02</td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-system">transactional_mailers</span></td>
+                                <td>2 Allocated Threads</td>
+                                <td>18.9 MB / 64 MB</td>
+                                <td>41d 2h 44m</td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-active">Active</span></td>
+                                <td style="text-align: right;">
+                                    <button class="btn btn-outline-danger btn-xs" onclick="restartIndividualDaemonInstance('mable-worker-daemon-02')">
+                                        <i class="fa-solid fa-power-off"></i> Reboot
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">mable-worker-daemon-03</td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-system">paystack_webhook_pipelines</span></td>
+                                <td>8 Allocated Threads</td>
+                                <td>112.1 MB / 256 MB</td>
+                                <td>6d 19h 02m</td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-active">Active</span></td>
+                                <td style="text-align: right;">
+                                    <button class="btn btn-outline-danger btn-xs" onclick="restartIndividualDaemonInstance('mable-worker-daemon-03')">
+                                        <i class="fa-solid fa-power-off"></i> Reboot
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Poisoned Dead-Letter Queue Pipeline Audit Layer -->
+            <div class="premium-dashboard-card" style="border-top: 4px solid #dc2626;">
+                <div class="card-title-row">
+                    <h3><i class="fa-solid fa-skull-crossbones text-danger"></i> Dead Letter Queue (DLQ Fault Registry)</h3>
+                    <button class="btn btn-outline-danger btn-sm" onclick="purgeAllFailedDeadLetterJobs()"><i class="fa-solid fa-trash-can"></i> Purge DLQ Store</button>
+                </div>
+                <p class="card-body-description" style="margin-bottom: 1.5rem;">
+                    Contains jobs that failed validation checks or exceeded execution attempts. Admins can audit raw execution frames and select retry options.
+                </p>
+
+                <div class="table-responsive-wrapper">
+                    <table class="admin-audit-log-table">
+                        <thead>
+                            <tr>
+                                <th>Failed Job Reference Id</th>
+                                <th>Subsystem Context</th>
+                                <th>Exception Error Class Stack</th>
+                                <th>Failed Event Metadata Payload</th>
+                                <th>Registered Failure Timestamp</th>
+                                <th style="text-align: right;">Administrative Correction</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deadLetterQueueFaultRegistryRows">
+                            <tr>
+                                <td style="font-weight: 600;">job-err-9941a</td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-revoked">paystack_callback</span></td>
+                                <td style="color: #dc2626; font-weight: 500;">Paystack\Exceptions\SignatureVerificationException</td>
+                                <td><code class="log-payload-monospace">{"transaction_ref":"MBL-77402","error":"HMAC mismatch frame hash validation failure"}</code></td>
+                                <td>2026-05-15 14:22:11</td>
+                                <td style="text-align: right; white-space: nowrap;">
+                                    <button class="btn btn-success btn-xs" onclick="requeueDeadLetterJobInstance('job-err-9941a')"><i class="fa-solid fa-reply"></i> Requeue</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">job-err-9958c</td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-revoked">cv_indexer</span></td>
+                                <td style="color: #dc2626; font-weight: 500;">Engine\Parser\CorruptedDocumentSourceException</td>
+                                <td><code class="log-payload-monospace">{"candidate_id":8194,"file_path":"\/storage\/resumes\/file_unreadable.pdf"}</code></td>
+                                <td>2026-05-16 01:10:44</td>
+                                <td style="text-align: right; white-space: nowrap;">
+                                    <button class="btn btn-success btn-xs" onclick="requeueDeadLetterJobInstance('job-err-9958c')"><i class="fa-solid fa-reply"></i> Requeue</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Interface Script Controller Execution Core Framework -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            verifyAdministrativeSessionToken();
+            loadWorkersSystemDiagnosticMetrics();
+        });
+
+        function verifyAdministrativeSessionToken() {
+            // Evaluates admin access and handles security state mapping
+            const activeToken = localStorage.getItem("mable_admin_session_jwt");
+            if (!activeToken) {
+                window.location.href = "login.html";
+                return;
+            }
+            
+            if (localStorage.getItem("mable_impersonation_active") === "true") {
+                document.getElementById("adminImpersonationRibbon").style.display = "flex";
+            }
+        }
+
+        function loadWorkersSystemDiagnosticMetrics() {
+            console.log("[System Worker Framework]: Initializing real-time stream updates across operational pipelines.");
+            // Network payload tracking parameters would bind asynchronously to system tracking hooks here
+        }
+
+        function displayActionFeedbackMessage(messageText, isErrorState = false) {
+            const feedbackContainer = document.getElementById("workerActionAlertFeedback");
+            feedbackContainer.className = "alert-box-container animate-toast-arrival " + 
+                (isErrorState ? "alert-danger-state" : "alert-success-state");
+            feedbackContainer.innerHTML = `<i class="fa-solid ${isErrorState ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> <span>${messageText}</span>`;
+            
+            setTimeout(() => {
+                feedbackContainer.className = "alert-box-container hidden-alert";
+            }, 4500);
+        }
+
+        function triggerWorkerPoolRefresh() {
+            displayActionFeedbackMessage("Dispatched live synchronization check across process boundaries. Worker status configurations are up to date.");
+        }
+
+        function dispatchManualQueueFlush() {
+            if (confirm("Execute cleanup protocols across transient memory frames?")) {
+                displayActionFeedbackMessage("Temporary messaging systems components successfully flushed.");
+            }
+        }
+
+        function triggerEmergencyGlobalThrottling() {
+            if (confirm("CRITICAL WARNING: This action suspends all live asynchronous match pipelines across the platform. Confirm execution?")) {
+                displayActionFeedbackMessage("Global worker arrays throttled into SAFE_HALT state profiles.", true);
+            }
+        }
+
+        function restartIndividualDaemonInstance(workerIdentifierKey) {
+            displayActionFeedbackMessage(`Sent SIGTERM signature pattern to [${workerIdentifierKey}]. Re-instantiating sub-thread worker framework components.`);
+        }
+
+        function requeueDeadLetterJobInstance(jobIdentifierKey) {
+            displayActionFeedbackMessage(`Event wrapper context [${jobIdentifierKey}] extracted from DLQ fault pool and routed to matching pipeline engines.`);
+        }
+
+        function purgeAllFailedDeadLetterJobs() {
+            if (confirm("Permanently erase all failed logs from the dead letter storage engines? This cannot be undone.")) {
+                document.getElementById("deadLetterQueueFaultRegistryRows").innerHTML = `<tr><td colspan="6" style="text-align: center; color: #6b7280; padding: 2rem;">No unresolved execution failures remaining inside the DLQ data store.</td></tr>`;
+                document.getElementById("failedJobsPoolCounter").innerText = "0";
+                displayActionFeedbackMessage("Dead-letter queue system memory components cleared.");
+            }
+        }
+
+        function terminateImpersonationSession() {
+            localStorage.removeItem("mable_impersonation_active");
+            document.getElementById("adminImpersonationRibbon").style.display = "none";
+            displayActionFeedbackMessage("Terminated user delegation workflows. Restoring native system administrator privileges.");
+        }
+
+        function executeAdminLogout() {
+            localStorage.removeItem("mable_admin_session_jwt");
+            localStorage.removeItem("mable_impersonation_active");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
