@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Account Configuration | Employer Dashboard | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../../src/css/variables.css">
+    <link rel="stylesheet" href="../../src/css/global.css">
+    <link rel="stylesheet" href="../../src/css/components/loader.css">
+    <link rel="stylesheet" href="../../src/css/components/dashboard-layout.css">
+    <link rel="stylesheet" href="../../src/css/pages/dashboard/employer-settings.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Premium Visual Icons Vector Pack -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Configuring Account Matrix...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <div class="dashboard-wrapper">
+            
+            <!-- Internal Employer Navigation Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <span class="brand-text">MableWork</span>
+                    <span class="brand-region">Corporate</span>
+                </div>
+                <nav class="sidebar-menu">
+                    <a href="dashboard.html" class="menu-item"><i class="fas fa-chart-line"></i> Operations Center</a>
+                    <a href="workforce-request.html" class="menu-item"><i class="fas fa-layer-plus"></i> Request Workforce</a>
+                    <a href="active-placements.html" class="menu-item"><i class="fas fa-users-gear"></i> Active Rosters</a>
+                    <a href="billing.html" class="menu-item"><i class="fas fa-credit-card-blank"></i> Corporate Invoicing</a>
+                    <a href="compliance-vault.html" class="menu-item"><i class="fas fa-building-shield"></i> Risk Mitigation</a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button id="sidebar-logout-trigger" class="btn btn-outline-danger btn-sm full-width"><i class="fas fa-power-off"></i> Terminate Portal Session</button>
+                </div>
+            </aside>
+
+            <!-- Main Work Area Stream Layer -->
+            <main class="dashboard-main-content">
+                
+                <!-- Internal Context Header -->
+                <header class="dashboard-content-header">
+                    <div class="header-title-block">
+                        <h1>Enterprise Workspace Control Matrix</h1>
+                        <p>Adjust system localization definitions, establish operational constraints, and delegate sub-administrative workspace privileges.</p>
+                    </div>
+                    <div class="header-profile-badge">
+                        <div class="user-avatar" id="nav-avatar-fallback">HQ</div>
+                        <span id="user-display-name">Enterprise Admin</span>
+                    </div>
+                </header>
+
+                <!-- Feedback Banner Center -->
+                <div id="settings-alert-center" class="alert-box-container hidden-alert"></div>
+
+                <!-- Structural Configurations Grid -->
+                <div class="settings-dashboard-grid">
+                    
+                    <!-- Left Column: Settings Configuration Forms -->
+                    <div class="settings-main-panel-column">
+                        
+                        <!-- Block 1: Localization & Operational Defaults -->
+                        <div class="premium-dashboard-card mb-4">
+                            <div class="card-title-row">
+                                <h3><i class="fas fa-globe-americas text-primary"></i> Workspace Localization Parameters</h3>
+                            </div>
+                            
+                            <form id="employer-localization-settings-form" class="interactive-dashboard-form">
+                                <div class="card-form-inputs-grid dual-column">
+                                    <div class="form-field-group">
+                                        <label for="settings-timezone">Primary Operational Timezone <span class="required">*</span></label>
+                                        <select id="settings-timezone" name="timezone" required>
+                                            <option value="America/Toronto" selected>Eastern Time (EST / EDT — Toronto)</option>
+                                            <option value="America/Vancouver">Pacific Time (PST / PDT — Vancouver)</option>
+                                            <option value="America/Edmonton">Mountain Time (MST / MDT — Edmonton)</option>
+                                            <option value="America/Winnipeg">Central Time (CST / CDT — Winnipeg)</option>
+                                            <option value="America/Halifax">Atlantic Time (AST / ADT — Halifax)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="settings-currency">System Base Settlement Currency</label>
+                                        <input type="text" id="settings-currency" value="Canadian Dollar (CAD)" disabled class="disabled-input-look">
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="settings-fiscal-start">Fiscal Reporting Start Month</label>
+                                        <select id="settings-fiscal-start" name="fiscalYearStart">
+                                            <option value="1" selected>January</option>
+                                            <option value="4">April (Standard Canadian Corporate)</option>
+                                            <option value="7">July</option>
+                                            <option value="10">October</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="settings-timesheet-lock">Automated Weekly Log Freeze Day</label>
+                                        <select id="settings-timesheet-lock" name="timesheetLockDay">
+                                            <option value="Friday">Friday at 17:00 EST</option>
+                                            <option value="Sunday" selected>Sunday at 23:59 EST</option>
+                                            <option value="Monday">Monday at 09:00 EST</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-action-group mt-3">
+                                    <button type="submit" id="save-localization-btn" class="btn btn-primary btn-sm">Commit Localization Rules</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Block 2: Administrative Delegation (Sub-Users Management) -->
+                        <div class="premium-dashboard-card">
+                            <div class="card-title-row">
+                                <h3><i class="fas fa-users-crown text-success"></i> Authorized Team Delegations</h3>
+                                <button type="button" id="trigger-invite-modal-btn" class="btn btn-outline-success btn-xs"><i class="fas fa-user-plus"></i> Invite Manager</button>
+                            </div>
+                            <div class="card-body-description">
+                                <p>Grant localized visibility configurations or full approval access tokens to additional recruitment managers or members of your accounting firm.</p>
+                            </div>
+
+                            <!-- Internal Delegated Personnel Matrix -->
+                            <div class="table-responsive-wrapper mt-3">
+                                <table class="settings-subuser-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Manager Target</th>
+                                            <th>Security Role Mapping</th>
+                                            <th>Authorization Access</th>
+                                            <th>Action Controls</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="subusers-table-body-root">
+                                        <tr>
+                                            <td>
+                                                <div class="subuser-identity-cell">
+                                                    <strong>Sarah Jenkins</strong>
+                                                    <span>s.jenkins@mabletech.ca</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="role-tag-badge recruitment-role">HR Coordinator</span></td>
+                                            <td><span class="badge badge-verified">Active</span></td>
+                                            <td>
+                                                <button class="btn btn-outline-danger btn-xs revoke-access-trigger" data-user-id="sub-7721"><i class="fas fa-user-slash"></i> Revoke</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="subuser-identity-cell">
+                                                    <strong>David Vance</strong>
+                                                    <span>d.vance@mabletech.ca</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="role-tag-badge finance-role">Accounts Payable</span></td>
+                                            <td><span class="badge badge-verified">Active</span></td>
+                                            <td>
+                                                <button class="btn btn-outline-danger btn-xs revoke-access-trigger" data-user-id="sub-1104"><i class="fas fa-user-slash"></i> Revoke</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Column: Settings Meta-Actions & Destructive Boundaries -->
+                    <div class="settings-sidebar-column">
+                        
+                        <!-- Account Lifecycle State Box -->
+                        <div class="premium-dashboard-card lifecycle-management-card">
+                            <h4>Administrative Metadata</h4>
+                            <ul class="meta-details-list-vertical mt-2">
+                                <li>
+                                    <span class="label text-muted">Workspace Mode:</span>
+                                    <strong class="val text-success">Enterprise Production</strong>
+                                </li>
+                                <li>
+                                    <span class="label text-muted">Verification Ring:</span>
+                                    <strong class="val">CRA Verified Ledger</strong>
+                                </li>
+                                <li>
+                                    <span class="label text-muted">Instance Provisioned:</span>
+                                    <strong class="val">January 14, 2026</strong>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Safety Boundary Card: Deactivation Actions -->
+                        <div class="premium-dashboard-card critical-deactivation-card-box">
+                            <h4><i class="fas fa-octagon-exclamation text-danger"></i> Dangerous Environment Bounds</h4>
+                            <p class="sidebar-help-text">Initiating an instance decommission unlinks all historical records, cancels open sourcing pipelines, and returns remaining unspent escrow funds to your linked payment route.</p>
+                            <button id="decommission-workspace-trigger" class="btn btn-outline-danger btn-xs full-width mt-3"><i class="fas fa-dumpster-fire"></i> Decommission Corporate Instance</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../../src/js/api.js"></script>
+    <script src="../../src/js/utils/loader.js"></script>
+    <script src="../../src/js/pages/dashboard/employer-settings.js"></script>
+</body>
+</html>
