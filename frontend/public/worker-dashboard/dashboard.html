@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Workspace Hub | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../../src/css/variables.css">
+    <link rel="stylesheet" href="../../src/css/global.css">
+    <link rel="stylesheet" href="../../src/css/components/loader.css">
+    <link rel="stylesheet" href="../../src/css/components/dashboard-layout.css">
+    <link rel="stylesheet" href="../../src/css/pages/dashboard/main-hub.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Premium Visual Icons Vector Pack -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Assembling Workspace Metrics...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <div class="dashboard-wrapper">
+            
+            <!-- Internal Application Navigation Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <span class="brand-text">MableWork</span>
+                    <span class="brand-region">Canada</span>
+                </div>
+                <nav class="sidebar-menu">
+                    <a href="dashboard.html" class="menu-item active"><i class="fas fa-chart-pie"></i> Overview Hub</a>
+                    <a href="jobs.html" class="menu-item"><i class="fas fa-briefcase"></i> Remote Postings</a>
+                    <a href="timesheets.html" class="menu-item"><i class="fas fa-clock"></i> Hour Tracking</a>
+                    <a href="verification.html" class="menu-item"><i class="fas fa-shield-check"></i> Compliance Audit</a>
+                    <a href="security.html" class="menu-item"><i class="fas fa-sliders"></i> Security Setup</a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button id="sidebar-logout-trigger" class="btn btn-outline-danger btn-sm full-width"><i class="fas fa-power-off"></i> Terminate Session</button>
+                </div>
+            </aside>
+
+            <!-- Main Workspace Container Stream -->
+            <main class="dashboard-main-content">
+                
+                <!-- Internal Page Context Header -->
+                <header class="dashboard-content-header">
+                    <div class="header-title-block">
+                        <h1>Welcome Back, <span id="dashboard-user-greeting">Candidate</span></h1>
+                        <p>Monitor active matching cycles, log shift metrics, and audit your statutory compliance parameters.</p>
+                    </div>
+                    <div class="header-profile-badge">
+                        <div class="user-avatar" id="nav-avatar-fallback">CN</div>
+                        <span id="user-display-name">Candidate</span>
+                    </div>
+                </header>
+
+                <!-- Feedback Alert Target Center -->
+                <div id="hub-alert-center" class="alert-box-container hidden-alert"></div>
+
+                <!-- Section A: Primary Metric Readout Blocks -->
+                <section class="metrics-summary-ribbon">
+                    
+                    <div class="metric-card-node">
+                        <div class="metric-icon-box bg-primary-soft"><i class="fas fa-business-time text-primary"></i></div>
+                        <div class="metric-data-block">
+                            <span class="metric-label">Approved Hours (Current Month)</span>
+                            <h2 class="metric-value" id="metric-total-hours">0.00 hrs</h2>
+                        </div>
+                    </div>
+
+                    <div class="metric-card-node">
+                        <div class="metric-icon-box bg-success-soft"><i class="fas fa-wallet text-success"></i></div>
+                        <div class="metric-data-block">
+                            <span class="metric-label">Estimated Gross Earnings</span>
+                            <h2 class="metric-value" id="metric-gross-earnings">$0.00 CAD</h2>
+                        </div>
+                    </div>
+
+                    <div class="metric-card-node">
+                        <div class="metric-icon-box bg-warning-soft"><i class="fas fa-route text-warning"></i></div>
+                        <div class="metric-data-block">
+                            <span class="metric-label">Active Match Trajectories</span>
+                            <h2 class="metric-value" id="metric-active-matches">0 Pipelines</h2>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- Section B: Central Matrix Row Layout Split -->
+                <div class="hub-workspace-grid-row">
+                    
+                    <!-- Left: Active Placements & Contract Pipeline Tracker -->
+                    <section class="active-contracts-panel">
+                        <div class="premium-dashboard-card">
+                            <div class="card-title-row">
+                                <h3><i class="fas fa-file-contract"></i> Active Placements & Assignments</h3>
+                            </div>
+                            
+                            <!-- Dynamic Content Targeted Container -->
+                            <div id="active-placements-root">
+                                <div class="empty-data-fallback-box" id="empty-placements-trigger">
+                                    <i class="fas fa-folder-open text-muted"></i>
+                                    <h4>No Active Remote Assignments Found</h4>
+                                    <p>Your compliance profile parameters must be verified before matches lock into active deployment contracts.</p>
+                                    <a href="jobs.html" class="btn btn-primary btn-sm mt-3"><i class="fas fa-magnifying-glass"></i> Scan Matching Channels</a>
+                                </div>
+                                
+                                <div class="placement-active-card hidden" id="placement-data-render-item">
+                                    <div class="placement-main-meta">
+                                        <div class="company-badge-fallback">BC</div>
+                                        <div class="title-details">
+                                            <h4 id="placement-role-title">Technical Support Architect (T2)</h4>
+                                            <span id="placement-company-name">Bell Canada Enterprise</span>
+                                        </div>
+                                    </div>
+                                    <div class="placement-metrics-subgrid">
+                                        <div><small>Hourly Allocation</small><p id="placement-rate">$26.50 / hr</p></div>
+                                        <div><small>Weekly Cap Constraint</small><p id="placement-cap">20 hrs max (IRCC)</p></div>
+                                        <div><small>Contract Status</small><p class="text-success font-weight-600"><span class="status-indicator online"></span> Active Active</p></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- Right: Compliance Audit Fast-Track Summary -->
+                    <section class="compliance-status-sidebar-panel">
+                        <div class="premium-dashboard-card">
+                            <div class="card-title-row">
+                                <h3><i class="fas fa-shield-halved"></i> Statutory Auditing Parameters</h3>
+                            </div>
+                            
+                            <div class="compliance-gauge-wrapper text-center">
+                                <div class="compliance-status-badge status-alert-pending" id="compliance-overall-badge">
+                                    <i class="fas fa-circle-exclamation"></i> Action Required
+                                </div>
+                                <p class="compliance-narrative-text">Your profile is currently restricted under conditional monitoring filters. Re-upload valid IRCC authorization tracks to pass background parameters.</p>
+                            </div>
+                            
+                            <hr class="panel-divider">
+                            
+                            <ul class="compliance-checklist-nodes">
+                                <li class="node-clear"><i class="fas fa-circle-check text-success"></i> Primary Profile Particulars</li>
+                                <li class="node-clear"><i class="fas fa-circle-check text-success"></i> Direct Deposit Bank Mapping</li>
+                                <li class="node-blocked" id="check-node-permit"><i class="fas fa-circle-exclamation text-danger"></i> Valid IRCC Work / Study Permit Documents</li>
+                            </ul>
+
+                            <div class="card-action-footer-wrapper">
+                                <a href="verification.html" class="btn btn-outline-primary btn-sm full-width">Navigate to Compliance Vault</a>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- Section C: Quick Navigation Portal Hooks -->
+                <section class="workspace-navigation-grid-matrix mt-4">
+                    
+                    <a href="profile.html" class="nav-shortcut-card">
+                        <i class="fas fa-user-gear text-primary"></i>
+                        <div>
+                            <h4>Manage Demographics</h4>
+                            <p>Update residency addresses, academic learning institutions, and key skill terms.</p>
+                        </div>
+                    </a>
+
+                    <a href="messages.html" class="nav-shortcut-card">
+                        <i class="fas fa-comments-text text-success"></i>
+                        <div>
+                            <h4>Secure Message Rooms</h4>
+                            <p>Connect with verification agents, corporate managers, and operations staff.</p>
+                        </div>
+                    </a>
+
+                    <a href="support.html" class="nav-shortcut-card">
+                        <i class="fas fa-headset text-warning"></i>
+                        <div>
+                            <h4>Operations Support Desk</h4>
+                            <p>File claims for timesheet anomalies, billing status delays, or account questions.</p>
+                        </div>
+                    </a>
+
+                </section>
+
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../../src/js/api.js"></script>
+    <script src="../../src/js/utils/loader.js"></script>
+    <script src="../../src/js/pages/dashboard/main-hub.js"></script>
+</body>
+</html>
