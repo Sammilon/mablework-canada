@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Out of Scope | 404 Error | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../src/css/variables.css">
+    <link rel="stylesheet" href="../src/css/global.css">
+    <link rel="stylesheet" href="../src/css/components/loader.css">
+    <link rel="stylesheet" href="../src/css/components/navbar.css">
+    <link rel="stylesheet" href="../src/css/pages/error-states.css">
+    <link rel="stylesheet" href="../src/css/components/footer.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Premium Visual Icons Vector Pack -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Verifying System Paths...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <!-- Platform Navigation Bar Header -->
+        <header class="main-header">
+            <nav class="nav-container">
+                <div class="nav-brand">
+                    <a href="/index.html" class="brand-link">
+                        <span class="brand-text">MableWork</span>
+                        <span class="brand-region">Canada</span>
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="/index.html" class="nav-item">Home Hub</a>
+                    <a href="/login.html" class="nav-item">Workspace Login</a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main 404 Error Content Block Section -->
+        <main class="error-page-layout-main" style="background-image: linear-gradient(rgba(10, 17, 34, 0.93), rgba(10, 17, 34, 0.96)), url('images/homebg.png');">
+            <section class="error-centered-card">
+                <div class="error-visual-icon">
+                    <i class="fas fa-triangle-exclamation"></i>
+                </div>
+                
+                <span class="badge error-badge">Error Status Code: 404</span>
+                <h1>Route Operational Parameter Out of Scope</h1>
+                
+                <p class="error-description">
+                    The specific structural resource node, database configuration array, or application file route you requested could not be verified on our Canadian cloud server frameworks.
+                </p>
+
+                <!-- Core Navigation Fallback Interactivity Triggers -->
+                <div class="error-action-triggers">
+                    <a href="/index.html" class="btn btn-primary btn-lg"><i class="fas fa-house"></i> Return to Main Platform</a>
+                    <button onclick="window.history.back();" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left"></i> Revert to Previous Node</button>
+                </div>
+
+                <div class="error-system-footer">
+                    <p>If you believe this script breakdown is an anomaly within our platform infrastructure, log a ticket immediately with our operational helpline via <a href="mailto:ops@mablework.ca">ops@mablework.ca</a></p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Professional Platform Corporate Footer Layout -->
+        <footer class="main-footer">
+            <div class="footer-container">
+                <p>&copy; 2026 MableWork Canada. All Rights Reserved. Regulated Enterprise Hiring Platform.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../src/js/api.js"></script>
+    <script src="../src/js/utils/loader.js"></script>
+</body>
+</html>
