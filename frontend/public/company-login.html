@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Secure Sign In | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../src/css/variables.css">
+    <link rel="stylesheet" href="../src/css/global.css">
+    <link rel="stylesheet" href="../src/css/components/loader.css">
+    <link rel="stylesheet" href="../src/css/components/navbar.css">
+    <link rel="stylesheet" href="../src/css/pages/auth-forms.css">
+    <link rel="stylesheet" href="../src/css/components/footer.css">
+    
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Cloudflare Turnstile Anti-Bot Shield -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+
+    <!-- CRITICAL LOGO PRELOADER LAYER -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Initializing Secure Corporate Gateway...</p>
+        </div>
+    </div>
+
+    <div id="app-content" class="content-hidden">
+        
+        <header class="main-header">
+            <nav class="nav-container">
+                <div class="nav-brand">
+                    <a href="/index.html" class="brand-link">
+                        <span class="brand-text">MableWork</span>
+                        <span class="brand-region">Canada</span>
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="/login.html" class="nav-item"><i class="fas fa-arrow-left"></i> Change Portal</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="auth-layout-main">
+            <section class="auth-card-wrapper">
+                <header class="auth-card-header">
+                    <div class="portal-badge-icon company-icon-color">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <span class="badge company-badge">Employer Workspace</span>
+                    <h1>Corporate Portal Sign In</h1>
+                    <p>Access your organizational account to broadcast open roles, verify candidate credentials, and manage payroll invoicing.</p>
+                </header>
+
+                <div id="auth-alert-center" class="alert-box-container hidden-alert"></div>
+
+                <form id="company-login-form" class="premium-auth-form">
+                    
+                    <div class="form-field-group">
+                        <label for="company-email">Corporate Email Address <span class="required">*</span></label>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-briefcase input-prefix-icon"></i>
+                            <input type="email" id="company-email" name="email" required autocomplete="email" placeholder="e.g., hr@enterprise.ca">
+                        </div>
+                    </div>
+
+                    <div class="form-field-group">
+                        <div class="label-row-with-action">
+                            <label for="company-password">Account Password <span class="required">*</span></label>
+                            <a href="/forgot-password.html?type=company" class="contextual-action-link">Forgot Password?</a>
+                        </div>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-lock input-prefix-icon"></i>
+                            <input type="password" id="company-password" name="password" required autocomplete="current-password" placeholder="Enter security password">
+                            <i class="fas fa-eye password-toggle-visibility-icon" id="toggle-password-view" onclick="togglePasswordInput()"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-field-group captcha-group-container">
+                        <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="light"></div>
+                    </div>
+
+                    <div class="form-action-group">
+                        <button type="submit" id="login-submit-btn" class="btn btn-primary btn-xl wide-action">
+                            <span class="btn-text">Authenticate Employer Profile</span>
+                            <span class="btn-spinner-icon hidden"><i class="fas fa-circle-notch fa-spin"></i></span>
+                        </button>
+                    </div>
+
+                </form>
+
+                <footer class="auth-card-footer">
+                    <p>Looking to source certified Canadian personnel? <a href="/register.html">Register Your Corporation</a>.</p>
+                </footer>
+            </section>
+        </main>
+
+        <footer class="main-footer">
+            <div class="footer-container">
+                <p>&copy; 2026 MableWork Canada. All Rights Reserved. Regulated Enterprise Hiring Platform.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../src/js/api.js"></script>
+    <script src="../src/js/utils/loader.js"></script>
+    <script src="../src/js/pages/company-login.js"></script>
+    <script>
+        function togglePasswordInput() {
+            const passwordField = document.getElementById('company-password');
+            const toggleIcon = document.getElementById('toggle-password-view');
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+    </script>
+</body>
+</html>
