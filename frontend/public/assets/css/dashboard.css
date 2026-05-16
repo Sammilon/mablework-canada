@@ -1,0 +1,252 @@
+/**
+ * MABLEWORK CANADA - SYSTEM MASTER DASHBOARD LAYOUT & CARD MATRICES
+ * Manages administrative layouts, internal notification badges, tables, and metric blocks.
+ */
+
+/* ==========================================================================
+   1. CORE REGIONAL CONTROL FRAMES (FLEX LAYOUT)
+   ========================================================================== */
+.dashboard-wrapper {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background-color: var(--bg-neutral-light, #f9fafb);
+}
+
+.dashboard-sidebar {
+    width: 260px;
+    background-color: #111827; /* Dark charcoal slate */
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem 1.25rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    z-index: 100;
+    border-right: 1px solid #1f2937;
+}
+
+.dashboard-main-content {
+    flex-grow: 1;
+    padding: 2.5rem;
+    overflow-y: auto;
+    background-color: #f9fafb;
+}
+
+/* ==========================================================================
+   2. INTERNAL NAVIGATION HEADER BAR ELEMENTS
+   ========================================================================== */
+.dashboard-content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.header-title-block h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0.25rem;
+}
+
+.header-title-block p {
+    margin-bottom: 0;
+    font-size: 0.9375rem;
+}
+
+.header-profile-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+    color: #111827;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #0056b3;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* ==========================================================================
+   3. REUSABLE CONTAINER CARDS (PREMIUM FLUID BLOCKS)
+   ========================================================================== */
+.premium-dashboard-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    margin-bottom: 1.5rem;
+}
+
+.premium-dashboard-card:last-child {
+    margin-bottom: 0;
+}
+
+.card-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.card-title-row h3 {
+    margin-bottom: 0;
+    font-size: 1.125rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card-body-description {
+    font-size: 0.875rem;
+    color: #4b5563;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   4. METRICS CAPTURE PANELS RIBBON
+   ========================================================================== */
+.metrics-summary-ribbon {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.metric-card-node {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.metric-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.bg-primary-soft { background-color: #eff6ff; }
+.bg-success-soft { background-color: #ecfdf5; }
+.bg-info-soft    { background-color: #f0fdfa; }
+.bg-warning-soft { background-color: #fffbec; }
+
+.text-primary { color: #0056b3; }
+.text-success { color: #16a34a; }
+.text-info    { color: #0d9488; }
+.text-warning { color: #d97706; }
+
+.metric-data-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-label {
+    font-size: 0.8125rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-weight: 500;
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 0.125rem;
+}
+
+/* ==========================================================================
+   5. INTERNAL CONTROL TABLES SETUP
+   ========================================================================== */
+.table-responsive-wrapper {
+    width: 100%;
+    margin-top: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.billing-ledger-table, .settings-subuser-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.875rem;
+}
+
+.billing-ledger-table th, .settings-subuser-table th {
+    background-color: #f9fafb;
+    color: #4b5563;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.billing-ledger-table td, .settings-subuser-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    color: #1f2937;
+    vertical-align: middle;
+}
+
+.billing-ledger-table tr:last-child td, .settings-subuser-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* ==========================================================================
+   6. INTERACTIVE ALERTS AND FLOATING OVERLAYS
+   ========================================================================== */
+.alert-box-container {
+    padding: 1rem 1.25rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid transparent;
+}
+
+.hidden-alert {
+    display: none !important;
+}
+
+.alert-success-state {
+    background-color: #ecfdf5;
+    border-color: #a7f3d0;
+    color: #065f46;
+}
+
+.alert-danger-state {
+    background-color: #fef2f2;
+    border-color: #fca5a5;
+    color: #991b1b;
+}
+
+.panel-divider {
+    border: 0;
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 1.25rem 0;
+}
