@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Portfolio Manager | Candidate Dashboard | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../../src/css/variables.css">
+    <link rel="stylesheet" href="../../src/css/global.css">
+    <link rel="stylesheet" href="../../src/css/components/loader.css">
+    <link rel="stylesheet" href="../../src/css/components/dashboard-layout.css">
+    <link rel="stylesheet" href="../../src/css/pages/dashboard/upload-documents.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Premium Visual Icons Vector Pack -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Loading Document Manager...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <div class="dashboard-wrapper">
+            
+            <!-- Internal Application Navigation Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <span class="brand-text">MableWork</span>
+                    <span class="brand-region">Canada</span>
+                </div>
+                <nav class="sidebar-menu">
+                    <a href="index.html" class="menu-item"><i class="fas fa-chart-pie"></i> Overview Hub</a>
+                    <a href="jobs.html" class="menu-item"><i class="fas fa-briefcase"></i> Remote Postings</a>
+                    <a href="timesheets.html" class="menu-item"><i class="fas fa-clock"></i> Hour Tracking</a>
+                    <a href="verification.html" class="menu-item"><i class="fas fa-shield-check"></i> Compliance Audit</a>
+                    <a href="settings.html" class="menu-item"><i class="fas fa-sliders"></i> Security Setup</a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button id="sidebar-logout-trigger" class="btn btn-outline-danger btn-sm full-width"><i class="fas fa-power-off"></i> Terminate Session</button>
+                </div>
+            </aside>
+
+            <!-- Main Workspace Container -->
+            <main class="dashboard-main-content">
+                
+                <!-- Internal Page Context Header -->
+                <header class="dashboard-content-header">
+                    <div class="header-title-block">
+                        <h1>Professional Portfolio Assets</h1>
+                        <p>Upload and manage supporting credentials, resume revisions, and specialized trade clearances to boost your match ranking.</p>
+                    </div>
+                    <div class="header-profile-badge">
+                        <div class="user-avatar" id="nav-avatar-fallback">CN</div>
+                        <span id="user-display-name">Candidate</span>
+                    </div>
+                </header>
+
+                <!-- Feedback Display Layer -->
+                <div id="upload-alert-center" class="alert-box-container hidden-alert"></div>
+
+                <div class="portfolio-manager-grid">
+                    
+                    <!-- Left Column: Unified File Ingestion Interface -->
+                    <section class="ingestion-control-panel">
+                        <div class="premium-dashboard-card">
+                            <div class="card-title-row">
+                                <h3><i class="fas fa-file-shield"></i> Add Portfolio Asset</h3>
+                            </div>
+                            
+                            <form id="portfolio-upload-form" class="interactive-upload-form">
+                                <div class="form-field-group">
+                                    <label for="asset-classification">Document Categorization <span class="required">*</span></label>
+                                    <select id="asset-classification" name="classification" required>
+                                        <option value="">Choose asset type...</option>
+                                        <option value="Resume">Updated Curriculum Vitae / Resume</option>
+                                        <option value="Trade License">Provincial Skilled Trade Certificate (Red Seal)</option>
+                                        <option value="Safety Clearance">Occupational Health & Safety (OHS) Record</option>
+                                        <option value="Driving Abstract">Commercial Driving Record Abstract</option>
+                                        <option value="Academic Transcript">Official Academic Enrollment Transcript</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-field-group">
+                                    <label for="asset-label">Custom Display Label <span class="required">*</span></label>
+                                    <input type="text" id="asset-label" name="label" required placeholder="e.g., Red Seal Electrician Certificate - AB">
+                                </div>
+
+                                <div class="form-field-group">
+                                    <div class="dynamic-dropzone-wrapper">
+                                        <input type="file" id="portfolio-file-input" name="file" class="hidden-file-input" required accept=".pdf,.doc,.docx,.png,.jpg,.jpeg">
+                                        <label for="portfolio-file-input" class="dropzone-area-label" id="dropzone-render-box">
+                                            <i class="fas fa-folder-open dropzone-pulse-icon"></i>
+                                            <span class="instruction-text">Select file or drop it directly here</span>
+                                            <span class="file-spec-note">Supported: PDF, DOCX, PNG, JPG (Max File Limit: 10MB)</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-action-group">
+                                    <button type="submit" id="upload-action-btn" class="btn btn-primary full-width">
+                                        <span class="btn-text"><i class="fas fa-cloud-arrow-up"></i> Commit Asset to Secure Storage</span>
+                                        <span class="btn-spinner-icon hidden"><i class="fas fa-circle-notch fa-spin"></i></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+
+                    <!-- Right Column: Live Managed Asset Manifest Ledger -->
+                    <section class="portfolio-manifest-panel">
+                        <div class="premium-dashboard-card">
+                            <div class="card-title-row">
+                                <h3><i class="fas fa-list-check"></i> Indexed Portfolio Inventory</h3>
+                                <span class="badge count-badge" id="inventory-count-badge">0 Files Active</span>
+                            </div>
+
+                            <!-- Dynamic File Ledger Hook -->
+                            <div class="inventory-scroll-container">
+                                <div class="empty-inventory-state" id="empty-ledger-trigger">
+                                    <i class="fas fa-file-dashed-line"></i>
+                                    <p>No auxiliary professional assets indexed yet.</p>
+                                    <small>Use the form on the left to add certifications or resumes to your profile.</small>
+                                </div>
+                                
+                                <ul class="managed-file-list hidden" id="active-file-list">
+                                    <!-- Dynamic elements will be injected here via JavaScript runtime -->
+                                    <!-- Expected structural template item for reference:
+                                    <li class="file-item-row">
+                                        <div class="file-meta">
+                                            <i class="fas fa-file-pdf file-type-icon text-danger"></i>
+                                            <div class="file-details">
+                                                <strong>Resume_2026.pdf</strong>
+                                                <span>Classification: Resume • Uploaded May 16, 2026</span>
+                                            </div>
+                                        </div>
+                                        <button class="btn-icon-trash" title="Purge File"><i class="fas fa-trash-can"></i></button>
+                                    </li>
+                                    -->
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../../src/js/api.js"></script>
+    <script src="../../src/js/utils/loader.js"></script>
+    <script src="../../src/js/pages/dashboard/upload-documents.js"></script>
+</body>
+</html>
