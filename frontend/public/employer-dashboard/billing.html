@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Ledger & Escrow Management | Employer Dashboard | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../../src/css/variables.css">
+    <link rel="stylesheet" href="../../src/css/global.css">
+    <link rel="stylesheet" href="../../src/css/components/loader.css">
+    <link rel="stylesheet" href="../../src/css/components/dashboard-layout.css">
+    <link rel="stylesheet" href="../../src/css/pages/dashboard/employer-billing.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Premium Visual Icons Vector Pack -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Loading Capital Balances...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <div class="dashboard-wrapper">
+            
+            <!-- Internal Employer Navigation Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <span class="brand-text">MableWork</span>
+                    <span class="brand-region">Corporate</span>
+                </div>
+                <nav class="sidebar-menu">
+                    <a href="dashboard.html" class="menu-item"><i class="fas fa-chart-line"></i> Operations Center</a>
+                    <a href="workforce-request.html" class="menu-item"><i class="fas fa-layer-plus"></i> Request Workforce</a>
+                    <a href="active-placements.html" class="menu-item"><i class="fas fa-users-gear"></i> Active Rosters</a>
+                    <a href="billing.html" class="menu-item active"><i class="fas fa-credit-card-blank"></i> Corporate Invoicing</a>
+                    <a href="compliance-vault.html" class="menu-item"><i class="fas fa-building-shield"></i> Risk Mitigation</a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button id="sidebar-logout-trigger" class="btn btn-outline-danger btn-sm full-width"><i class="fas fa-power-off"></i> Terminate Portal Session</button>
+                </div>
+            </aside>
+
+            <!-- Main Work Area Stream Layer -->
+            <main class="dashboard-main-content">
+                
+                <!-- Internal Context Header -->
+                <header class="dashboard-content-header">
+                    <div class="header-title-block">
+                        <h1>Corporate Invoicing & Retainer Management</h1>
+                        <p>Track secure escrow deployment bounds, top up operational funds pools, and analyze tax-compliant clearing balances.</p>
+                    </div>
+                    <div class="header-profile-badge">
+                        <div class="user-avatar" id="nav-avatar-fallback">HQ</div>
+                        <span id="user-display-name">Enterprise Admin</span>
+                    </div>
+                </header>
+
+                <!-- Feedback Banner Center -->
+                <div id="billing-alert-center" class="alert-box-container hidden-alert"></div>
+
+                <!-- Strategic Capital Metrics Ribbon -->
+                <section class="metrics-summary-ribbon mb-4">
+                    <div class="metric-card-node">
+                        <div class="metric-icon-box bg-success-soft"><i class="fas fa-vault text-success"></i></div>
+                        <div class="metric-data-block">
+                            <span class="metric-label">Escrow Retainer Balance</span>
+                            <h2 class="metric-value" id="billing-escrow-balance">$12,450.00 CAD</h2>
+                        </div>
+                    </div>
+                    <div class="metric-card-node">
+                        <div class="metric-icon-box bg-primary-soft"><i class="fas fa-receipt text-primary"></i></div>
+                        <div class="metric-data-block">
+                            <span class="metric-label">Accrued Unbilled Hours</span>
+                            <h2 class="metric-value" id="billing-accrued-fees">$3,135.00 CAD</h2>
+                        </div>
+                    </div>
+                    <div class="metric-card-node">
+                        <div class="metric-icon-box bg-info-soft"><i class="fas fa-calendar-clock text-info"></i></div>
+                        <div class="metric-data-block">
+                            <span class="metric-label">Next Clearing Statement</span>
+                            <h2 class="metric-value" id="billing-next-cycle">May 31, 2026</h2>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Dual Segment Operational Allocation Grid -->
+                <div class="billing-dashboard-grid">
+                    
+                    <!-- Left: Interactive Escrow Top-Up Panel & Methods -->
+                    <div class="billing-main-panel">
+                        
+                        <!-- Box 1: Replenish Funding Pool -->
+                        <div class="premium-dashboard-card mb-4">
+                            <div class="card-title-row">
+                                <h3><i class="fas fa-money-bill-transfer text-success"></i> Replenish Operational Escrow Retainer</h3>
+                            </div>
+                            <div class="card-body-description">
+                                <p>Ensure adequate capitalization balances exist to support uninterrupted hours logging by remote personnel. Retainer reserves are locked securely and only released upon your explicit confirmation of weekly timesheets.</p>
+                            </div>
+
+                            <form id="escrow-replenish-form" class="interactive-dashboard-form mt-3">
+                                <div class="card-form-inputs-grid dual-column">
+                                    <div class="form-field-group">
+                                        <label for="funding-amount">Top-Up Capitalization Amount (CAD) <span class="required">*</span></label>
+                                        <div class="currency-input-wrapper">
+                                            <span class="currency-indicator">$</span>
+                                            <input type="number" id="funding-amount" name="amount" min="100" step="0.01" placeholder="5000.00" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="funding-method">Select Connected Settlement Route <span class="required">*</span></label>
+                                        <select id="funding-method" name="paymentMethodId" required>
+                                            <option value="pm-9021">Pre-authorized Debit (PAD) — Corporate Checking (*8842)</option>
+                                            <option value="pm-4412">Visa Business Credit — Ending in 5119</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-action-group mt-3">
+                                    <button type="submit" id="execute-topup-btn" class="btn btn-success">
+                                        <span class="btn-text"><i class="fas fa-shield-arrow-up"></i> Launch Deposit Authorization</span>
+                                        <span class="btn-spinner-icon hidden"><i class="fas fa-circle-notch fa-spin"></i></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Box 2: Historic Billing Ledger Matrix -->
+                        <div class="premium-dashboard-card">
+                            <div class="card-title-row">
+                                <h3><i class="fas fa-books"></i> Document Invoicing Ledger Records</h3>
+                            </div>
+                            
+                            <div class="table-responsive-wrapper mt-3">
+                                <table class="billing-ledger-table" id="billing-history-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Invoice Reference</th>
+                                            <th>Billing Scope Period</th>
+                                            <th>Gross Total</th>
+                                            <th>Clearance State</th>
+                                            <th>Actions Matrix</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>INV-2026-04</strong></td>
+                                            <td>Apr 01 – Apr 30, 2026</td>
+                                            <td>$8,420.50 CAD</td>
+                                            <td><span class="badge badge-verified"><i class="fas fa-circle-check"></i> Settled</span></td>
+                                            <td>
+                                                <button class="btn btn-outline-secondary btn-xs download-invoice-btn" data-invoice-id="INV-2026-04"><i class="fas fa-arrow-down-to-line"></i> PDF</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>INV-2026-03</strong></td>
+                                            <td>Mar 01 – Mar 31, 2026</td>
+                                            <td>$7,110.00 CAD</td>
+                                            <td><span class="badge badge-verified"><i class="fas fa-circle-check"></i> Settled</span></td>
+                                            <td>
+                                                <button class="btn btn-outline-secondary btn-xs download-invoice-btn" data-invoice-id="INV-2026-03"><i class="fas fa-arrow-down-to-line"></i> PDF</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right: Invoicing Recipient Info & Setup Guides -->
+                    <div class="billing-sidebar-panel">
+                        
+                        <!-- Account Details Block -->
+                        <div class="premium-dashboard-card mb-4">
+                            <h4><i class="fas fa-wallet text-muted"></i> Automated Clearing (PAD)</h4>
+                            <p class="sidebar-help-text">Your institutional account leverages automated clearing rails (PAD under Payments Canada regulations) to maintain continuous coverage for running contract instances.</p>
+                            <hr class="panel-divider">
+                            <div class="billing-meta-row">
+                                <span class="label text-muted">Routing Endpoint:</span>
+                                <strong class="val">ops@mabletech.ca</strong>
+                            </div>
+                        </div>
+
+                        <!-- Statutory Canadian Tax Compliance Box -->
+                        <div class="premium-dashboard-card context-tax-card">
+                            <h4><i class="fas fa-gavel text-muted"></i> Tax & Compliance Rules</h4>
+                            <p class="sidebar-help-text">MableWork invoices incorporate regional Harmonized Sales Tax (HST) or Goods and Services Tax (GST) parameters relative to your entity's primary business jurisdiction. Invoices state independent payroll breakdowns, platform fees, and statutory tax calculations to guarantee compliance for corporate annual tax write-offs.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../../src/js/api.js"></script>
+    <script src="../../src/js/utils/loader.js"></script>
+    <script src="../../src/js/pages/dashboard/employer-billing.js"></script>
+</body>
+</html>
