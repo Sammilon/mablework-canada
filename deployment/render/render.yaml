@@ -1,0 +1,39 @@
+services:
+  # ==================================================
+  # Core Platform Application Infrastructure
+  # ==================================================
+  - type: web
+    name: mablework-canada-platform
+    env: node
+    plan: starter
+    buildCommand: "npm install && cd backend && npm install"
+    startCommand: "node server.js"
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGO_URI
+        fromDatabase:
+          name: mablework-database
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: RECAPTCHA_SECRET_KEY
+        sync: false
+    disk:
+      name: platform-uploads
+      mountPath: /usr/src/app/backend/uploads
+      sizeGB: 10
+
+databases:
+  # ==================================================
+  # Isolated Production Database Storage Engine
+  # ==================================================
+  - name: mablework-database
+    plan: starter
+    databaseName: mablework
+    user: mablework_admin
