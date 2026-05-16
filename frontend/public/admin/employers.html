@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Employer Registry & Verification Control | Admin Panel</title>
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <!-- FontAwesome Core Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Administrative Access Impersonation Alert Ribbon -->
+    <div class="admin-impersonation-alert-ribbon" id="adminImpersonationRibbon" style="display: none;">
+        <div class="impersonation-meta-details">
+            <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            <span><strong>Security Alert:</strong> Modifying corporate profile authorizations under administrative delegation mode. All changes register directly to the secure security audit file.</span>
+        </div>
+        <button class="btn-terminate-impersonation" onclick="terminateImpersonationSession()">Exit Session</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation Rail -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-top-group">
+                <div class="dashboard-content-header" style="border-bottom: 1px solid #2d3748; margin-bottom: 1.5rem; padding-bottom: 1rem;">
+                    <div class="header-title-block">
+                        <h1 style="color: #ffffff; font-size: 1.25rem; margin: 0;">MableWork HQ</h1>
+                        <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">Corporate Vetting Desk</p>
+                    </div>
+                </div>
+                <nav class="sidebar-links-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="dashboard.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i> Overview Control
+                    </a>
+                    <a href="employers.html" style="color: #ffffff; background-color: #1f2937; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem; font-weight: 600;">
+                        <i class="fa-solid fa-building" style="width: 20px;"></i> Employer Accounts
+                    </a>
+                    <a href="audit-logs.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-shield-halved" style="width: 20px;"></i> Security Audit Logs
+                    </a>
+                    <a href="workers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-gears" style="width: 20px;"></i> Engine Workers
+                    </a>
+                </nav>
+            </div>
+            <div class="sidebar-footer-group">
+                <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="executeAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Drop Access Gate
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Flow -->
+        <main class="dashboard-main-content animate-view-entry">
+            <!-- Content Header Context -->
+            <div class="dashboard-content-header">
+                <div class="header-title-block">
+                    <h1>Corporate Employer Profiles &amp; Compliance Hub</h1>
+                    <p>Audit business incorporation registration proofs, modify validation status flags, clear vetting steps, and access impersonation sessions.</p>
+                </div>
+                <div class="header-profile-badge">
+                    <span>Accounts Vetting Lead</span>
+                    <div class="user-avatar" id="adminUserAvatarNode">EMP</div>
+                </div>
+            </div>
+
+            <!-- Global Action Intercept Alerts Layer -->
+            <div id="employersActionAlertFeedback" class="alert-box-container hidden-alert"></div>
+
+            <!-- Search and Filter Operational Dock -->
+            <div class="admin-action-filtering-dock">
+                <div class="filter-controls-group">
+                    <input type="text" id="employerProfileSearchInput" class="admin-dense-search-input" placeholder="Search corporation, CRA business number..." style="width: 290px;" onkeyup="evaluateEmployerClientFilter()">
+                    <select id="employerVettingStatusSelect" class="admin-dense-select" onchange="evaluateEmployerClientFilter()">
+                        <option value="ALL">All Compliance States</option>
+                        <option value="VERIFIED">Verified / Operational</option>
+                        <option value="PENDING">Pending Legal Vetting</option>
+                        <option value="FLAGGED">Flagged / Under Intercept</option>
+                    </select>
+                </div>
+                <div>
+                    <span style="font-size: 0.8125rem; color: #4b5563; font-weight: 500;" id="totalFilteredCountLabel">Showing 2 Corporate Entities</span>
+                </div>
+            </div>
+
+            <!-- Master Employer Accounts Ledger -->
+            <div class="premium-dashboard-card">
+                <div class="card-title-row">
+                    <h3><i class="fa-solid fa-building-shield text-primary"></i> Master Corporate Account Matrix</h3>
+                </div>
+                <p class="card-body-description" style="margin-bottom: 1.5rem;">
+                    Authorized oversight over company details. Turning on corporate profile impersonation routes you to that client's dashboard view via administrative delegation.
+                </p>
+
+                <div class="table-responsive-wrapper">
+                    <table class="admin-audit-log-table">
+                        <thead>
+                            <tr>
+                                <th>Organization Slogan / Profile Context</th>
+                                <th>CRA Registration #</th>
+                                <th>Point of Contact Email</th>
+                                <th>Active Job Orders</th>
+                                <th>Total Funded Volume</th>
+                                <th>Compliance Status</th>
+                                <th style="text-align: right;">Administrative Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employerRegistryDataRows">
+                            <tr class="employer-row-item" data-state="VERIFIED" id="employerRecordRow_1">
+                                <td style="font-weight: 600;">
+                                    <span style="color: #111827;">Apex Logistics Group</span><br>
+                                    <span style="color: #6b7280; font-size: 0.725rem; font-weight: 400;"><i class="fa-solid fa-map-pin"></i> Calgary, AB</span>
+                                </td>
+                                <td><code>781290341-RC0001</code></td>
+                                <td><a href="mailto:compliance@apexlogistics.ca" style="color: var(--primary-color); text-decoration: none;">compliance@apexlogistics.ca</a></td>
+                                <td style="font-weight: 600; color: #111827;">14 Active</td>
+                                <td style="font-weight: 600; color: #16a34a;">$42,150.00 CAD</td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-active">Verified</span></td>
+                                <td style="text-align: right; display: flex; gap: 0.5rem; justify-content: flex-end;">
+                                    <button class="btn btn-outline-primary btn-xs" onclick="initializeAdministrativeImpersonation('Apex Logistics Group')"><i class="fa-solid fa-user-secret"></i> Delegate</button>
+                                    <button class="btn btn-outline-danger btn-xs" onclick="toggleCorporateFlagState('1', 'Apex Logistics Group', true)"><i class="fa-solid fa-triangle-exclamation"></i> Flag</button>
+                                </td>
+                            </tr>
+                            <tr class="employer-row-item" data-state="PENDING" id="employerRecordRow_2">
+                                <td style="font-weight: 600;">
+                                    <span style="color: #111827;">Ontario Care Providers</span><br>
+                                    <span style="color: #6b7280; font-size: 0.725rem; font-weight: 400;"><i class="fa-solid fa-map-pin"></i> Toronto, ON</span>
+                                </td>
+                                <td><code>890412354-RC0002</code></td>
+                                <td><a href="mailto:hr@ontariocare.org" style="color: var(--primary-color); text-decoration: none;">hr@ontariocare.org</a></td>
+                                <td style="font-weight: 600; color: #111827;">2 Active</td>
+                                <td style="font-weight: 600; color: #4b5563;">$3,400.00 CAD</td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-suspended">Pending Legal Vetting</span></td>
+                                <td style="text-align: right; display: flex; gap: 0.5rem; justify-content: flex-end;">
+                                    <button class="btn btn-primary btn-xs" onclick="approveCorporateAccountVerification('2', 'Ontario Care Providers')"><i class="fa-solid fa-circle-check"></i> Approve</button>
+                                    <button class="btn btn-outline-primary btn-xs" onclick="initializeAdministrativeImpersonation('Ontario Care Providers')"><i class="fa-solid fa-user-secret"></i> Delegate</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Core Employer Verification Coordination Script Infrastructure -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            verifyAdministrativeSessionToken();
+        });
+
+        function verifyAdministrativeSessionToken() {
+            const activeToken = localStorage.getItem("mable_admin_session_jwt");
+            if (!activeToken) {
+                window.location.href = "login.html";
+                return;
+            }
+            if (localStorage.getItem("mable_impersonation_active") === "true") {
+                document.getElementById("adminImpersonationRibbon").style.display = "flex";
+            }
+        }
+
+        function displayActionFeedbackMessage(messageText, isErrorState = false) {
+            const feedbackContainer = document.getElementById("employersActionAlertFeedback");
+            feedbackContainer.className = "alert-box-container animate-toast-arrival " + 
+                (isErrorState ? "alert-danger-state" : "alert-success-state");
+            feedbackContainer.innerHTML = `<i class="fa-solid ${isErrorState ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> <span>${messageText}</span>`;
+            
+            setTimeout(() => {
+                feedbackContainer.className = "alert-box-container hidden-alert";
+            }, 4500);
+        }
+
+        function evaluateEmployerClientFilter() {
+            const token = document.getElementById("employerProfileSearchInput").value.toLowerCase();
+            const chosenState = document.getElementById("employerVettingStatusSelect").value;
+            
+            let elementsFound = 0;
+            const listingRows = document.querySelectorAll(".employer-row-item");
+            
+            listingRows.forEach(row => {
+                const searchMatch = row.innerText.toLowerCase().includes(token);
+                const complianceMatch = (chosenState === "ALL") || (row.getAttribute("data-state") === chosenState);
+                
+                if (searchMatch && complianceMatch) {
+                    row.style.display = "";
+                    elementsFound++;
+                } else {
+                    row.style.display = "none";
+                }
+            });
+            
+            document.getElementById("totalFilteredCountLabel").innerText = `Showing ${elementsFound} Corporate Entities`;
+        }
+
+        function initializeAdministrativeImpersonation(companyProfileName) {
+            if (confirm(`ADMINISTRATIVE PROFILE IMPERSONATION INSTRUCTION:\n\nYou are triggering an authorized data delegation loop into corporate account profile [${companyProfileName}]. This will spawn an access handshake proxy.\n\nProceed to user dashboard layout matrix?`)) {
+                localStorage.setItem("mable_impersonation_active", "true");
+                localStorage.setItem("mable_impersonated_user_context", companyProfileName);
+                window.location.href = "../employer/dashboard.html";
+            }
+        }
+
+        function approveCorporateAccountVerification(recordId, companyProfileName) {
+            if (confirm(`Approve registration documents and authorize operations framework instantly for corporate provider: [${companyProfileName}]?`)) {
+                const matchingRow = document.getElementById(`employerRecordRow_${recordId}`);
+                if (matchingRow) {
+                    const validationBadge = matchingRow.querySelector(".admin-status-matrix-tag");
+                    if (validationBadge) {
+                        validationBadge.className = "admin-status-matrix-tag matrix-tag-active";
+                        validationBadge.innerText = "Verified";
+                    }
+                    matchingRow.setAttribute("data-state", "VERIFIED");
+                    
+                    // Rewrite explicit action cell context controls
+                    const operationalCell = matchingRow.cells[6];
+                    if (operationalCell) {
+                        operationalCell.innerHTML = `
+                            <button class="btn btn-outline-primary btn-xs" onclick="initializeAdministrativeImpersonation('${companyProfileName}')"><i class="fa-solid fa-user-secret"></i> Delegate</button>
+                            <button class="btn btn-outline-danger btn-xs" onclick="toggleCorporateFlagState('${recordId}', '${companyProfileName}', true)"><i class="fa-solid fa-triangle-exclamation"></i> Flag</button>
+                        `;
+                    }
+                }
+                displayActionFeedbackMessage(`Corporate identity profile [${companyProfileName}] cleared for operations successfully.`);
+                evaluateEmployerClientFilter();
+            }
+        }
+
+        function toggleCorporateFlagState(recordId, companyProfileName, registerFlagAction) {
+            const dialogueText = registerFlagAction 
+                ? `Restrict posting allocations and flag profile compliance records for: [${companyProfileName}]?`
+                : `Withdraw active compliance interception rules for corporate profile: [${companyProfileName}]?`;
+
+            if (confirm(dialogueText)) {
+                const targetedRow = document.getElementById(`employerRecordRow_${recordId}`);
+                if (targetedRow) {
+                    const stateTag = targetedRow.querySelector(".admin-status-matrix-tag");
+                    if (stateTag) {
+                        stateTag.className = registerFlagAction ? "admin-status-matrix-tag matrix-tag-revoked" : "admin-status-matrix-tag matrix-tag-active";
+                        stateTag.innerText = registerFlagAction ? "Flagged / Intercepted" : "Verified";
+                    }
+                    targetedRow.setAttribute("data-state", registerFlagAction ? "FLAGGED" : "VERIFIED");
+
+                    const operationalCell = targetedRow.cells[6];
+                    if (operationalCell) {
+                        operationalCell.innerHTML = registerFlagAction ? `
+                            <button class="btn btn-success btn-xs" onclick="toggleCorporateFlagState('${recordId}', '${companyProfileName}', false)"><i class="fa-solid fa-circle-check"></i> Clear Flag</button>
+                            <button class="btn btn-outline-primary btn-xs" onclick="initializeAdministrativeImpersonation('${companyProfileName}')"><i class="fa-solid fa-user-secret"></i> Delegate</button>
+                        ` : `
+                            <button class="btn btn-outline-primary btn-xs" onclick="initializeAdministrativeImpersonation('${companyProfileName}')"><i class="fa-solid fa-user-secret"></i> Delegate</button>
+                            <button class="btn btn-outline-danger btn-xs" onclick="toggleCorporateFlagState('${recordId}', '${companyProfileName}', true)"><i class="fa-solid fa-triangle-exclamation"></i> Flag</button>
+                        `;
+                    }
+                }
+                displayActionFeedbackMessage(`Updated structural compliance restriction flags for company profile: [${companyProfileName}].`);
+                evaluateEmployerClientFilter();
+            }
+        }
+
+        function terminateImpersonationSession() {
+            localStorage.removeItem("mable_impersonation_active");
+            localStorage.removeItem("mable_impersonated_user_context");
+            document.getElementById("adminImpersonationRibbon").style.display = "none";
+            displayActionFeedbackMessage("Terminated user delegation framework. Restoring native verification dashboard privileges.");
+        }
+
+        function executeAdminLogout() {
+            localStorage.removeItem("mable_admin_session_jwt");
+            localStorage.removeItem("mable_impersonation_active");
+            localStorage.removeItem("mable_impersonated_user_context");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
