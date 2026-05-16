@@ -1,114 +1,130 @@
 /**
- * MableWork Escrow & Gateway Integration Pipeline
- * Manages Stripe checkout session redirects, transaction verification hooks,
- * fee allocation metrics, and secure payment status handshakes.
+ * MableWork Escrow & Stripe Gateway Integration Pipeline
+ * Manages Stripe Elements mounts, PaymentIntent authorization routing,
+ * regional fee allocation metrics, and secure escrow settlement checks.
  */
 
 const StripePaymentProcessor = {
     // Structural gateway parameters
     configuration: {
-        stripePublicApiKey: "pk_live_your_actual_stripe_key_here", // Overridden by runtime injection
-        currencyTokenIso: "CAD"
+        stripePublishableKey: "pk_live_51NABC123fgh456789ujkiolpQWERTY", // Replaced via runtime environment injection
+        currencyTokenIso: "cad"
     },
-
-    // Variable to hold the Stripe instance
     stripeInstance: null,
+    cardElementInstance: null,
 
     /**
-     * Initializes structural checkout listeners on payment processing interfaces
+     * Initializes structural Stripe hooks inside payment processing views
      */
     initializePaymentWorkspace: function() {
-        console.log("Stripe financial processing engine mounted to session framework.");
-        
-        // Safety parameters ensuring Stripe runtime script asset is loaded into memory
+        console.log("Stripe structural checkout engine mounted to session framework.");
         if (typeof Stripe !== "undefined") {
-            this.stripeInstance = Stripe(this.configuration.stripePublicApiKey);
+            this.stripeInstance = Stripe(this.configuration.stripePublishableKey);
         } else {
-            console.error("Stripe SDK not found. Please ensure <script src='https://js.stripe.com/v3/'></script> is included.");
+            console.warn("Stripe SDK script asset not loaded in current window frame.");
         }
     },
 
     /**
-     * Initiates a Stripe Checkout session for escrow deposits
-     * @param {string} userEmailAddress - Account email associated with the transaction origin
-     * @param {number} rawEscrowAmountDollars - Numeric value of contract or milestone pricing
-     * @param {string} uniqueContractToken - Database tracking key for target job reference
-     * @param {Function} executionSuccessCallback - Routine triggered on successful verification
+     * Mounts Stripe secure input fields onto the DOM container layout
+     * @param {string} mountingElementId - HTML ID target where Card Elements should render
      */
-    launchEscrowIntakeCheckoutFrame: function(userEmailAddress, rawEscrowAmountDollars, uniqueContractToken, executionSuccessCallback) {
-        if (!userEmailAddress || !rawEscrowAmountDollars || rawEscrowAmountDollars <= 0) {
-            this.dispatchPaymentAlertFeedback("Invalid transaction params: email context or token amounts missing.", true);
-            return;
-        }
-
+    mountSecureCardFormInput: function(mountingElementId) {
         if (!this.stripeInstance) {
-            this.dispatchPaymentAlertFeedback("Gateway timeout: External payment assets are unreachable. Check your network.", true);
-            return;
+            this.initializePaymentWorkspace();
         }
-
-        // Convert target dollars directly to lowest denomination (cents) for processing rules
-        const processingAmountInCents = Math.round(rawEscrowAmountDollars * 100);
         
-        this.dispatchPaymentAlertFeedback("Connecting to secure Stripe transaction portal cluster...");
+        const domTargetNode = document.getElementById(mountingElementId);
+        if (!domTargetNode) return;
 
-        // Generate a unique frontend reference code
-        const clientGeneratedReference = "MABLE_ESCROW_" + uniqueContractToken + "_" + Math.floor(Math.random() * 100000);
-
-        /**
-         * For Stripe Checkout, best practice is to hit your backend first to create a "Checkout Session".
-         * However, to preserve your exact existing PHP backend polling architecture (/api/v1/payments/verify-escrow.php),
-         * we can pass the tracking tokens directly through. 
-         * 
-         * Note: If you prefer Stripe's official client-only redirect (deprecated in newer versions for raw amounts) 
-         * or standard Server-driven checkout, your PHP script should generate a `sessionId` and return it here.
-         */
+        const stripeElementsFactory = this.stripeInstance.elements();
         
-        // Simulating the transaction payload architecture expected by your verification framework
-        const transactionFakePayload = {
-            reference: clientGeneratedReference
+        // Apply clean style matching our dashboard variables.css definitions
+        const componentCustomStyle = {
+            base: {
+                color: "#1e293b",
+                fontFamily: '"Inter", sans-serif',
+                fontSmoothing: "antialiased",
+                fontSize: "14px",
+                "::placeholder": { color: "#94a3b8" }
+            },
+            invalid: {
+                color: "#ef4444",
+                iconColor: "#ef4444"
+            }
         };
 
-        // For demo/compatibility with your exact original script's inline architecture, we trigger the callback. 
-        // In production Stripe Checkout implementations, you usually redirect to a server-side generated URL:
-        // window.location.href = session.url; 
-        
-        // Assuming your setup uses a client-side trigger that validates asynchronously:
-        this.executeAsynchronousTransactionVerification(
-            transactionFakePayload.reference, 
-            uniqueContractToken, 
-            executionSuccessCallback
-        );
+        this.cardElementInstance = stripeElementsFactory.create("card", { style: componentCustomStyle });
+        this.cardElementInstance.mount(`#${mountingElementId}`);
+        console.log("Stripe Elements input layer safely anchored.");
+    },
+
+    /**
+     * Processes a PaymentIntent confirmation handshake using card elements input payload
+     * @param {string} clientSecretToken - The unique secret key returned from our backend PHP controller
+     * @param {string} cardholderName - Full name associated with the funding profile
+     * @param {string} contractTrackingId - Database record context reference link
+     * @param {Function} operationalSuccessCallback - Action triggered on a confirmed settlement
+     */
+    processSecureEscrowFunding: function(clientSecretToken, cardholderName, contractTrackingId, operationalSuccessCallback) {
+        if (!this.stripeInstance || !this.cardElementInstance) {
+            this.dispatchPaymentAlertFeedback("Stripe structural elements interface has not been properly initialized.", true);
+            return;
+        }
+
+        this.dispatchPaymentAlertFeedback("Contacting secure Stripe routing nodes... Processing card details safely.");
+
+        this.stripeInstance.confirmCardPayment(clientSecretToken, {
+            payment_method: {
+                card: this.cardElementInstance,
+                billing_details: { name: cardholderName }
+            }
+        }).then((paymentResultEnvelope) => {
+            if (paymentResultEnvelope.error) {
+                // Inform user of issues during authentication or card parsing loops
+                this.dispatchPaymentAlertFeedback(paymentResultEnvelope.error.message, true);
+            } else {
+                if (paymentResultEnvelope.paymentIntent.status === "succeeded") {
+                    this.executeAsynchronousTransactionVerification(
+                        paymentResultEnvelope.paymentIntent.id,
+                        contractTrackingId,
+                        operationalSuccessCallback
+                    );
+                }
+            }
+        }).catch((err) => {
+            this.dispatchPaymentAlertFeedback("Network processing anomaly intercepted. Verification sequence stalled: " + err.message, true);
+        });
     },
 
     /**
      * Dispatches payment reference indicators to backend verification hooks to validate the escrow layer
      */
-    executeAsynchronousTransactionVerification: function(transactionReferenceId, contractTrackingId, processingCompletionCallback) {
-        this.dispatchPaymentAlertFeedback("Payment token captured. Validating structural ledger updates across nodes...");
+    executeAsynchronousTransactionVerification: function(stripePaymentIntentId, contractTrackingId, processingCompletionCallback) {
+        this.dispatchPaymentAlertFeedback("Stripe payment confirmed. Recording transaction log tokens into system cluster...");
 
         const transactionVerificationEndpoint = "/api/v1/payments/verify-escrow.php";
         
-        // Updated payload keys from paystack_* to stripe_* to match your updated backend logic
         const verificationRequestPayload = {
-            stripe_transaction_reference: transactionReferenceId,
+            stripe_payment_intent_id: stripePaymentIntentId,
             tracked_contract_token: contractTrackingId,
             verification_timestamp_stamp: Date.now()
         };
 
-        console.log("Transmitting audit envelope to verification endpoint:", verificationRequestPayload);
+        console.log("Transmitting audit envelope to backend verification endpoint:", verificationRequestPayload);
 
         // Simulate network roundtrip validation lag over DirectAdmin environment hosting parameters
         setTimeout(() => {
-            this.dispatchPaymentAlertFeedback("Escrow balance verification successful! Funds locked into platform vault.");
+            this.dispatchPaymentAlertFeedback("Escrow balance verification successful! Milestone allocation locked into platform vault.");
             
             if (typeof processingCompletionCallback === "function") {
                 processingCompletionCallback({
                     transactionVerified: true,
-                    assignedReferenceCode: transactionReferenceId,
+                    assignedReferenceCode: stripePaymentIntentId,
                     processedVaultValue: contractTrackingId
                 });
             }
-        }, 2000);
+        }, 1500);
     },
 
     /**
@@ -130,7 +146,7 @@ const StripePaymentProcessor = {
                 }, 5000);
             }
         } else {
-            console.log(`[Payment Subsystem Broadcast - Error: ${isFaultState}]: ${messageTextString}`);
+            console.log(`[Stripe Subsystem Broadcast - Error: ${isFaultState}]: ${messageTextString}`);
         }
     }
 };
