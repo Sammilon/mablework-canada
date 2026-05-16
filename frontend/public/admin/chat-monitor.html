@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communication Pipeline Monitor - Admin Panel</title>
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <!-- FontAwesome Core Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .chat-monitor-layout-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 2fr;
+            gap: 2rem;
+        }
+        .flagged-threads-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-height: 520px;
+            overflow-y: auto;
+        }
+        .thread-alert-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .thread-alert-card:hover, .thread-alert-card.active-selection {
+            background-color: #f8fafc;
+            box-shadow: var(--shadow-sm);
+        }
+        .thread-alert-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+        .chat-transcript-view {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            height: 360px;
+            overflow-y: auto;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .transcript-bubble {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .bubble-left {
+            background-color: #e2e8f0;
+            color: #1e293b;
+            align-self: flex-start;
+        }
+        .bubble-right {
+            background-color: #eff6ff;
+            color: #1e3a8a;
+            align-self: flex-end;
+            border: 1px solid #bfdbfe;
+        }
+        .term-hit-highlight {
+            background-color: #fef08a;
+            color: #854d0e;
+            padding: 0 0.25rem;
+            font-weight: 600;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Administrative Access Impersonation Alert Ribbon -->
+    <div class="admin-impersonation-alert-ribbon" id="adminImpersonationRibbon" style="display: none;">
+        <div class="impersonation-meta-details">
+            <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            <span><strong>Security Alert:</strong> Accessing operational communication matrix logs under structural delegation parameters. All queries are audited.</span>
+        </div>
+        <button class="btn-terminate-impersonation" onclick="terminateImpersonationSession()">Exit Session</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation Rail -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-top-group">
+                <div class="dashboard-content-header" style="border-bottom: 1px solid #2d3748; margin-bottom: 1.5rem; padding-bottom: 1rem;">
+                    <div class="header-title-block">
+                        <h1 style="color: #ffffff; font-size: 1.25rem; margin: 0;">MableWork HQ</h1>
+                        <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">Security Intel Ops</p>
+                    </div>
+                </div>
+                <nav class="sidebar-links-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="dashboard.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i> Overview Control
+                    </a>
+                    <a href="employers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-building" style="width: 20px;"></i> Employer Accounts
+                    </a>
+                    <a href="audit-logs.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-shield-halved" style="width: 20px;"></i> Security Audit Logs
+                    </a>
+                    <a href="workers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-gears" style="width: 20px;"></i> Engine Workers
+                    </a>
+                </nav>
+            </div>
+            <div class="sidebar-footer-group">
+                <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="executeAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Drop Access Gate
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Flow -->
+        <main class="dashboard-main-content animate-view-entry">
+            <!-- Content Header Context -->
+            <div class="dashboard-content-header">
+                <div class="header-title-block">
+                    <h1>Intercepted Chat &amp; Communications Monitor</h1>
+                    <p>Track automated filter detections, evaluate system-bypassing behaviors, and manage platform safety intercepts.</p>
+                </div>
+                <div class="header-profile-badge">
+                    <span>Trust &amp; Safety Lead</span>
+                    <div class="user-avatar" id="adminUserAvatarNode">SEC</div>
+                </div>
+            </div>
+
+            <!-- Global Action Intercept Alerts Layer -->
+            <div id="chatMonitorActionAlertFeedback" class="alert-box-container hidden-alert"></div>
+
+            <!-- Core Working Split View Grid -->
+            <div class="chat-monitor-layout-grid">
+                
+                <!-- Left Column: Intercepted Alerts List -->
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <h3 style="margin: 0; font-size: 15px; color: #1e293b;"><i class="fa-solid fa-bell text-danger"></i> Intercept Flags</h3>
+                    <div class="flagged-threads-list">
+                        
+                        <div class="thread-alert-card active-selection" id="chatAlertCard_1" onclick="loadTargetChatTranscript(1)">
+                            <div class="thread-alert-meta">
+                                <strong>Match ID #8920</strong>
+                                <span>3 mins ago</span>
+                            </div>
+                            <strong style="font-size: 13px; color: #0f172a; display: block; margin-bottom: 0.25rem;">Escrow Circumvention</strong>
+                            <span style="font-size: 11px; color: #ef4444; font-weight: 600;"><i class="fa-solid fa-eye"></i> Flagged phrase detected</span>
+                        </div>
+
+                        <div class="thread-alert-card" style="border-left-color: #f59e0b;" id="chatAlertCard_2" onclick="loadTargetChatTranscript(2)">
+                            <div class="thread-alert-meta">
+                                <strong>Match ID #8914</strong>
+                                <span>1 hour ago</span>
+                            </div>
+                            <strong style="font-size: 13px; color: #0f172a; display: block; margin-bottom: 0.25rem;">External Contact Sharing</strong>
+                            <span style="font-size: 11px; color: #d97706; font-weight: 600;"><i class="fa-solid fa-triangle-exclamation"></i> Soft Pattern Warning</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Right Column: Live Diagnostic Transcript & Account Gates -->
+                <div class="premium-dashboard-card">
+                    <div class="card-title-row" style="margin-bottom: 1rem;">
+                        <div>
+                            <h3 style="margin: 0;" id="transcriptHeaderParticipants">Thread Matrix: Student #2401 &lt;&gt; Employer #102</h3>
+                            <p style="font-size: 12px; color: #64748b; margin: 0.25rem 0 0 0;">Rule System Trigger: <code>MATCH_OUTSIDE_PAYMENT_REGEX</code></p>
+                        </div>
+                        <span class="admin-status-matrix-tag matrix-tag-suspended" id="threadStatusTag">Channel Monitored</span>
+                    </div>
+
+                    <!-- Transcript Stream -->
+                    <div class="chat-transcript-view" id="activeChatTranscriptViewport">
+                        <div class="transcript-bubble bubble-left">
+                            <strong>[Employer #102]</strong><br>
+                            The requirements match perfectly. We can start the inventory management work tomorrow night.
+                        </div>
+                        <div class="transcript-bubble bubble-right">
+                            <strong>[Student #2401]</strong><br>
+                            Sounds excellent. How should we handle the first milestone setup on the interface?
+                        </div>
+                        <div class="transcript-bubble bubble-left">
+                            <strong>[Employer #102]</strong><br>
+                            Let's avoid the platform service fee layers. <span class="term-hit-highlight">Transfer the cash to my account directly</span> via wire transfer or e-Transfer instead. Send a WhatsApp to <span class="term-hit-highlight">555-0192</span>.
+                        </div>
+                    </div>
+
+                    <!-- Regulatory Actions Intercept Tool Dock -->
+                    <div style="margin-top: 1.5rem; border-top: 1px solid #e2e8f0; padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <span style="font-size: 12px; color: #4b5563; display: block; font-weight: 500;">Administrative Enforcement:</span>
+                        </div>
+                        <div style="display: flex; gap: 0.75rem;">
+                            <button class="btn btn-outline-primary btn-sm" onclick="dismissTriggeredSecurityFlag()"><i class="fa-solid fa-circle-check"></i> Dismiss Alert</button>
+                            <button class="btn btn-outline-danger btn-sm" onclick="restrictMessagingChannel()"><i class="fa-solid fa-comment-slash"></i> Lock Messaging Box</button>
+                            <button class="btn btn-danger btn-sm" onclick="flagAccountForSuspension()"><i class="fa-solid fa-user-slash"></i> Intercept Employer Profile</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Communication Pipeline Monitoring Core Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            verifyAdministrativeSessionToken();
+            autoScrollTranscriptWindow();
+        });
+
+        function verifyAdministrativeSessionToken() {
+            const activeToken = localStorage.getItem("mable_admin_session_jwt");
+            if (!activeToken) {
+                window.location.href = "login.html";
+                return;
+            }
+            if (localStorage.getItem("mable_impersonation_active") === "true") {
+                document.getElementById("adminImpersonationRibbon").style.display = "flex";
+            }
+        }
+
+        function displayActionFeedbackMessage(messageText, isErrorState = false) {
+            const feedbackContainer = document.getElementById("chatMonitorActionAlertFeedback");
+            feedbackContainer.className = "alert-box-container animate-toast-arrival " + 
+                (isErrorState ? "alert-danger-state" : "alert-success-state");
+            feedbackContainer.innerHTML = `<i class="fa-solid ${isErrorState ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> <span>${messageText}</span>`;
+            
+            setTimeout(() => {
+                feedbackContainer.className = "alert-box-container hidden-alert";
+            }, 4500);
+        }
+
+        function autoScrollTranscriptWindow() {
+            const viewport = document.getElementById("activeChatTranscriptViewport");
+            if(viewport) viewport.scrollTop = viewport.scrollHeight;
+        }
+
+        function loadTargetChatTranscript(alertId) {
+            document.getElementById("chatAlertCard_1").className = "thread-alert-card";
+            document.getElementById("chatAlertCard_2").className = "thread-alert-card";
+            
+            document.getElementById(`chatAlertCard_${alertId}`).className = "thread-alert-card active-selection";
+            
+            const pHeader = document.getElementById("transcriptHeaderParticipants");
+            const viewport = document.getElementById("activeChatTranscriptViewport");
+
+            if (alertId === 1) {
+                pHeader.innerText = "Thread Matrix: Student #2401 <> Employer #102";
+                viewport.innerHTML = `
+                    <div class="transcript-bubble bubble-left"><strong>[Employer #102]</strong><br>The requirements match perfectly. We can start the inventory management work tomorrow night.</div>
+                    <div class="transcript-bubble bubble-right"><strong>[Student #2401]</strong><br>Sounds excellent. How should we handle the first milestone setup on the interface?</div>
+                    <div class="transcript-bubble bubble-left"><strong>[Employer #102]</strong><br>Let's avoid the platform service fee layers. <span class="term-hit-highlight">Transfer the cash to my account directly</span> via wire transfer or e-Transfer instead. Send a WhatsApp to <span class="term-hit-highlight">555-0192</span>.</div>
+                `;
+            } else {
+                pHeader.innerText = "Thread Matrix: Student #1105 <> Employer #409";
+                viewport.innerHTML = `
+                    <div class="transcript-bubble bubble-right"><strong>[Student #1105]</strong><br>I will forward over the updated operational metrics sheets in the morning.</div>
+                    <div class="transcript-bubble bubble-left"><strong>[Employer #409]</strong><br>Perfect, drop it to my personal email address link: <span class="term-hit-highlight">operations-lead@gmail.com</span> so I can check it over on my personal device.</div>
+                `;
+            }
+            autoScrollTranscriptWindow();
+            displayActionFeedbackMessage(`Loaded thread stream for Match context ID #${alertId === 1 ? '8920' : '8914'}.`);
+        }
+
+        function dismissTriggeredSecurityFlag() {
+            displayActionFeedbackMessage("Communication intercept flag marked cleared. Thread archived safely.");
+        }
+
+        function restrictMessagingChannel() {
+            if (confirm("Restrict messaging permissions instantly for this target room environment? Communication tokens will be revoked.")) {
+                document.getElementById("threadStatusTag").className = "admin-status-matrix-tag matrix-tag-revoked";
+                document.getElementById("threadStatusTag").innerText = "Channel Locked";
+                displayActionFeedbackMessage("Channel communication parameters revoked successfully.", true);
+            }
+        }
+
+        function flagAccountForSuspension() {
+            if (confirm("CRITICAL COMPLIANCE ACTION:\n\nFlag this corporate employer account profile for security overview intercept? This disables active job allocations instantly across the platform cluster.\n\nProceed?")) {
+                displayActionFeedbackMessage("Corporate profile flagged for policy infringement. Access token locked out.");
+            }
+        }
+
+        function terminateImpersonationSession() {
+            localStorage.removeItem("mable_impersonation_active");
+            document.getElementById("adminImpersonationRibbon").style.display = "none";
+            displayActionFeedbackMessage("Terminated user delegation framework. Restoring native threat monitoring panel privileges.");
+        }
+
+        function executeAdminLogout() {
+            localStorage.removeItem("mable_admin_session_jwt");
+            localStorage.removeItem("mable_impersonation_active");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
