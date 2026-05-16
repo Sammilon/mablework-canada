@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Ledger & Escrow Settlement Deck | Admin Panel</title>
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <!-- FontAwesome Core Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Administrative Access Impersonation Alert Ribbon -->
+    <div class="admin-impersonation-alert-ribbon" id="adminImpersonationRibbon" style="display: none;">
+        <div class="impersonation-meta-details">
+            <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            <span><strong>Security Alert:</strong> Authorizing payment settlements under delegation parameters. All transaction overrides register to your financial audit log.</span>
+        </div>
+        <button class="btn-terminate-impersonation" onclick="terminateImpersonationSession()">Exit Session</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation Rail -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-top-group">
+                <div class="dashboard-content-header" style="border-bottom: 1px solid #2d3748; margin-bottom: 1.5rem; padding-bottom: 1rem;">
+                    <div class="header-title-block">
+                        <h1 style="color: #ffffff; font-size: 1.25rem; margin: 0;">MableWork HQ</h1>
+                        <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">Financial Clearing Gate</p>
+                    </div>
+                </div>
+                <nav class="sidebar-links-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="dashboard.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i> Overview Control
+                    </a>
+                    <a href="audit-logs.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-shield-halved" style="width: 20px;"></i> Security Audit Logs
+                    </a>
+                    <a href="payments.html" style="color: #ffffff; background-color: #1f2937; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem; font-weight: 600;">
+                        <i class="fa-solid fa-credit-card" style="width: 20px;"></i> Payments &amp; Escrow
+                    </a>
+                    <a href="workers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-gears" style="width: 20px;"></i> Engine Workers
+                    </a>
+                </nav>
+            </div>
+            <div class="sidebar-footer-group">
+                <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="executeAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Drop Access Gate
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Flow -->
+        <main class="dashboard-main-content animate-view-entry">
+            <!-- Content Header Context -->
+            <div class="dashboard-content-header">
+                <div class="header-title-block">
+                    <h1>Financial Ledger &amp; Escrow Management</h1>
+                    <p>Reconcile incoming employer payroll deposits, verify API processing rails, track platform fees, and release held balances.</p>
+                </div>
+                <div class="header-profile-badge">
+                    <span>Finance Administrator</span>
+                    <div class="user-avatar" id="adminUserAvatarNode">FIN</div>
+                </div>
+            </div>
+
+            <!-- Global Action Intercept Alerts Layer -->
+            <div id="paymentsActionAlertFeedback" class="alert-box-container hidden-alert"></div>
+
+            <!-- Financial Performance Metrics Strip -->
+            <section class="metrics-summary-ribbon id-metrics-row-margin" style="margin-bottom: 2rem;">
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-primary-soft text-primary">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Total Escrow Volume</span>
+                        <span class="metric-value" id="escrowVolumeLabel">$142,850.00</span>
+                    </div>
+                </div>
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-success-soft text-success">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Platform Net Revenue</span>
+                        <span class="metric-value" id="netRevenueLabel">$3,571.25</span>
+                    </div>
+                </div>
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-warning-soft text-warning">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Pending Settlements</span>
+                        <span class="metric-value" id="pendingSettlementsCount">18 Claims</span>
+                    </div>
+                </div>
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-info-soft text-info">
+                        <i class="fa-solid fa-plug"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Gateway Status</span>
+                        <span class="metric-value" style="color: #16a34a;"><i class="fa-solid fa-circle"></i> Paystack</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Search and Filter Dock -->
+            <div class="admin-action-filtering-dock">
+                <div class="filter-controls-group">
+                    <input type="text" id="paymentsSearchInput" class="admin-dense-search-input" placeholder="Search reference, employer, account..." style="width: 280px;" onkeyup="evaluatePaymentsClientFilter()">
+                    <select id="paymentsStatusFilterSelect" class="admin-dense-select" onchange="evaluatePaymentsClientFilter()">
+                        <option value="ALL">All Financial States</option>
+                        <option value="HELD">Held in Escrow</option>
+                        <option value="SETTLED">Settled to Candidate</option>
+                        <option value="REFUNDED">Refunded to Employer</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="btn btn-outline-primary btn-sm" onclick="triggerManualReconciliationCheck()"><i class="fa-solid fa-arrows-rotate"></i> Synchronize Paystack State</button>
+                </div>
+            </div>
+
+            <!-- Master Transaction Ledger -->
+            <div class="premium-dashboard-card">
+                <div class="card-title-row">
+                    <h3><i class="fa-solid fa-list-check text-primary"></i> Master Placement Settlement Pipeline</h3>
+                </div>
+                <p class="card-body-description" style="margin-bottom: 1.5rem;">
+                    Monitors payments processed through application contracts. Escrow balances can be manually cleared if unexpected compliance or timesheet validation exceptions occur.
+                </p>
+
+                <div class="table-responsive-wrapper">
+                    <table class="admin-audit-log-table">
+                        <thead>
+                            <tr>
+                                <th>Transaction Reference / Gateway</th>
+                                <th>Employer / Placement Context</th>
+                                <th>Candidate Beneficiary</th>
+                                <th>Gross Amount</th>
+                                <th>Platform Cut</th>
+                                <th>Settlement Status</th>
+                                <th style="text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentsLedgerDataRows">
+                            <tr class="payment-row-item" data-status="HELD" id="paymentRow_1">
+                                <td style="font-weight: 600;">
+                                    <code>pstk_9281304x88</code><br>
+                                    <span style="color: #6b7280; font-size: 0.725rem; font-weight: 400;"><i class="fa-solid fa-link"></i> Paystack API</span>
+                                </td>
+                                <td>
+                                    <strong>Apex Logistics Group</strong><br>
+                                    <span style="color: #4b5563; font-size: 0.75rem;">Timesheet Cycle #22</span>
+                                </td>
+                                <td>Tunde Balogun</td>
+                                <td style="font-weight: 600; color: #111827;">$2,450.00 CAD</td>
+                                <td style="color: #4b5563;">$61.25 CAD</td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-suspended">Held in Escrow</span></td>
+                                <td style="text-align: right;">
+                                    <button class="btn btn-primary btn-xs" onclick="processManualEscrowRelease('1', 'pstk_9281304x88', 'Tunde Balogun', 2450.00)">Release Funds</button>
+                                </td>
+                            </tr>
+                            <tr class="payment-row-item" data-status="SETTLED" id="paymentRow_2">
+                                <td style="font-weight: 600;">
+                                    <code>pstk_7104925m12</code><br>
+                                    <span style="color: #6b7280; font-size: 0.725rem; font-weight: 400;"><i class="fa-solid fa-link"></i> Paystack API</span>
+                                </td>
+                                <td>
+                                    <strong>Ontario Care Providers</strong><br>
+                                    <span style="color: #4b5563; font-size: 0.75rem;">Support Worker Contract</span>
+                                </td>
+                                <td>Amara Okafor</td>
+                                <td style="font-weight: 600; color: #111827;">$1,890.00 CAD</td>
+                                <td style="color: #4b5563;">$47.25 CAD</td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-active">Settled to Candidate</span></td>
+                                <td style="text-align: right;">
+                                    <button class="btn btn-outline-primary btn-xs" disabled style="opacity: 0.5; cursor: not-allowed;">Cleared</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Core Payments Management Script Infrastructure -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            verifyAdministrativeSessionToken();
+        });
+
+        function verifyAdministrativeSessionToken() {
+            const activeToken = localStorage.getItem("mable_admin_session_jwt");
+            if (!activeToken) {
+                window.location.href = "login.html";
+                return;
+            }
+            if (localStorage.getItem("mable_impersonation_active") === "true") {
+                document.getElementById("adminImpersonationRibbon").style.display = "flex";
+            }
+        }
+
+        function displayActionFeedbackMessage(messageText, isErrorState = false) {
+            const feedbackContainer = document.getElementById("paymentsActionAlertFeedback");
+            feedbackContainer.className = "alert-box-container animate-toast-arrival " + 
+                (isErrorState ? "alert-danger-state" : "alert-success-state");
+            feedbackContainer.innerHTML = `<i class="fa-solid ${isErrorState ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> <span>${messageText}</span>`;
+            
+            setTimeout(() => {
+                feedbackContainer.className = "alert-box-container hidden-alert";
+            }, 4500);
+        }
+
+        function evaluatePaymentsClientFilter() {
+            const token = document.getElementById("paymentsSearchInput").value.toLowerCase();
+            const chosenStatus = document.getElementById("paymentsStatusFilterSelect").value;
+            
+            const rows = document.querySelectorAll(".payment-row-item");
+            rows.forEach(row => {
+                const textMatch = row.innerText.toLowerCase().includes(token);
+                const statusMatch = (chosenStatus === "ALL") || (row.getAttribute("data-status") === chosenStatus);
+                
+                if (textMatch && statusMatch) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
+        function triggerManualReconciliationCheck() {
+            displayActionFeedbackMessage("Dispatched structural synchronization payload to Paystack verification servers. Clearing cache logs...");
+        }
+
+        function processManualEscrowRelease(rowId, transactionReference, beneficiaryName, totalAmount) {
+            if (confirm(`CRITICAL SETTLEMENT INSTRUCTION:\n\nYou are forcing manual escrow clearance for transaction reference [${transactionReference}]. This will dispatch a clearing credit instruction of $${totalAmount.toFixed(2)} CAD immediately to account mapping for candidate [${beneficiaryName}].\n\nConfirm action?`)) {
+                
+                const targetRow = document.getElementById(`paymentRow_${rowId}`);
+                if (targetRow) {
+                    // Instantly convert UI state to reflect settled criteria mapping
+                    const badgeContainer = targetRow.querySelector(".admin-status-matrix-tag");
+                    if (badgeContainer) {
+                        badgeContainer.className = "admin-status-matrix-tag matrix-tag-active";
+                        badgeContainer.innerText = "Settled to Candidate";
+                    }
+                    const buttonCell = targetRow.cells[6];
+                    if (buttonCell) {
+                        buttonCell.innerHTML = `<button class="btn btn-outline-primary btn-xs" disabled style="opacity: 0.5; cursor: not-allowed;">Cleared</button>`;
+                    }
+                    targetRow.setAttribute("data-status", "SETTLED");
+                }
+                
+                // Track state mutation inside structural calculations
+                document.getElementById("pendingSettlementsCount").innerText = "17 Claims";
+                displayActionFeedbackMessage(`Escrow released successfully. Settlement payload bound for [${beneficiaryName}] has been cleared.`);
+            }
+        }
+
+        function terminateImpersonationSession() {
+            localStorage.removeItem("mable_impersonation_active");
+            document.getElementById("adminImpersonationRibbon").style.display = "none";
+            displayActionFeedbackMessage("Terminated user delegation framework. Restoring native finance administration privileges.");
+        }
+
+        function executeAdminLogout() {
+            localStorage.removeItem("mable_admin_session_jwt");
+            localStorage.removeItem("mable_impersonation_active");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
