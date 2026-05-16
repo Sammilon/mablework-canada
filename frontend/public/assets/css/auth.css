@@ -1,0 +1,206 @@
+/**
+ * MABLEWORK CANADA - AUTHENTICATION INTERFACE STYLESHEET
+ * Manages centering, card bounds, social sign-on grids, and validation structures.
+ */
+
+/* ==========================================================================
+   1. MASTER AUTH CONTAINER CORNERSTONES
+   ========================================================================== */
+.auth-split-viewport {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #f9fafb;
+}
+
+.auth-form-side-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 2rem;
+    background-color: #ffffff;
+}
+
+.auth-marketing-side-pane {
+    flex: 1.2;
+    background: linear-gradient(135deg, #003d80 0%, #0056b3 100%);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+@media (max-width: 992px) {
+    .auth-marketing-side-pane {
+        display: none; /* Drop asset panel on tablets and smaller viewports */
+    }
+}
+
+/* ==========================================================================
+   2. CENTRALIZED ENCLOSURE CARD CARRIER
+   ========================================================================== */
+.auth-card-enclosure {
+    width: 100%;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-card-header {
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.auth-card-header h2 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.auth-card-header p {
+    color: #6b7280;
+    font-size: 0.9375rem;
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   3. THIRD-PARTY DECENTRALIZED AUTH SPLITTERS
+   ========================================================================== */
+.social-auth-button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-social-sso {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-social-sso:hover {
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+}
+
+.auth-form-divider-line {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #9ca3af;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 1.5rem 0;
+}
+
+.auth-form-divider-line::before,
+.auth-form-divider-line::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.auth-form-divider-line:not(:empty)::before { margin-right: .75rem; }
+.auth-form-divider-line:not(:empty)::after { margin-left: .75rem; }
+
+/* ==========================================================================
+   4. INLINE OPTION SUBORDINATION ROW LINKS
+   ========================================================================== */
+.auth-options-subrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+}
+
+.auth-remember-me-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4b5563;
+    cursor: pointer;
+}
+
+.auth-remember-me-label input[type="checkbox"] {
+    accent-color: #0056b3;
+    width: 16px;
+    height: 16px;
+}
+
+.auth-recovery-anchor-link {
+    color: #0056b3;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.auth-recovery-anchor-link:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   5. TWO-FACTOR PASSCODE ENTRY CELL GRIDS
+   ========================================================================== */
+.mfa-passcode-box-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin: 2rem 0;
+}
+
+.mfa-cell-digit-input {
+    width: 52px;
+    height: 56px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #111827;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mfa-cell-digit-input:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.15);
+}
+
+/* ==========================================================================
+   6. INTERACTIVE FOOTER REGISTRATION PERSUADERS
+   ========================================================================== */
+.auth-card-footer-notice {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #4b5563;
+}
+
+.auth-card-footer-notice a {
+    color: #0056b3;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.auth-card-footer-notice a:hover {
+    text-decoration: underline;
+}
