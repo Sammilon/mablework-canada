@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Availability Matrix | Candidate Dashboard | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../../src/css/variables.css">
+    <link rel="stylesheet" href="../../src/css/global.css">
+    <link rel="stylesheet" href="../../src/css/components/loader.css">
+    <link rel="stylesheet" href="../../src/css/components/dashboard-layout.css">
+    <link rel="stylesheet" href="../../src/css/pages/dashboard/availability.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Premium Visual Icons Vector Pack -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Loading Allocation Grids...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <div class="dashboard-wrapper">
+            
+            <!-- Internal Application Navigation Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <span class="brand-text">MableWork</span>
+                    <span class="brand-region">Canada</span>
+                </div>
+                <nav class="sidebar-menu">
+                    <a href="dashboard.html" class="menu-item"><i class="fas fa-chart-pie"></i> Overview Hub</a>
+                    <a href="jobs.html" class="menu-item"><i class="fas fa-briefcase"></i> Remote Postings</a>
+                    <a href="timesheets.html" class="menu-item"><i class="fas fa-clock"></i> Hour Tracking</a>
+                    <a href="verification.html" class="menu-item"><i class="fas fa-shield-check"></i> Compliance Audit</a>
+                    <a href="security.html" class="menu-item"><i class="fas fa-sliders"></i> Security Setup</a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button id="sidebar-logout-trigger" class="btn btn-outline-danger btn-sm full-width"><i class="fas fa-power-off"></i> Terminate Session</button>
+                </div>
+            </aside>
+
+            <!-- Main Work Area Stream Layer -->
+            <main class="dashboard-main-content">
+                
+                <!-- Internal Context Header -->
+                <header class="dashboard-content-header">
+                    <div class="header-title-block">
+                        <h1>Weekly Operational Windows</h1>
+                        <p>Map your recurring available shift windows. System cross-matching nodes will exclusively route placements that fit within your specified layout blocks.</p>
+                    </div>
+                    <div class="header-profile-badge">
+                        <div class="user-avatar" id="nav-avatar-fallback">CN</div>
+                        <span id="user-display-name">Candidate</span>
+                    </div>
+                </header>
+
+                <!-- Feedback Banner Center -->
+                <div id="availability-alert-center" class="alert-box-container hidden-alert"></div>
+
+                <!-- Structured Split Grid Workspace -->
+                <form id="availability-matrix-form" class="interactive-dashboard-form">
+                    <div class="availability-dashboard-grid">
+                        
+                        <!-- Left: Core Grid Scheduler Node -->
+                        <div class="availability-main-scheduler-panel">
+                            <div class="premium-dashboard-card">
+                                <div class="card-title-row">
+                                    <h3><i class="fas fa-calendar-days"></i> Recurring Weekly Shift Matrix</h3>
+                                    <button type="button" id="clear-all-blocks-btn" class="btn btn-outline-secondary btn-xs"><i class="fas fa-arrows-rotate"></i> Reset Grid</button>
+                                </div>
+                                <div class="card-body-description">
+                                    <p>Select your operational states for each day. Specify morning, afternoon, or evening segments to synchronize with matching employer routing queues.</p>
+                                </div>
+
+                                <!-- Grid Matrix Table Block -->
+                                <div class="table-responsive-wrapper">
+                                    <table class="availability-matrix-table" id="weekly-matrix-table-root">
+                                        <thead>
+                                            <tr>
+                                                <th>Day of Week</th>
+                                                <th class="text-center">Morning<br><small>08:00 - 12:00</small></th>
+                                                <th class="text-center">Afternoon<br><small>12:00 - 16:00</small></th>
+                                                <th class="text-center">Evening<br><small>16:00 - 20:00</small></th>
+                                                <th class="text-center">Night<br><small>20:00 - 00:00</small></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Structured Weekdays Ingestion Matrix Blocks -->
+                                            <tr data-day="monday">
+                                                <strong><td>Monday</td></strong>
+                                                <td class="selectable-cell"><input type="checkbox" name="monday-morning" id="mon-m"><label for="mon-m"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="monday-afternoon" id="mon-a"><label for="mon-a"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="monday-evening" id="mon-e"><label for="mon-e"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="monday-night" id="mon-n"><label for="mon-n"></label></td>
+                                            </tr>
+                                            <tr data-day="tuesday">
+                                                <strong><td>Tuesday</td></strong>
+                                                <td class="selectable-cell"><input type="checkbox" name="tuesday-morning" id="tue-m"><label for="tue-m"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="tuesday-afternoon" id="tue-a"><label for="tue-a"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="tuesday-evening" id="tue-e"><label for="tue-e"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="tuesday-night" id="tue-n"><label for="tue-n"></label></td>
+                                            </tr>
+                                            <tr data-day="wednesday">
+                                                <strong><td>Wednesday</td></strong>
+                                                <td class="selectable-cell"><input type="checkbox" name="wednesday-morning" id="wed-m"><label for="wed-m"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="wednesday-afternoon" id="wed-a"><label for="wed-a"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="wednesday-evening" id="wed-e"><label for="wed-e"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="wednesday-night" id="wed-n"><label for="wed-n"></label></td>
+                                            </tr>
+                                            <tr data-day="thursday">
+                                                <strong><td>Thursday</td></strong>
+                                                <td class="selectable-cell"><input type="checkbox" name="thursday-morning" id="thu-m"><label for="thu-m"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="thursday-afternoon" id="thu-a"><label for="thu-a"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="thursday-evening" id="thu-e"><label for="thu-e"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="thursday-night" id="thu-n"><label for="thu-n"></label></td>
+                                            </tr>
+                                            <tr data-day="friday">
+                                                <strong><td>Friday</td></strong>
+                                                <td class="selectable-cell"><input type="checkbox" name="friday-morning" id="fri-m"><label for="fri-m"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="friday-afternoon" id="fri-a"><label for="fri-a"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="friday-evening" id="fri-e"><label for="fri-e"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="friday-night" id="fri-n"><label for="fri-n"></label></td>
+                                            </tr>
+                                            <tr data-day="saturday">
+                                                <strong><td>Saturday</td></strong>
+                                                <td class="selectable-cell"><input type="checkbox" name="saturday-morning" id="sat-m"><label for="sat-m"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="saturday-afternoon" id="sat-a"><label for="sat-a"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="saturday-evening" id="sat-e"><label for="sat-e"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="saturday-night" id="sat-n"><label for="sat-n"></label></td>
+                                            </tr>
+                                            <tr data-day="sunday">
+                                                <strong><td>Sunday</td></strong>
+                                                <td class="selectable-cell"><input type="checkbox" name="sunday-morning" id="sun-m"><label for="sun-m"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="sunday-afternoon" id="sun-a"><label for="sun-a"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="sunday-evening" id="sun-e"><label for="sun-e"></label></td>
+                                                <td class="selectable-cell"><input type="checkbox" name="sunday-night" id="sun-n"><label for="sun-n"></label></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Compliance Analysis Sidebar -->
+                        <div class="availability-compliance-sidebar">
+                            
+                            <!-- Dynamic Compliance Gauge Metric Box -->
+                            <div class="premium-dashboard-card mathematical-tracker-card text-center">
+                                <h4>Calculated Allocation Volume</h4>
+                                <div class="hour-counter-display">
+                                    <span id="allocated-hours-counter">0</span> <small>hrs / wk</small>
+                                </div>
+                                <div id="allocation-regulatory-badge" class="allocation-badge state-safe">
+                                    <i class="fas fa-shield-check"></i> Standard Operations Tier
+                                </div>
+                            </div>
+
+                            <!-- Statutory Constraint Rule Alert Box -->
+                            <div class="premium-dashboard-card ircc-notice-card">
+                                <h5><i class="fas fa-scale-balanced"></i> IRCC Labor Constraint Limits</h5>
+                                <p class="sidebar-help-text">International study permit holders are legally capped at <strong>20 hours per week</strong> during active academic operational blocks.</p>
+                                <div class="regulatory-warning-callout hidden" id="cap-breach-warning-callout">
+                                    <i class="fas fa-triangle-exclamation"></i>
+                                    <strong>Compliance Threshold Breached:</strong> Your current selection total exceeds the academic limit flag. Refine your active blocks to avoid filtering anomalies.
+                                </div>
+                            </div>
+
+                            <!-- Form Dispatch Action Card Sticky Box -->
+                            <div class="availability-action-box">
+                                <button type="submit" id="save-availability-action-btn" class="btn btn-primary full-width btn-lg">
+                                    <span class="btn-text"><i class="fas fa-cloud-arrow-up"></i> Save Allocation Tracks</span>
+                                    <span class="btn-spinner-icon hidden"><i class="fas fa-circle-notch fa-spin"></i></span>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../../src/js/api.js"></script>
+    <script src="../../src/js/utils/loader.js"></script>
+    <script src="../../src/js/pages/dashboard/availability.js"></script>
+</body>
+</html>
