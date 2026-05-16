@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Workforce | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../src/css/variables.css">
+    <link rel="stylesheet" href="../src/css/global.css">
+    <link rel="stylesheet" href="../src/css/components/loader.css">
+    <link rel="stylesheet" href="../src/css/components/navbar.css">
+    <link rel="stylesheet" href="../src/css/pages/workforce.css">
+    <link rel="stylesheet" href="../src/css/components/footer.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- Hides all DOM contents until asset checks finish    -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <!-- Professional Canadian Theme Logo Spinner -->
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Loading MableWork Platform...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- Hidden by default until JavaScript clears the loader-->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <!-- Platform Navigation Bar Header -->
+        <header class="main-header">
+            <nav class="nav-container">
+                <div class="nav-brand">
+                    <a href="/index.html" class="brand-link">
+                        <span class="brand-text">MableWork</span>
+                        <span class="brand-region">Canada</span>
+                    </a>
+                </div>
+                <div class="nav-links" id="nav-menu">
+                    <a href="/index.html" class="nav-item">Home</a>
+                    <a href="/workforce.html" class="nav-item active">Find Workforce</a>
+                    <a href="/jobs.html" class="nav-item">Browse Jobs</a>
+                    <div class="nav-auth-group" id="auth-actions">
+                        <!-- Instantiated dynamically via auth state runtime -->
+                        <a href="/login.html" class="btn btn-secondary">Sign In</a>
+                        <a href="/register.html" class="btn btn-primary">Join Platform</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Workforce Filter & Exploration Module -->
+        <main class="platform-main-layout">
+            <section class="hero-filter-banner">
+                <div class="section-container">
+                    <h1>Verified Canadian Technical Talent</h1>
+                    <p>Filter through background-checked, credential-verified professionals across Canada's provinces.</p>
+                    
+                    <!-- Marketplace Dynamic Filter Form -->
+                    <form id="workforce-filter-form" class="filter-search-grid">
+                        <div class="form-input-group">
+                            <label for="search-skill">Specialization or Skill</label>
+                            <input type="text" id="search-skill" placeholder="e.g., Welder, Carpenter, Plumber">
+                        </div>
+                        <div class="form-input-group">
+                            <label for="filter-province">Province/Territory</label>
+                            <select id="filter-province">
+                                <option value="">All Regions</option>
+                                <option value="ON">Ontario</option>
+                                <option value="BC">British Columbia</option>
+                                <option value="AB">Alberta</option>
+                                <option value="QC">Quebec</option>
+                                <option value="NS">Nova Scotia</option>
+                                <option value="MB">Manitoba</option>
+                                <option value="SK">Saskatchewan</option>
+                                <option value="NB">New Brunswick</option>
+                            </select>
+                        </div>
+                        <div class="form-input-group">
+                            <label for="filter-status">Availability</label>
+                            <select id="filter-status">
+                                <option value="">All Types</option>
+                                <option value="immediate">Immediate Placement</option>
+                                <option value="contract">Contract Only</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-search">Apply Filters</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Workforce Cards Grid Array -->
+            <section class="directory-grid-layout">
+                <div class="section-container">
+                    <div class="directory-meta-bar">
+                        <p id="result-counter">Querying active talent database...</p>
+                    </div>
+                    
+                    <!-- Dynamic Targeted Cards Hook -->
+                    <div id="workforce-cards-root" class="cards-grid-container">
+                        <!-- Internal application loader state inside component wrapper -->
+                        <div class="component-inline-spinner"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Professional Platform Corporate Footer Layout -->
+        <footer class="main-footer">
+            <div class="footer-container">
+                <p>&copy; 2026 MableWork Canada. All Rights Reserved. Regulated Enterprise Hiring Platform.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../src/js/api.js"></script>
+    <script src="../src/js/utils/loader.js"></script>
+    <script src="../src/js/pages/workforce.js"></script>
+</body>
+</html>
