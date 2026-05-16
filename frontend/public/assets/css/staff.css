@@ -1,0 +1,213 @@
+/**
+ * MABLEWORK CANADA - PUBLIC TALENT DIRECTORY STYLESHEET
+ * Controls formatting for active remote pools, skill sets, and verified badges.
+ */
+
+/* ==========================================================================
+   1. LAYOUT ARCHITECTURE & FILTER SPLIT
+   ========================================================================== */
+.directory-layout-wrapper {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+    margin-top: 2.5rem;
+}
+
+@media (max-width: 992px) {
+    .directory-layout-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   2. FILTER CONTROL PANE
+   ========================================================================== */
+.directory-filters-panel {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.5rem;
+    height: max-content;
+    position: sticky;
+    top: 2rem;
+}
+
+.filter-section-block {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.filter-section-block:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.filter-section-block h4 {
+    font-size: 0.9375rem;
+    color: #111827;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.checkbox-option-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #4b5563;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.checkbox-option-label:last-child {
+    margin-bottom: 0;
+}
+
+.checkbox-option-label input[type="checkbox"] {
+    accent-color: #0056b3;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   3. TALENT RENDERING GRID
+   ========================================================================== */
+.talent-cards-stream-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.candidate-profile-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.candidate-profile-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   4. DETAILED INTERNAL STRUCTURES
+   ========================================================================== */
+.candidate-meta-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.candidate-avatar-placeholder {
+    width: 48px;
+    height: 48px;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.125rem;
+    border: 1px solid #e5e7eb;
+    flex-shrink: 0;
+}
+
+.candidate-title-details {
+    flex-grow: 1;
+}
+
+.candidate-title-details h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.125rem;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+}
+
+.institution-verification-tick {
+    color: #0056b3;
+    font-size: 0.875rem;
+}
+
+.candidate-role-stream {
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.candidate-narrative-summary {
+    font-size: 0.875rem;
+    color: #4b5563;
+    line-height: 1.45;
+    margin-bottom: 1.25rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   5. SKILLS MATRIX & COMPLIANCE METRICS
+   ========================================================================== */
+.candidate-skills-matrix-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-bottom: 1.25rem;
+}
+
+.skill-pill-node {
+    background-color: #f3f4f6;
+    color: #374151;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.candidate-compliance-footer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid #f3f4f6;
+    margin-top: auto;
+}
+
+.statutory-rate-tag {
+    font-size: 0.875rem;
+    color: #111827;
+}
+
+.statutory-rate-tag strong {
+    font-size: 1.125rem;
+    color: #0056b3;
+}
+
+.availability-status-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.status-active-fluid {
+    color: #16a34a;
+}
+
+.status-allocated-locked {
+    color: #dc2626;
+}
