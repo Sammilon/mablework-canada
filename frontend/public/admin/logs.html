@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Diagnostics Engine Logs - Admin Panel</title>
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <!-- FontAwesome Core Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .terminal-stream-window {
+            background-color: #0f172a;
+            border-radius: 6px;
+            padding: 1.25rem;
+            font-family: 'Courier New', Courier, monospace;
+            color: #38bdf8;
+            font-size: 13px;
+            line-height: 1.6;
+            max-height: 480px;
+            overflow-y: auto;
+            border: 1px solid #1e293b;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+        }
+        .terminal-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.25rem;
+            white-space: pre-wrap;
+        }
+        .terminal-time { color: #64748b; min-width: 140px; }
+        .terminal-level-info { color: #4ade80; font-weight: bold; }
+        .terminal-level-warn { color: #fbbf24; font-weight: bold; }
+        .terminal-level-error { color: #f87171; font-weight: bold; }
+        .terminal-text { color: #f1f5f9; }
+    </style>
+</head>
+<body>
+
+    <!-- Administrative Access Impersonation Alert Ribbon -->
+    <div class="admin-impersonation-alert-ribbon" id="adminImpersonationRibbon" style="display: none;">
+        <div class="impersonation-meta-details">
+            <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            <span><strong>Security Alert:</strong> Accessing operational environment streams under administrative delegation mode. Raw traces are being logged.</span>
+        </div>
+        <button class="btn-terminate-impersonation" onclick="terminateImpersonationSession()">Exit Session</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation Rail -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-top-group">
+                <div class="dashboard-content-header" style="border-bottom: 1px solid #2d3748; margin-bottom: 1.5rem; padding-bottom: 1rem;">
+                    <div class="header-title-block">
+                        <h1 style="color: #ffffff; font-size: 1.25rem; margin: 0;">MableWork HQ</h1>
+                        <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">Diagnostics Rail</p>
+                    </div>
+                </div>
+                <nav class="sidebar-links-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="dashboard.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i> Overview Control
+                    </a>
+                    <a href="logs.html" style="color: #ffffff; background-color: #1f2937; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem; font-weight: 600;">
+                        <i class="fa-solid fa-terminal" style="width: 20px;"></i> Diagnostic Logs
+                    </a>
+                    <a href="audit-logs.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-shield-halved" style="width: 20px;"></i> Security Audit Logs
+                    </a>
+                    <a href="workers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-gears" style="width: 20px;"></i> Engine Workers
+                    </a>
+                </nav>
+            </div>
+            <div class="sidebar-footer-group">
+                <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="executeAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Drop Access Gate
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Flow -->
+        <main class="dashboard-main-content animate-view-entry">
+            <!-- Content Header Context -->
+            <div class="dashboard-content-header">
+                <div class="header-title-block">
+                    <h1>Real-Time Diagnostics &amp; System Stream</h1>
+                    <p>Track application runtime performance metrics, monitor live connection threads, and parse backend debugging traces.</p>
+                </div>
+                <div class="header-profile-badge">
+                    <span>DevOps Engineer</span>
+                    <div class="user-avatar" id="adminUserAvatarNode">SYS</div>
+                </div>
+            </div>
+
+            <!-- Global Action Intercept Alerts Layer -->
+            <div id="logsActionAlertFeedback" class="alert-box-container hidden-alert"></div>
+
+            <!-- Live Stream Intercept Filtering Dock -->
+            <div class="admin-action-filtering-dock">
+                <div class="filter-controls-group">
+                    <select id="logSeverityFilterSelect" class="admin-dense-select" onchange="filterTerminalStreamSeverity()">
+                        <option value="ALL">All Event Traces</option>
+                        <option value="INFO">Information Matrix</option>
+                        <option value="WARN">Warnings Only</option>
+                        <option value="ERROR">Severe Errors Only</option>
+                    </select>
+                    <button class="btn btn-outline-primary btn-sm" onclick="clearLiveDiagnosticTerminalWindow()"><i class="fa-solid fa-eraser"></i> Clear Screen</button>
+                </div>
+                <div>
+                    <button class="btn btn-primary btn-sm" onclick="triggerManualLogRotation()"><i class="fa-solid fa-rotate"></i> Force Log Rotation</button>
+                </div>
+            </div>
+
+            <!-- Terminal Window Card -->
+            <div class="premium-dashboard-card">
+                <div class="card-title-row" style="margin-bottom: 1rem;">
+                    <h3><i class="fa-solid fa-terminal text-primary"></i> Application Runtime Console Output</h3>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 12px; color: #16a34a;">
+                        <i class="fa-solid fa-circle animate-pulse"></i> <span>Listening to Core Router Stream</span>
+                    </div>
+                </div>
+
+                <!-- Main Virtual Terminal Viewport -->
+                <div class="terminal-stream-window" id="virtualTerminalLogWindow">
+                    <div class="terminal-row" data-severity="INFO">
+                        <span class="terminal-time">2026-05-16 03:30:12</span>
+                        <span class="terminal-level-info">[INFO]</span>
+                        <span class="terminal-text">Initializing core application middleware framework routing tables...</span>
+                    </div>
+                    <div class="terminal-row" data-severity="INFO">
+                        <span class="terminal-time">2026-05-16 03:31:05</span>
+                        <span class="terminal-level-info">[INFO]</span>
+                        <span class="terminal-text">Paystack webhooks processing listener bound securely to endpoint /api/v1/payments/callback</span>
+                    </div>
+                    <div class="terminal-row" data-severity="WARN">
+                        <span class="terminal-time">2026-05-16 03:32:44</span>
+                        <span class="terminal-level-warn">[WARN]</span>
+                        <span class="terminal-text">Slow database connection execution pool threshold crossed: SQL Query: "SELECT * FROM timesheets WHERE status = 'PENDING'" took 342ms.</span>
+                    </div>
+                    <div class="terminal-row" data-severity="ERROR">
+                        <span class="terminal-time">2026-05-16 03:34:19</span>
+                        <span class="terminal-level-error">[ERROR]</span>
+                        <span class="terminal-text">Secure Document Storage handshake rejected for target UID #29402: Content-Type payload format mismatch.</span>
+                    </div>
+                    <div class="terminal-row" data-severity="INFO">
+                        <span class="terminal-time">2026-05-16 03:35:01</span>
+                        <span class="terminal-level-info">[INFO]</span>
+                        <span class="terminal-text">Garbage Collection sweep executed successfully. Freed 42.1MB runtime memory allocation stack.</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Core Diagnostics Interaction Logic Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            verifyAdministrativeSessionToken();
+            autoScrollTerminalToBottom();
+            simulateLiveIncomingLogsPipeline();
+        });
+
+        function verifyAdministrativeSessionToken() {
+            const activeToken = localStorage.getItem("mable_admin_session_jwt");
+            if (!activeToken) {
+                window.location.href = "login.html";
+                return;
+            }
+            if (localStorage.getItem("mable_impersonation_active") === "true") {
+                document.getElementById("adminImpersonationRibbon").style.display = "flex";
+            }
+        }
+
+        function displayActionFeedbackMessage(messageText, isErrorState = false) {
+            const feedbackContainer = document.getElementById("logsActionAlertFeedback");
+            feedbackContainer.className = "alert-box-container animate-toast-arrival " + 
+                (isErrorState ? "alert-danger-state" : "alert-success-state");
+            feedbackContainer.innerHTML = `<i class="fa-solid ${isErrorState ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> <span>${messageText}</span>`;
+            
+            setTimeout(() => {
+                feedbackContainer.className = "alert-box-container hidden-alert";
+            }, 4500);
+        }
+
+        function autoScrollTerminalToBottom() {
+            const terminal = document.getElementById("virtualTerminalLogWindow");
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function filterTerminalStreamSeverity() {
+            const level = document.getElementById("logSeverityFilterSelect").value;
+            const rows = document.querySelectorAll(".terminal-row");
+            
+            rows.forEach(row => {
+                if (level === "ALL" || row.getAttribute("data-severity") === level) {
+                    row.style.display = "flex";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+            autoScrollTerminalToBottom();
+        }
+
+        function clearLiveDiagnosticTerminalWindow() {
+            document.getElementById("virtualTerminalLogWindow").innerHTML = "";
+            displayActionFeedbackMessage("Virtual screen memory buffer truncated successfully.");
+        }
+
+        function triggerManualLogRotation() {
+            displayActionFeedbackMessage("Archiving cold log buffers to runtime storage directory. Dispatched logrotate system task.");
+        }
+
+        function simulateLiveIncomingLogsPipeline() {
+            setInterval(() => {
+                const terminal = document.getElementById("virtualTerminalLogWindow");
+                if (!terminal) return;
+
+                const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                const randomState = Math.random();
+                let logElement = document.createElement("div");
+                logElement.className = "terminal-row";
+
+                if (randomState > 0.85) {
+                    logElement.setAttribute("data-severity", "WARN");
+                    logElement.innerHTML = `<span class="terminal-time">${timestamp}</span> <span class="terminal-level-warn">[WARN]</span> <span class="terminal-text">Session heartbeat token check delayed for route gateway mapping index.</span>`;
+                } else if (randomState > 0.75) {
+                    logElement.setAttribute("data-severity", "ERROR");
+                    logElement.innerHTML = `<span class="terminal-time">${timestamp}</span> <span class="terminal-level-error">[ERROR]</span> <span class="terminal-text">Failed connection attempt to verification auth API channel. Timeout 5000ms.</span>`;
+                } else {
+                    logElement.setAttribute("data-severity", "INFO");
+                    logElement.innerHTML = `<span class="terminal-time">${timestamp}</span> <span class="terminal-level-info">[INFO]</span> <span class="terminal-text">Processed keep-alive validation check for internal background job engines.</span>`;
+                }
+
+                terminal.appendChild(logElement);
+                filterTerminalStreamSeverity(); // Ensure visibility matches filter criteria
+                autoScrollTerminalToBottom();
+            }, 6000);
+        }
+
+        function terminateImpersonationSession() {
+            localStorage.removeItem("mable_impersonation_active");
+            document.getElementById("adminImpersonationRibbon").style.display = "none";
+            displayActionFeedbackMessage("Terminated user delegation framework. Restoring native DevOps privileges.");
+        }
+
+        function executeAdminLogout() {
+            localStorage.removeItem("mable_admin_session_jwt");
+            localStorage.removeItem("mable_impersonation_active");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
