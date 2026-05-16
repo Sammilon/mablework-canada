@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Administrative Oversight Control Center - HQ</title>
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <!-- FontAwesome Core Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Administrative Access Impersonation Alert Ribbon -->
+    <div class="admin-impersonation-alert-ribbon" id="adminImpersonationRibbon" style="display: none;">
+        <div class="impersonation-meta-details">
+            <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            <span><strong>Security Alert:</strong> Operating under active system data impersonation protocol. All administrative actions are hard-logged.</span>
+        </div>
+        <button class="btn-terminate-impersonation" onclick="terminateImpersonationSession()">Exit Session</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation Rail -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-top-group">
+                <div class="dashboard-content-header" style="border-bottom: 1px solid #2d3748; margin-bottom: 1.5rem; padding-bottom: 1rem;">
+                    <div class="header-title-block">
+                        <h1 style="color: #ffffff; font-size: 1.25rem; margin: 0;">MableWork HQ</h1>
+                        <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">Global Admin Engine</p>
+                    </div>
+                </div>
+                <nav class="sidebar-links-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="dashboard.html" style="color: #ffffff; background-color: #1f2937; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem; font-weight: 600;">
+                        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i> Overview Control
+                    </a>
+                    <a href="employers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-building" style="width: 20px;"></i> Employer Accounts
+                    </a>
+                    <a href="audit-logs.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-shield-halved" style="width: 20px;"></i> Security Audit Logs
+                    </a>
+                    <a href="workers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-gears" style="width: 20px;"></i> Engine Workers
+                    </a>
+                </nav>
+            </div>
+            <div class="sidebar-footer-group">
+                <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="executeAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Drop Access Gate
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Flow -->
+        <main class="dashboard-main-content animate-view-entry">
+            <!-- Content Header Context -->
+            <div class="dashboard-content-header">
+                <div class="header-title-block">
+                    <h1>Administrative Operations Control Board</h1>
+                    <p>Real-time ecosystem processing volumes, health ratios, security incidents, and corporate identity confirmation status.</p>
+                </div>
+                <div class="header-profile-badge">
+                    <span>Root Super Admin</span>
+                    <div class="user-avatar" id="adminUserAvatarNode">HQ</div>
+                </div>
+            </div>
+
+            <!-- Global Action Intercept Alerts Layer -->
+            <div id="dashboardGlobalAlertFeedback" class="alert-box-container hidden-alert"></div>
+
+            <!-- Operational Metrics Grid Ticker -->
+            <div class="dashboard-stats-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                <div class="stat-card-item">
+                    <div class="card-meta-row">
+                        <span class="card-metric-label">Total Student Nodes</span>
+                        <i class="fa-solid fa-user-graduate text-primary"></i>
+                    </div>
+                    <div class="card-value-display">4,812</div>
+                    <div class="card-trend-subtext trend-positive"><i class="fa-solid fa-arrow-trend-up"></i> +14% this month</div>
+                </div>
+                
+                <div class="stat-card-item">
+                    <div class="card-meta-row">
+                        <span class="card-metric-label">Vetted Employers</span>
+                        <i class="fa-solid fa-building-circle-check text-success"></i>
+                    </div>
+                    <div class="card-value-display">342</div>
+                    <div class="card-trend-subtext trend-positive"><i class="fa-solid fa-arrow-trend-up"></i> 8 pending verification</div>
+                </div>
+
+                <div class="stat-card-item">
+                    <div class="card-meta-row">
+                        <span class="card-metric-label">Active Escrow Volume</span>
+                        <i class="fa-solid fa-wallet text-warning"></i>
+                    </div>
+                    <div class="card-value-display">$184,250<span style="font-size: 1rem; font-weight: 500;"> CAD</span></div>
+                    <div class="card-trend-subtext text-muted">Secured via Paystack</div>
+                </div>
+
+                <div class="stat-card-item">
+                    <div class="card-meta-row">
+                        <span class="card-metric-label">Engine Worker Status</span>
+                        <i class="fa-solid fa-circle-check text-success"></i>
+                    </div>
+                    <div class="card-value-display">100%</div>
+                    <div class="card-trend-subtext trend-positive">5 workers running healthy</div>
+                </div>
+            </div>
+
+            <!-- Splitting Main Layout Panels -->
+            <div class="employer-dashboard-layout-grid" style="display: grid; grid-template-columns: 2fr 1.2fr; gap: 2rem;">
+                
+                <!-- Left Section: Pending Verifications Queue -->
+                <div class="dashboard-main-stream-panel">
+                    <div class="premium-dashboard-card">
+                        <div class="card-title-row">
+                            <h3><i class="fa-solid fa-clock text-warning"></i> Urgent Employer Compliance Queue</h3>
+                            <a href="employers.html" style="font-size: 13px; color: var(--primary-color); text-decoration: none; font-weight: 600;">View Full Matrix</a>
+                        </div>
+                        <p class="card-body-description" style="margin-bottom: 1rem;">
+                            Corporate accounts awaiting official certificate verification prior to job distribution.
+                        </p>
+
+                        <div class="table-responsive-wrapper">
+                            <table class="admin-audit-log-table">
+                                <thead>
+                                    <tr>
+                                        <th>Company</th>
+                                        <th>CRA Business ID</th>
+                                        <th>Registered</th>
+                                        <th style="text-align: right;">Action Desk</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight: 600; color: #111827;">Ontario Care Providers</td>
+                                        <td><code>890412354-RC0002</code></td>
+                                        <td>Yesterday</td>
+                                        <td style="text-align: right;">
+                                            <a href="employer-verification.html" class="btn btn-primary btn-xs"><i class="fa-solid fa-shield-halved"></i> Audit Docs</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600; color: #111827;">Vanguard Tech Solutions</td>
+                                        <td><code>451298431-RC0001</code></td>
+                                        <td>3 days ago</td>
+                                        <td style="text-align: right;">
+                                            <a href="employer-verification.html" class="btn btn-primary btn-xs"><i class="fa-solid fa-shield-halved"></i> Audit Docs</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Section: Core System Status Metrics -->
+                <div class="profile-metadata-sidebar-column" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div class="premium-dashboard-card">
+                        <div class="card-title-row">
+                            <h3><i class="fa-solid fa-server text-primary"></i> Infra Core Pulse</h3>
+                        </div>
+                        <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.75rem; font-size: 13px;">
+                            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.5rem;">
+                                <span style="color: #64748b;">DirectAdmin Framework</span>
+                                <strong style="color: #16a34a;">Connected (SmartWeb)</strong>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.5rem;">
+                                <span style="color: #64748b;">Database Cluster</span>
+                                <strong style="color: #16a34a;">Healthy (MySQL)</strong>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="color: #64748b;">Paystack Gateway</span>
+                                <strong style="color: #16a34a;">Operational (API v1)</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="premium-dashboard-card" style="background: #fff7ed; border-color: #ffedd5;">
+                        <h4 style="margin: 0 0 0.5rem 0; color: #c2410c; font-size: 14px;"><i class="fa-solid fa-triangle-exclamation"></i> Quick Admin Note</h4>
+                        <p style="font-size: 11px; color: #9a3412; margin: 0; line-height: 1.5;">
+                            When executing impersonation loops, your native session identity is preserved in local sandboxed storage parameters. Clear impersonations safely via the main dashboard header ribbon.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- System Access Validation and Administrative Coordination Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            verifyAdministrativeSessionToken();
+        });
+
+        function verifyAdministrativeSessionToken() {
+            const activeToken = localStorage.getItem("mable_admin_session_jwt");
+            if (!activeToken) {
+                window.location.href = "login.html";
+                return;
+            }
+            if (localStorage.getItem("mable_impersonation_active") === "true") {
+                document.getElementById("adminImpersonationRibbon").style.display = "flex";
+            }
+        }
+
+        function displayActionFeedbackMessage(messageText, isErrorState = false) {
+            const feedbackContainer = document.getElementById("dashboardGlobalAlertFeedback");
+            feedbackContainer.className = "alert-box-container animate-toast-arrival " + 
+                (isErrorState ? "alert-danger-state" : "alert-success-state");
+            feedbackContainer.innerHTML = `<i class="fa-solid ${isErrorState ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> <span>${messageText}</span>`;
+            
+            setTimeout(() => {
+                feedbackContainer.className = "alert-box-container hidden-alert";
+            }, 4500);
+        }
+
+        function terminateImpersonationSession() {
+            localStorage.removeItem("mable_impersonation_active");
+            localStorage.removeItem("mable_impersonated_user_context");
+            document.getElementById("adminImpersonationRibbon").style.display = "none";
+            displayActionFeedbackMessage("Administrative impersonation handshake terminated safely.");
+        }
+
+        function executeAdminLogout() {
+            localStorage.removeItem("mable_admin_session_jwt");
+            localStorage.removeItem("mable_impersonation_active");
+            localStorage.removeItem("mable_impersonated_user_context");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
