@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Message Room | Candidate Dashboard | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../../src/css/variables.css">
+    <link rel="stylesheet" href="../../src/css/global.css">
+    <link rel="stylesheet" href="../../src/css/components/loader.css">
+    <link rel="stylesheet" href="../../src/css/components/dashboard-layout.css">
+    <link rel="stylesheet" href="../../src/css/pages/dashboard/messages.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Premium Visual Icons Vector Pack -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Loading Secure Chat Matrices...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <div class="dashboard-wrapper">
+            
+            <!-- Internal Application Navigation Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <span class="brand-text">MableWork</span>
+                    <span class="brand-region">Canada</span>
+                </div>
+                <nav class="sidebar-menu">
+                    <a href="index.html" class="menu-item"><i class="fas fa-chart-pie"></i> Overview Hub</a>
+                    <a href="jobs.html" class="menu-item"><i class="fas fa-briefcase"></i> Remote Postings</a>
+                    <a href="timesheets.html" class="menu-item"><i class="fas fa-clock"></i> Hour Tracking</a>
+                    <a href="verification.html" class="menu-item"><i class="fas fa-shield-check"></i> Compliance Audit</a>
+                    <a href="security.html" class="menu-item"><i class="fas fa-sliders"></i> Security Setup</a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button id="sidebar-logout-trigger" class="btn btn-outline-danger btn-sm full-width"><i class="fas fa-power-off"></i> Terminate Session</button>
+                </div>
+            </aside>
+
+            <!-- Main Chat Interface Container Layout -->
+            <main class="dashboard-main-content message-center-main">
+                <div class="message-center-wrapper">
+                    
+                    <!-- Channel Sidebar Selector (Left) -->
+                    <section class="chat-channels-sidebar">
+                        <div class="search-channels-box">
+                            <i class="fas fa-magnifying-glass"></i>
+                            <input type="text" id="channel-search-input" placeholder="Search conversations...">
+                        </div>
+                        
+                        <div class="channels-scroll-container">
+                            <ul class="channels-list-hook" id="active-chat-threads">
+                                
+                                <!-- Channel Row 1: Active Employer Contract (Selected State) -->
+                                <li class="channel-thread-item active-thread" data-thread-id="t-501">
+                                    <div class="thread-avatar text-avatar">BC</div>
+                                    <div class="thread-meta">
+                                        <div class="thread-title-row">
+                                            <strong>Bell Canada (HR Core)</strong>
+                                            <span class="time-stamp">10:42 AM</span>
+                                        </div>
+                                        <div class="thread-snippet-row">
+                                            <p class="snippet-text">The tier 2 remote scheduling parameters look correct...</p>
+                                            <span class="badge count-badge">1</span>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <!-- Channel Row 2: MableWork Support Representative -->
+                                <li class="channel-thread-item" data-thread-id="t-502">
+                                    <div class="thread-avatar rep-avatar">🍁</div>
+                                    <div class="thread-meta">
+                                        <div class="thread-title-row">
+                                            <strong>MableWork Compliance Desk</strong>
+                                            <span class="time-stamp">Yesterday</span>
+                                        </div>
+                                        <div class="thread-snippet-row">
+                                            <p class="snippet-text">Your study permit file review has passed audit requirements.</p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- Interactive Live Conversation Console (Center) -->
+                    <section class="chat-viewport-console">
+                        
+                        <!-- Console Active Header -->
+                        <header class="console-chat-header">
+                            <div class="active-interlocutor-details">
+                                <h3 id="chat-header-title">Bell Canada (HR Core)</h3>
+                                <p id="chat-header-status"><span class="status-indicator online"></span> Active Contract Channel • Verified Employer</p>
+                            </div>
+                            <div class="chat-header-actions">
+                                <button class="btn btn-outline-light btn-sm" id="toggle-context-sidebar" title="Toggle Information Panel"><i class="fas fa-sidebar"></i></button>
+                            </div>
+                        </header>
+
+                        <!-- Live Message Stream Hook -->
+                        <div class="message-stream-scrollable" id="chat-message-stream">
+                            
+                            <!-- Timestamp Separator -->
+                            <div class="stream-date-divider"><span>May 15, 2026</span></div>
+
+                            <!-- Incoming Message Layout Block -->
+                            <div class="message-bubble-row incoming">
+                                <div class="bubble-avatar">BC</div>
+                                <div class="bubble-content-block">
+                                    <div class="bubble-text">
+                                        <p>Hello! We finished analyzing your matched engineering credentials. Can you confirm your availability matches the Ontario-centric business shift hours listed in the core contract specification?</p>
+                                    </div>
+                                    <span class="bubble-time">3:14 PM</span>
+                                </div>
+                            </div>
+
+                            <!-- Outgoing Message Layout Block -->
+                            <div class="message-bubble-row outgoing">
+                                <div class="bubble-content-block">
+                                    <div class="bubble-text">
+                                        <p>Hi there. Yes, I can confirm that. My schedule is fully open during those windows, and my academic calendar files are locked inside the dashboard to clear the 20-hour restriction filter automatically.</p>
+                                    </div>
+                                    <span class="bubble-time">3:22 PM</span>
+                                </div>
+                            </div>
+
+                            <div class="stream-date-divider"><span>Today</span></div>
+
+                            <!-- Incoming Message Layout Block -->
+                            <div class="message-bubble-row incoming">
+                                <div class="bubble-avatar">BC</div>
+                                <div class="bubble-content-block">
+                                    <div class="bubble-text">
+                                        <p>Perfect. The tier 2 remote scheduling parameters look correct. We are pushing the digital contract setup to your dashboard overview stream now.</p>
+                                    </div>
+                                    <span class="bubble-time">10:42 AM</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Chat Operational Control Footer Input Tray -->
+                        <footer class="console-chat-footer-tray">
+                            <form id="chat-message-dispatch-form" class="chat-input-form-wrapper">
+                                <button type="button" class="btn-chat-attachment" id="chat-attachment-btn" title="Attach Document Portfolio Asset">
+                                    <i class="fas fa-paperclip"></i>
+                                </button>
+                                <input type="text" id="chat-message-text-input" autocomplete="off" placeholder="Write an encrypted response..." required>
+                                <button type="submit" class="btn-chat-send" id="chat-send-btn">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </form>
+                        </footer>
+
+                    </section>
+
+                    <!-- Contextual Metadata Sidebar Panel (Right) -->
+                    <section class="chat-contextual-metadata-sidebar" id="context-sidebar-node">
+                        <div class="sidebar-context-card-wrapper">
+                            <div class="context-profile-summary text-center">
+                                <div class="large-context-avatar">BC</div>
+                                <h4>Bell Canada Enterprise</h4>
+                                <span class="badge badge-verified"><i class="fas fa-shield-check"></i> Enterprise Vetted</span>
+                            </div>
+                            
+                            <hr class="context-divider">
+                            
+                            <div class="context-details-manifest">
+                                <h5>Active Placement Connection</h5>
+                                <div class="meta-data-item-row">
+                                    <label>Matched Role:</label>
+                                    <span>Technical Support Architect (T2)</span>
+                                </div>
+                                <div class="meta-data-item-row">
+                                    <label>Core Jurisdiction:</label>
+                                    <span>Ontario / Remote</span>
+                                </div>
+                                <div class="meta-data-item-row">
+                                    <label>Pay Structure:</label>
+                                    <span>$26.50 CAD / Hour</span>
+                                </div>
+                            </div>
+
+                            <hr class="context-divider">
+
+                            <div class="context-regulatory-notice-box">
+                                <h5><i class="fas fa-lock-keyhole"></i> Workspace Security</h5>
+                                <p>This channel is operating inside a sandboxed TLS encryption tunnel. Transmitting direct banking credentials or explicit financial raw numbers outside our processing gates is flags compliance routines.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../../src/js/api.js"></script>
+    <script src="../../src/js/utils/loader.js"></script>
+    <script src="../../src/js/pages/dashboard/messages.js"></script>
+</body>
+</html>
