@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Candidate Super-Matrix | Admin Operations Center</title>
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="admin-impersonation-alert-ribbon" id="adminImpersonationRibbon" style="display: none;">
+        <div class="impersonation-meta-details">
+            <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            <span><strong>System Warning:</strong> Executing administrative management parameters. All profile overrides are cryptographically logged.</span>
+        </div>
+        <button class="btn-terminate-impersonation" onclick="terminateImpersonationSession()">Exit Session</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-top-group">
+                <div class="dashboard-content-header" style="border-bottom: 1px solid #2d3748; margin-bottom: 1.5rem; padding-bottom: 1rem;">
+                    <div class="header-title-block">
+                        <h1 style="color: #ffffff; font-size: 1.25rem; margin: 0;">MableWork HQ</h1>
+                        <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">Talent Control Center</p>
+                    </div>
+                </div>
+                <nav class="sidebar-links-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="dashboard.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i> Overview Control
+                    </a>
+                    <a href="staff-manager.html" style="color: #ffffff; background-color: #1f2937; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem; font-weight: 600;">
+                        <i class="fa-solid fa-user-graduate" style="width: 20px;"></i> Candidate Matrix
+                    </a>
+                    <a href="audit-logs.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-shield-halved" style="width: 20px;"></i> Security Audit Logs
+                    </a>
+                    <a href="workers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-gears" style="width: 20px;"></i> Engine Workers
+                    </a>
+                </nav>
+            </div>
+            <div class="sidebar-footer-group">
+                <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="executeAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Drop Access Gate
+                </button>
+            </div>
+        </aside>
+
+        <main class="dashboard-main-content animate-view-entry">
+            <div class="dashboard-content-header">
+                <div class="header-title-block">
+                    <h1>Global Candidate Portfolio Matrix</h1>
+                    <p>Audit international verification criteria, modify statutory tracking flags, and handle user security state overrides.</p>
+                </div>
+                <div class="header-profile-badge">
+                    <span>Operations Officer</span>
+                    <div class="user-avatar" id="adminUserAvatarNode">TAL</div>
+                </div>
+            </div>
+
+            <div id="matrixActionAlertFeedback" class="alert-box-container hidden-alert"></div>
+
+            <section class="metrics-summary-ribbon id-metrics-row-margin" style="margin-bottom: 2rem;">
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-primary-soft text-primary">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Total Vetted Talents</span>
+                        <span class="metric-value" id="totalVettedStaffCounter">1,240</span>
+                    </div>
+                </div>
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-warning-soft text-warning">
+                        <i class="fa-solid fa-passport"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Study Permit Reviews</span>
+                        <span class="metric-value" id="permitReviewsPendingCounter">18</span>
+                    </div>
+                </div>
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-success-soft text-success">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Currently Placed</span>
+                        <span class="metric-value" id="activePlacementsCounter">342</span>
+                    </div>
+                </div>
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-danger-soft text-danger">
+                        <i class="fa-solid fa-user-slash"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Suspended Profiles</span>
+                        <span class="metric-value" id="suspendedStaffCounter">4</span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="admin-action-filtering-dock">
+                <div class="filter-controls-group">
+                    <input type="text" id="staffSearchInput" class="admin-dense-search-input" placeholder="Search by name, email, institution..." style="width: 280px;" onkeyup="evaluateStaffClientFilter()">
+                    <select id="visaStatusFilterSelect" class="admin-dense-select" onchange="evaluateStaffClientFilter()">
+                        <option value="ALL">All Visa Tracks</option>
+                        <option value="INTL_STUDENT">International Student (Cap Locked)</option>
+                        <option value="WORK_PERMIT">Post-Grad Work Permit (Open)</option>
+                        <option value="CITIZEN">PR / Canadian Citizen</option>
+                    </select>
+                    <select id="complianceFilterSelect" class="admin-dense-select" onchange="evaluateStaffClientFilter()">
+                        <option value="ALL">All Compliance States</option>
+                        <option value="VERIFIED">Verified &amp; Clear</option>
+                        <option value="PENDING">Awaiting Audit</option>
+                        <option value="BLOCKED">Restricted / Expired</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="btn btn-outline-primary btn-sm" onclick="syncStaffDataMatrix()">
+                        <i class="fa-solid fa-arrows-rotate"></i> Sync Matrix
+                    </button>
+                </div>
+            </div>
+
+            <div class="premium-dashboard-card">
+                <div class="card-title-row">
+                    <h3><i class="fa-solid fa-address-card text-primary"></i> Platform Candidate Accounts Ledger</h3>
+                    <span class="admin-status-matrix-tag matrix-tag-active">Data Synced Stream</span>
+                </div>
+                <p class="card-body-description" style="margin-bottom: 1.5rem;">
+                    Provides administrative oversight over verified background files. Operators can manually transition users into restriction profiles or invoke identity validation checks.
+                </p>
+
+                <div class="table-responsive-wrapper">
+                    <table class="admin-audit-log-table" id="candidateRegistryMasterTable">
+                        <thead>
+                            <tr>
+                                <th>Candidate Reference</th>
+                                <th>Academic / Academic Institution</th>
+                                <th>Visa Classification</th>
+                                <th>Weekly Cap Rule</th>
+                                <th>SIN Status</th>
+                                <th>Compliance</th>
+                                <th style="text-align: right;">Administrative Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="candidateManagementDataRows">
+                            <tr class="staff-data-row-item" data-visa="INTL_STUDENT" data-compliance="VERIFIED">
+                                <td style="font-weight: 600;">
+                                    <span>Amara Okafor</span><br>
+                                    <span style="color: #6b7280; font-size: 0.75rem; font-weight: 400;">amara.okafor@mable.work</span>
+                                </td>
+                                <td>
+                                    <strong>
