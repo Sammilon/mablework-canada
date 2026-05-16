@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Matrix | Candidate Dashboard | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../../src/css/variables.css">
+    <link rel="stylesheet" href="../../src/css/global.css">
+    <link rel="stylesheet" href="../../src/css/components/loader.css">
+    <link rel="stylesheet" href="../../src/css/components/dashboard-layout.css">
+    <link rel="stylesheet" href="../../src/css/pages/dashboard/notifications.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Premium Visual Icons Vector Pack -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Syncing Message Ledger...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <div class="dashboard-wrapper">
+            
+            <!-- Internal Application Navigation Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <span class="brand-text">MableWork</span>
+                    <span class="brand-region">Canada</span>
+                </div>
+                <nav class="sidebar-menu">
+                    <a href="index.html" class="menu-item"><i class="fas fa-chart-pie"></i> Overview Hub</a>
+                    <a href="jobs.html" class="menu-item"><i class="fas fa-briefcase"></i> Remote Postings</a>
+                    <a href="timesheets.html" class="menu-item"><i class="fas fa-clock"></i> Hour Tracking</a>
+                    <a href="verification.html" class="menu-item"><i class="fas fa-shield-check"></i> Compliance Audit</a>
+                    <a href="security.html" class="menu-item"><i class="fas fa-sliders"></i> Security Setup</a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button id="sidebar-logout-trigger" class="btn btn-outline-danger btn-sm full-width"><i class="fas fa-power-off"></i> Terminate Session</button>
+                </div>
+            </aside>
+
+            <!-- Main Workspace Container -->
+            <main class="dashboard-main-content">
+                
+                <!-- Internal Page Context Header -->
+                <header class="dashboard-content-header">
+                    <div class="header-title-block">
+                        <h1>Notification Matrix</h1>
+                        <p>Track your contract matches, processing timelines, compliance updates, and automated system reports.</p>
+                    </div>
+                    <div class="header-profile-badge">
+                        <div class="user-avatar" id="nav-avatar-fallback">CN</div>
+                        <span id="user-display-name">Candidate</span>
+                    </div>
+                </header>
+
+                <!-- Feedback Banner Center -->
+                <div id="notifications-alert-center" class="alert-box-container hidden-alert"></div>
+
+                <!-- Primary Activity Log Interface Card -->
+                <div class="premium-dashboard-card notification-center-card">
+                    
+                    <!-- Control Ledger Bar -->
+                    <div class="card-title-row control-action-bar">
+                        <div class="filter-tabs-group">
+                            <button class="tab-btn active" data-filter="all">All Alerts</button>
+                            <button class="tab-btn" data-filter="unread">Unread Only</button>
+                            <button class="tab-btn" data-filter="compliance">Compliance</button>
+                        </div>
+                        <div class="bulk-actions-group">
+                            <button id="mark-all-read-btn" class="btn btn-outline-secondary btn-sm"><i class="fas fa-check-double"></i> Clear Unread Flag</button>
+                            <button id="purge-history-btn" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash-can"></i> Purge All</button>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Notification Stream Engine -->
+                    <div class="notification-stream-container">
+                        
+                        <!-- Empty Logging Overlay Hook -->
+                        <div class="empty-notifications-state hidden" id="empty-stream-trigger">
+                            <i class="fas fa-bell-slash"></i>
+                            <h4>Workspace Channel Clear</h4>
+                            <p>You have no current system alerts or verification updates pending.</p>
+                        </div>
+
+                        <!-- Main Ledger Interactive Hook -->
+                        <ul class="notification-feed-list" id="active-notifications-feed">
+                            
+                            <!-- Notice Item A: Compliance Warning System State (Unread) -->
+                            <li class="notification-item unread compliance-node" data-id="101">
+                                <div class="item-icon-wrapper icon-warning">
+                                    <i class="fas fa-circle-exclamation"></i>
+                                </div>
+                                <div class="notification-body">
+                                    <div class="notification-headline">
+                                        <h5>IRCC Work Authorization Audit Action Required</h5>
+                                        <span class="timestamp-tag">Just Now</span>
+                                    </div>
+                                    <p class="notification-text">Your international study permit document background profile requires direct revision. Please re-upload a clear copy containing legible conditions in the Compliance Audit section to maintain active placement match routines.</p>
+                                    <div class="notification-actions">
+                                        <a href="verification.html" class="btn btn-primary btn-xs">Navigate to Audit</a>
+                                        <button class="btn btn-link btn-xs mark-read-trigger">Acknowledge</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Notice Item B: Financial Node State (Read) -->
+                            <li class="notification-item transactional-node" data-id="102">
+                                <div class="item-icon-wrapper icon-success">
+                                    <i class="fas fa-money-check-dollar"></i>
+                                </div>
+                                <div class="notification-body">
+                                    <div class="notification-headline">
+                                        <h5>Payroll Processing Cycle Completed</h5>
+                                        <span class="timestamp-tag">Yesterday</span>
+                                    </div>
+                                    <p class="notification-text">Your approved hours for the billing cycle ending May 15, 2026, have been processed. Direct deposit routing commands have been dispatched to your designated Canadian financial institution account. Funds will clear within 48 bank processing hours.</p>
+                                    <div class="notification-actions">
+                                        <button class="btn btn-link btn-xs delete-notification-trigger text-danger">Remove Track</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Notice Item C: Match Contract Core Notification (Read) -->
+                            <li class="notification-item system-node" data-id="103">
+                                <div class="item-icon-wrapper icon-info">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                                <div class="notification-body">
+                                    <div class="notification-headline">
+                                        <h5>Remote Listing Match Pipeline Scan Complete</h5>
+                                        <span class="timestamp-tag">May 12, 2026</span>
+                                    </div>
+                                    <p class="notification-text">Your refreshed skill keywords and provincial residency metrics have matched successfully with two new enterprise customer support listings. Review matching tracks immediately to accept interview workflows.</p>
+                                    <div class="notification-actions">
+                                        <a href="jobs.html" class="btn btn-secondary btn-xs">View Matches</a>
+                                        <button class="btn btn-link btn-xs delete-notification-trigger text-danger">Remove Track</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../../src/js/api.js"></script>
+    <script src="../../src/js/utils/loader.js"></script>
+    <script src="../../src/js/pages/dashboard/notifications.js"></script>
+</body>
+</html>
