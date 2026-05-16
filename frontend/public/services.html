@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../src/css/variables.css">
+    <link rel="stylesheet" href="../src/css/global.css">
+    <link rel="stylesheet" href="../src/css/components/loader.css">
+    <link rel="stylesheet" href="../src/css/components/navbar.css">
+    <link rel="stylesheet" href="../src/css/pages/services.css">
+    <link rel="stylesheet" href="../src/css/components/footer.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Vector Icons Framework -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Loading Core Services...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <!-- Platform Navigation Bar Header -->
+        <header class="main-header">
+            <nav class="nav-container">
+                <div class="nav-brand">
+                    <a href="/index.html" class="brand-link">
+                        <span class="brand-text">MableWork</span>
+                        <span class="brand-region">Canada</span>
+                    </a>
+                </div>
+                <div class="nav-links" id="nav-menu">
+                    <a href="/index.html" class="nav-item">Home</a>
+                    <a href="/workforce.html" class="nav-item">Find Workforce</a>
+                    <a href="/jobs.html" class="nav-item">Browse Jobs</a>
+                    <div class="nav-auth-group" id="auth-actions">
+                        <a href="/login.html" class="btn btn-secondary">Sign In</a>
+                        <a href="/register.html" class="btn btn-primary">Join Platform</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Services Presentation Ecosystem -->
+        <main class="services-layout-main">
+            
+            <!-- Hero Introduction Header Section -->
+            <section class="services-hero-banner">
+                <div class="section-container">
+                    <span class="badge">Enterprise Solutions</span>
+                    <h1>Regulated Workforce Matching Architecture</h1>
+                    <p>Providing secure, efficient, and compliant technical talent solutions across Canada's industrial and corporate landscapes.</p>
+                </div>
+            </section>
+
+            <!-- Dual Segmentation Columns Layout -->
+            <section class="services-matrix-section">
+                <div class="section-container">
+                    <div class="services-grid">
+                        
+                        <!-- Segment 1: Employer Solutions -->
+                        <div class="service-panel employer-panel">
+                            <div class="panel-icon-header">
+                                <i class="fas fa-building-columns"></i>
+                            </div>
+                            <h2>For Canadian Employers</h2>
+                            <p class="panel-desc">Scale your workforce instantly with pre-screened, credential-verified trade professionals and technical specialists.</p>
+                            
+                            <hr class="panel-divider">
+                            
+                            <ul class="panel-feature-list">
+                                <li>
+                                    <i class="fas fa-circle-check"></i>
+                                    <div>
+                                        <strong>Automated Credentials Audit:</strong> 
+                                        Immediate local validation of trade certifications, work records, and reference pools.
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-circle-check"></i>
+                                    <div>
+                                        <strong>Escrowed Milestone Payments:</strong> 
+                                        Fund and process project-based payroll safely through integrated Stripe architectures.
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-circle-check"></i>
+                                    <div>
+                                        <strong>Geographic Zone Targeted Sourcing:</strong> 
+                                        Filter talent strictly by proximity, city, or individual Canadian province.
+                                    </div>
+                                </li>
+                            </ul>
+                            <a href="/register.html?type=employer" class="btn btn-primary full-width">Create Employer Profile</a>
+                        </div>
+
+                        <!-- Segment 2: Worker Solutions -->
+                        <div class="service-panel worker-panel">
+                            <div class="panel-icon-header">
+                                <i class="fas fa-user-gear"></i>
+                            </div>
+                            <h2>For Skilled Professionals</h2>
+                            <p class="panel-desc">Gain access to vetted enterprise-level contracts and direct placements matching your specific technical trade sets.</p>
+                            
+                            <hr class="panel-divider">
+                            
+                            <ul class="panel-feature-list">
+                                <li>
+                                    <i class="fas fa-circle-check"></i>
+                                    <div>
+                                        <strong>Verified Profile Status:</strong> 
+                                        Stand out to elite contractors via our unified system qualification checkmark badge.
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-circle-check"></i>
+                                    <div>
+                                        <strong>Real-Time Chat Interfacing:</strong> 
+                                        Connect instantly with hiring managers through secure WebSocket communications channels.
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-circle-check"></i>
+                                    <div>
+                                        <strong>Guaranteed Payout Workflows:</strong> 
+                                        Rest easy knowing contract funds are verified before you initiate on-site deployments.
+                                    </div>
+                                </li>
+                            </ul>
+                            <a href="/register.html?type=worker" class="btn btn-secondary full-width">Register as a Worker</a>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Compliance Guarding Trust Section -->
+            <section class="compliance-trust-callout">
+                <div class="section-container">
+                    <div class="trust-content-box">
+                        <h3><i class="fas fa-shield-halved"></i> Fully Regulated & Secured</h3>
+                        <p>Our infrastructure strictly aligns with the Personal Information Protection and Electronic Documents Act (PIPEDA) directives, processing data via edge security configurations for maximum information safety.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Professional Platform Corporate Footer Layout -->
+        <footer class="main-footer">
+            <div class="footer-container">
+                <p>&copy; 2026 MableWork Canada. All Rights Reserved. Regulated Enterprise Hiring Platform.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../src/js/api.js"></script>
+    <script src="../src/js/utils/loader.js"></script>
+</body>
+</html>
