@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Operations Hub | Employer Dashboard | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../../src/css/variables.css">
+    <link rel="stylesheet" href="../../src/css/global.css">
+    <link rel="stylesheet" href="../../src/css/components/loader.css">
+    <link rel="stylesheet" href="../../src/css/components/dashboard-layout.css">
+    <link rel="stylesheet" href="../../src/css/pages/dashboard/employer-main.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Premium Visual Icons Vector Pack -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Configuring Operations Engine...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <div class="dashboard-wrapper">
+            
+            <!-- Internal Employer Navigation Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <span class="brand-text">MableWork</span>
+                    <span class="brand-region">Corporate</span>
+                </div>
+                <nav class="sidebar-menu">
+                    <a href="dashboard.html" class="menu-item active"><i class="fas fa-chart-line"></i> Operations Center</a>
+                    <a href="workforce-request.html" class="menu-item"><i class="fas fa-layer-plus"></i> Request Workforce</a>
+                    <a href="active-placements.html" class="menu-item"><i class="fas fa-users-gear"></i> Active Rosters</a>
+                    <a href="billing.html" class="menu-item"><i class="fas fa-credit-card-blank"></i> Corporate Invoicing</a>
+                    <a href="compliance-vault.html" class="menu-item"><i class="fas fa-building-shield"></i> Risk Mitigation</a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button id="sidebar-logout-trigger" class="btn btn-outline-danger btn-sm full-width"><i class="fas fa-power-off"></i> Terminate Portal Session</button>
+                </div>
+            </aside>
+
+            <!-- Main Work Area Stream Layer -->
+            <main class="dashboard-main-content">
+                
+                <!-- Internal Context Header -->
+                <header class="dashboard-content-header">
+                    <div class="header-title-block">
+                        <h1>Operations Center Dashboard</h1>
+                        <p>Analyze domestic sourcing metrics, audit concurrent project teams, and oversee active contractual compliance pipelines.</p>
+                    </div>
+                    <div class="header-profile-badge">
+                        <div class="user-avatar" id="nav-avatar-fallback">HQ</div>
+                        <span id="user-display-name">Enterprise Admin</span>
+                    </div>
+                </header>
+
+                <!-- Feedback Banner Center -->
+                <div id="dashboard-alert-center" class="alert-box-container hidden-alert"></div>
+
+                <!-- Section A: Primary Corporate Metrics Overview Grid -->
+                <section class="metrics-summary-ribbon mb-4">
+                    <div class="metric-card-node">
+                        <div class="metric-icon-box bg-primary-soft"><i class="fas fa-users-viewfinder text-primary"></i></div>
+                        <div class="metric-data-block">
+                            <span class="metric-label">Active Deployments</span>
+                            <h2 class="metric-value" id="metric-active-workers">8 Resources</h2>
+                        </div>
+                    </div>
+                    <div class="metric-card-node">
+                        <div class="metric-icon-box bg-success-soft"><i class="fas fa-wallet text-success"></i></div>
+                        <div class="metric-data-block">
+                            <span class="metric-label">Escrow Retainer Balance</span>
+                            <h2 class="metric-value" id="metric-escrow-hold">$12,450.00 CAD</h2>
+                        </div>
+                    </div>
+                    <div class="metric-card-node">
+                        <div class="metric-icon-box bg-warning-soft"><i class="fas fa-user-clock text-warning"></i></div>
+                        <div class="metric-data-block">
+                            <span class="metric-label">Hours Logged (Current Cycle)</span>
+                            <h2 class="metric-value" id="metric-hours-tracked">142.5 hrs</h2>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section B: Operational Task Layout Grid -->
+                <div class="employer-dashboard-layout-grid">
+                    
+                    <!-- Left Area: Pending Direct Tasks & Compliance Items -->
+                    <div class="dashboard-main-stream-panel">
+                        
+                        <!-- Block 1: Real-time Compliance Action Items -->
+                        <div class="premium-dashboard-card alert-highlight-card">
+                            <div class="card-title-row">
+                                <h3 class="text-warning"><i class="fas fa-shield-circle-exclamation"></i> Critical Verification & Compliance Triggers</h3>
+                            </div>
+                            <div class="actionable-notifications-stack" id="compliance-triggers-root">
+                                
+                                <div class="compliance-alert-item-row alert-warning-type">
+                                    <div class="alert-meta-details">
+                                        <strong><i class="fas fa-graduation-cap"></i> Statutory Cap Boundary Warning</strong>
+                                        <p>Candidate Amara Okafor (Remote Customer Care) has logged 18.5 hours out of her maximum 20-hour weekly ceiling for this tracking interval.</p>
+                                    </div>
+                                    <div class="alert-action-controls">
+                                        <a href="active-placements.html" class="btn btn-outline-warning btn-xs">Audit Logs</a>
+                                    </div>
+                                </div>
+
+                                <div class="compliance-alert-item-row alert-info-type">
+                                    <div class="alert-meta-details">
+                                        <strong><i class="fas fa-file-invoice"></i> Pending Timesheet Approvals</strong>
+                                        <p>3 active candidate placement files have finalized their weekly time tracking sequences and are awaiting management authorization.</p>
+                                    </div>
+                                    <div class="alert-action-controls">
+                                        <a href="active-placements.html" class="btn btn-outline-primary btn-xs">Review Timesheets</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Block 2: Active Placements Summary View -->
+                        <div class="premium-dashboard-card">
+                            <div class="card-title-row">
+                                <h3><i class="fas fa-users-gear"></i> Active Sourcing Placements Overview</h3>
+                                <a href="active-placements.html" class="card-context-link">View Full Roster <i class="fas fa-arrow-right-long"></i></a>
+                            </div>
+                            <div class="table-responsive-wrapper mt-2">
+                                <table class="dashboard-summary-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Candidate</th>
+                                            <th>Assignment Stream</th>
+                                            <th>Weekly Track</th>
+                                            <th>Status Flag</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="active-placements-summary-root">
+                                        <tr>
+                                            <td><strong>Amara Okafor</strong></td>
+                                            <td>Customer Care Associate</td>
+                                            <td>18.5 / 20.0 hrs</td>
+                                            <td><span class="badge badge-warning">Near Cap</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Liam Tremblay</strong></td>
+                                            <td>Technical Helpdesk Agent</td>
+                                            <td>24.0 / 40.0 hrs</td>
+                                            <td><span class="badge badge-verified">Optimal</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Area: Strategic Provisioning Shortcuts & Help Guides -->
+                    <div class="dashboard-sidebar-stream-panel">
+                        
+                        <!-- Quick Sourcing Provisioning Gateway -->
+                        <div class="premium-dashboard-card quick-action-cta-card">
+                            <h4>Procure Remote Sourcing Pools</h4>
+                            <p class="sidebar-help-text">Need to rapidly provision temporary or project-based teams? Submit staffing parameters directly down our automated match pipelines.</p>
+                            <a href="workforce-request.html" class="btn btn-primary btn-sm full-width mt-2"><i class="fas fa-layer-plus"></i> Deploy Workforce Stream</a>
+                        </div>
+
+                        <!-- Regulatory Framework Compliance Documentation Box -->
+                        <div class="premium-dashboard-card context-regulatory-card">
+                            <h4><i class="fas fa-scale-balanced text-muted"></i> Statutory Escrow Protections</h4>
+                            <p class="sidebar-help-text">MableWork safely anchors your procurement funds within secure corporate retainers. Capital payouts release seamlessly to candidates only after tracking loops register authorized manager timesheet sign-offs, keeping operations fully aligned with provincial standards.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../../src/js/api.js"></script>
+    <script src="../../src/js/utils/loader.js"></script>
+    <script src="../../src/js/pages/dashboard/employer-main.js"></script>
+</body>
+</html>
