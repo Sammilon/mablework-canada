@@ -1,0 +1,163 @@
+/**
+ * MABLEWORK CANADA - MASTER RESPONSIVE GRID OVERRIDES
+ * Establishes breakpoint adaptation layers, touch boundaries, and responsive view adjustments.
+ */
+
+/* ==========================================================================
+   1. LARGE DESKTOP & MONITORS BANDWIDTH (Up to 1200px)
+   ========================================================================== */
+@media (max-width: 1200px) {
+    .site-container {
+        max-width: 960px;
+    }
+    
+    .dashboard-wrapper {
+        gap: 1rem;
+    }
+}
+
+/* ==========================================================================
+   2. TABLET LANDSCAPE & NOTEBOOK FORM FACTORS (Up to 992px)
+   ========================================================================== */
+@media (max-width: 992px) {
+    .site-container {
+        max-width: 720px;
+    }
+
+    /* Landing Hero Segment Flattening */
+    .hero-split-layout {
+        flex-direction: column;
+        text-align: center;
+        gap: 2.5rem;
+    }
+
+    .hero-content-block, .hero-graphics-block {
+        width: 100% !important;
+        max-width: 100%;
+    }
+
+    .hero-cta-group {
+        justify-content: center;
+    }
+
+    /* Enterprise Grid Adjustments */
+    .employer-dashboard-layout-grid,
+    .profile-dashboard-grid,
+    .billing-dashboard-grid,
+    .settings-dashboard-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem;
+    }
+
+    .profile-metadata-sidebar-column,
+    .billing-sidebar-panel,
+    .settings-sidebar-column {
+        position: static !important;
+    }
+}
+
+/* ==========================================================================
+   3. TABLET PORTRAIT & MOBILE ENCLOSURES (Up to 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .site-container {
+        max-width: 540px;
+        padding: 0 1rem;
+    }
+
+    /* Collapse Side Navigation into Top-Bar Layout Flow */
+    .dashboard-wrapper {
+        flex-direction: column;
+    }
+
+    .dashboard-sidebar {
+        width: 100% !important;
+        min-height: auto !important;
+        position: relative !important;
+        padding: 1rem !important;
+        border-right: none !important;
+        border-bottom: 1px solid var(--border-color-soft, #e5e7eb);
+    }
+
+    .sidebar-menu {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        gap: 0.5rem;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .menu-item {
+        white-space: nowrap;
+        scroll-snap-align: start;
+        padding: 0.5rem 0.875rem !important;
+        font-size: 0.875rem !important;
+    }
+
+    .sidebar-footer {
+        display: none !important; /* Managed via alternative header logout on small displays */
+    }
+
+    /* Content Area Conversions */
+    .dashboard-main-content {
+        padding: 1rem !important;
+    }
+
+    .dashboard-content-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .header-profile-badge {
+        width: 100%;
+        justify-content: flex-start;
+        padding-top: 0.75rem;
+        border-top: 1px solid var(--border-color-soft, #e5e7eb);
+    }
+
+    /* Core Components Rescaling */
+    .metrics-summary-ribbon {
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
+    }
+
+    .card-form-inputs-grid.dual-column {
+        grid-template-columns: 1fr !important;
+    }
+
+    .table-responsive-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* ==========================================================================
+   4. MICRO-VIEWPORT MOBILE BOUNDS (Up to 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
+
+    .btn {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .compliance-alert-item-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .alert-action-controls {
+        width: 100%;
+    }
+    
+    .alert-action-controls .btn {
+        width: 100%;
+    }
+}
