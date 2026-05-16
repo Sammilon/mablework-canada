@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communication Channels & Rules | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../../src/css/variables.css">
+    <link rel="stylesheet" href="../../src/css/global.css">
+    <link rel="stylesheet" href="../../src/css/components/loader.css">
+    <link rel="stylesheet" href="../../src/css/components/dashboard-layout.css">
+    <link rel="stylesheet" href="../../src/css/pages/dashboard/communication-settings.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Premium Visual Icons Vector Pack -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Configuring Dispatch Nodes...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <div class="dashboard-wrapper">
+            
+            <!-- Internal Application Navigation Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <span class="brand-text">MableWork</span>
+                    <span class="brand-region">Canada</span>
+                </div>
+                <nav class="sidebar-menu">
+                    <a href="dashboard.html" class="menu-item"><i class="fas fa-chart-pie"></i> Overview Hub</a>
+                    <a href="jobs.html" class="menu-item"><i class="fas fa-briefcase"></i> Remote Postings</a>
+                    <a href="timesheets.html" class="menu-item"><i class="fas fa-clock"></i> Hour Tracking</a>
+                    <a href="verification.html" class="menu-item"><i class="fas fa-shield-check"></i> Compliance Audit</a>
+                    <a href="security.html" class="menu-item active"><i class="fas fa-sliders"></i> Security Setup</a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button id="sidebar-logout-trigger" class="btn btn-outline-danger btn-sm full-width"><i class="fas fa-power-off"></i> Terminate Session</button>
+                </div>
+            </aside>
+
+            <!-- Main Workspace Container -->
+            <main class="dashboard-main-content">
+                
+                <!-- Internal Page Context Header -->
+                <header class="dashboard-content-header">
+                    <div class="header-title-block">
+                        <h1>Communication Rules Matrix</h1>
+                        <p>Customize ingestion streams and throttle programmatic dispatch gateways across your registered endpoints.</p>
+                    </div>
+                    <div class="header-profile-badge">
+                        <div class="user-avatar" id="nav-avatar-fallback">CN</div>
+                        <span id="user-display-name">Candidate</span>
+                    </div>
+                </header>
+
+                <!-- Feedback Alert Container -->
+                <div id="comms-alert-center" class="alert-box-container hidden-alert"></div>
+
+                <!-- Central Form Configuration Matrix -->
+                <form id="communication-rules-form" class="interactive-dashboard-form">
+                    <div class="comms-settings-grid">
+                        
+                        <!-- Left: Core Grid Options -->
+                        <div class="comms-options-main-panel">
+                            
+                            <!-- Box Node 1: High-Priority Routing -->
+                            <div class="premium-dashboard-card">
+                                <div class="card-title-row">
+                                    <h3><i class="fas fa-shield-exclamation text-danger"></i> Compliance & Auditing Vectors</h3>
+                                </div>
+                                <div class="card-body-description">
+                                    <p>These channels deliver structural system triggers including IRCC permit expiration flags, failed validation tasks, and workspace isolation locks. Due to regulatory frameworks, core email dispatch loops cannot be deactivated.</p>
+                                </div>
+                                
+                                <div class="toggle-control-list">
+                                    <div class="toggle-row-item disabled-toggle">
+                                        <div class="toggle-meta">
+                                            <strong>Email Infrastructure Pipeline</strong>
+                                            <span>Fires instantly for all failed verification nodes or audit steps.</span>
+                                        </div>
+                                        <label class="switch-toggle-component">
+                                            <input type="checkbox" checked disabled>
+                                            <span class="slider-round"></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="toggle-row-item">
+                                        <div class="toggle-meta">
+                                            <strong>SMS Telephony Vector</strong>
+                                            <span>Sends a backup text alert directly to your phone number for immediate attention.</span>
+                                        </div>
+                                        <label class="switch-toggle-component">
+                                            <input type="checkbox" name="complianceSMS" id="comms-compliance-sms">
+                                            <span class="slider-round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Box Node 2: Financial Routing Matrix -->
+                            <div class="premium-dashboard-card">
+                                <div class="card-title-row">
+                                    <h3><i class="fas fa-money-check-dollar text-success"></i> Payroll & Billing Allocations</h3>
+                                </div>
+                                <div class="card-body-description">
+                                    <p>Configure notification routing loops for timesheet approval adjustments, lock dates, and automated direct deposit processing receipts.</p>
+                                </div>
+                                
+                                <div class="toggle-control-list">
+                                    <div class="toggle-row-item">
+                                        <div class="toggle-meta">
+                                            <strong>Email Pay Slip Transmission</strong>
+                                            <span>Sends encrypted ledger files detailing hours approved and gross payouts.</span>
+                                        </div>
+                                        <label class="switch-toggle-component">
+                                            <input type="checkbox" name="payrollEmail" id="comms-payroll-email" checked>
+                                            <span class="slider-round"></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="toggle-row-item">
+                                        <div class="toggle-meta">
+                                            <strong>SMS Bank Clearing Alert</strong>
+                                            <span>Fires an SMS text notification when direct deposit commands are dispatched to clearing houses.</span>
+                                        </div>
+                                        <label class="switch-toggle-component">
+                                            <input type="checkbox" name="payrollSMS" id="comms-payroll-sms">
+                                            <span class="slider-round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Box Node 3: Match Engine Notification Settings -->
+                            <div class="premium-dashboard-card">
+                                <div class="card-title-row">
+                                    <h3><i class="fas fa-layer-group text-primary"></i> Pipeline & Matching Analytics</h3>
+                                </div>
+                                <div class="card-body-description">
+                                    <p>Control incoming alerts when profile parameters match corporate project queues, remote interview invitations open, or live chats are initiated.</p>
+                                </div>
+                                
+                                <div class="toggle-control-list">
+                                    <div class="toggle-row-item">
+                                        <div class="toggle-meta">
+                                            <strong>Immediate Match Ingestion (Email)</strong>
+                                            <span>Sends notifications within 5 minutes of your profile clearing a matching pipeline.</span>
+                                        </div>
+                                        <label class="switch-toggle-component">
+                                            <input type="checkbox" name="matchesEmail" id="comms-matches-email" checked>
+                                            <span class="slider-round"></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="toggle-row-item">
+                                        <div class="toggle-meta">
+                                            <strong>Secure Room Message Summary</strong>
+                                            <span>Batches unread direct chat logs into a daily digest report.</span>
+                                        </div>
+                                        <label class="switch-toggle-component">
+                                            <input type="checkbox" name="messagesDigest" id="comms-messages-digest" checked>
+                                            <span class="slider-round"></span>
+                                        </label>
+                                    </div>
+                               }
+                            </div>
+
+                        </div>
+
+                        <!-- Right: Sticky Form Save Layout Actions -->
+                        <div class="comms-action-sidebar">
+                            <div class="premium-dashboard-card sticky-action-card">
+                                <h4>Commit Preferences</h4>
+                                <p class="sidebar-help-text">Updating notification configurations triggers a token renegotiation across matching clusters to update dispatch endpoints instantly.</p>
+                                
+                                <button type="submit" id="save-comms-settings-btn" class="btn btn-primary full-width mt-3">
+                                    <span class="btn-text"><i class="fas fa-floppy-disk"></i> Lock Distribution Rules</span>
+                                    <span class="btn-spinner-icon hidden"><i class="fas fa-circle-notch fa-spin"></i></span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../../src/js/api.js"></script>
+    <script src="../../src/js/utils/loader.js"></script>
+    <script src="../../src/js/pages/dashboard/communication-settings.js"></script>
+</body>
+</html>
