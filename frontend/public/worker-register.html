@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worker Registration | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../src/css/variables.css">
+    <link rel="stylesheet" href="../src/css/global.css">
+    <link rel="stylesheet" href="../src/css/components/loader.css">
+    <link rel="stylesheet" href="../src/css/components/navbar.css">
+    <link rel="stylesheet" href="../src/css/pages/register-forms.css">
+    <link rel="stylesheet" href="../src/css/components/footer.css">
+    
+    <!-- Google Fonts & Icons Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Cloudflare Turnstile Security Script Embed -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Loading Candidate Onboarding Engine...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <!-- Header -->
+        <header class="main-header">
+            <nav class="nav-container">
+                <div class="nav-brand">
+                    <a href="/index.html" class="brand-link">
+                        <span class="brand-text">MableWork</span>
+                        <span class="brand-region">Canada</span>
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="/register.html" class="nav-item"><i class="fas fa-arrow-left"></i> Change Account Type</a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Registration Form Container -->
+        <main class="form-layout-main">
+            <section class="form-card-container">
+                <header class="form-section-header">
+                    <span class="badge worker-badge">Candidate Workspace</span>
+                    <h1>Professional Profile Setup</h1>
+                    <p>Build your verified workforce identity, set your structural availability rules, and submit credentials for administrative audit.</p>
+                </header>
+
+                <form id="worker-registration-form" enctype="multipart/form-data" class="premium-step-form">
+                    
+                    <!-- SECTION 1: PERSONAL INFORMATION -->
+                    <fieldset class="form-step-group">
+                        <legend><i class="fas fa-user"></i> Personal Details</legend>
+                        <div class="form-grid-2x2">
+                            <div class="form-field">
+                                <label for="full-name">Full Legal Name <span class="required">*</span></label>
+                                <input type="text" id="full-name" name="fullName" required placeholder="First and last name as shown on ID">
+                            </div>
+                            <div class="form-field">
+                                <label for="dob">Date of Birth <span class="required">*</span></label>
+                                <input type="date" id="dob" name="dateOfBirth" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="gender">Gender <span class="required">*</span></label>
+                                <select id="gender" name="gender" required>
+                                    <option value="">Select Gender Alignment</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other / Prefer not to disclose</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="phone-number">Phone Number <span class="required">*</span></label>
+                                <input type="tel" id="phone-number" name="phoneNumber" required placeholder="e.g., +1 (403) 555-0144">
+                            </div>
+                            <div class="form-field full-width">
+                                <label for="email">Personal Email Address <span class="required">*</span></label>
+                                <input type="email" id="email" name="email" required placeholder="e.g., candidate@mablework.ca">
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- SECTION 2: ADDRESS INFORMATION -->
+                    <fieldset class="form-step-group">
+                        <legend><i class="fas fa-location-dot"></i> Home Address Parameters</legend>
+                        <div class="form-grid-2x2">
+                            <div class="form-field full-width">
+                                <label for="home-address">Full Home Address <span class="required">*</span></label>
+                                <input type="text" id="home-address" name="address" required placeholder="Street address, Apartment, Unit number">
+                            </div>
+                            <div class="form-field">
+                                <label for="worker-city">City <span class="required">*</span></label>
+                                <input type="text" id="worker-city" name="city" required placeholder="e.g., Edmonton">
+                            </div>
+                            <div class="form-field">
+                                <label for="worker-province">Province / Territory <span class="required">*</span></label>
+                                <select id="worker-province" name="province" required>
+                                    <option value="">Select Province</option>
+                                    <option value="ON">Ontario</option>
+                                    <option value="BC">British Columbia</option>
+                                    <option value="AB">Alberta</option>
+                                    <option value="QC">Quebec</option>
+                                    <option value="NS">Nova Scotia</option>
+                                    <option value="MB">Manitoba</option>
+                                    <option value="SK">Saskatchewan</option>
+                                    <option value="NB">New Brunswick</option>
+                                    <option value="NL">Newfoundland and Labrador</option>
+                                    <option value="PE">Prince Edward Island</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="worker-postal">Postal Code <span class="required">*</span></label>
+                                <input type="text" id="worker-postal" name="postalCode" required placeholder="e.g., T5J 2R7" pattern="[A-Za-z]\d[A-Za-z]\s?\d[A-Za-z]\d">
+                            </div>
+                            <div class="form-field">
+                                <label for="worker-country">Country</label>
+                                <input type="text" id="worker-country" name="country" value="Canada" readonly class="disabled-input">
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- SECTION 3: WORKFORCE INFORMATION -->
+                    <fieldset class="form-step-group">
+                        <legend><i class="fas fa-briefcase"></i> Workforce Positioning & Trade Sets</legend>
+                        <div class="form-grid-2x2">
+                            <div class="form-field">
+                                <label for="employment-preference">Employment Preference <span class="required">*</span></label>
+                                <select id="employment-preference" name="employmentPreference" required>
+                                    <option value="Full-Time">Full-Time Placement</option>
+                                    <option value="Part-Time">Part-Time Shifts</option>
+                                    <option value="Temporary">Temporary / Project-Based</option>
+                                    <option value="Remote">Remote Execution</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="availability-status">Immediate Availability? <span class="required">*</span></label>
+                                <select id="availability-status" name="availability" required>
+                                    <option value="Immediate">Available Immediately</option>
+                                    <option value="Notice Required">Requires Notice Period</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="years-experience">Years of Active Experience <span class="required">*</span></label>
+                                <input type="number" id="years-experience" name="yearsOfExperience" min="0" required placeholder="e.g., 4">
+                            </div>
+                            <div class="form-field">
+                                <label for="preferred-industry">Preferred Industry Sector <span class="required">*</span></label>
+                                <select id="preferred-industry" name="preferredIndustry" required>
+                                    <option value="">Select Specialization Focus</option>
+                                    <option value="construction">Construction & Electrical Trades</option>
+                                    <option value="manufacturing">Industrial Manufacturing</option>
+                                    <option value="engineering">Technical Engineering Stacks</option>
+                                    <option value="transportation">Logistics & Heavy Transport</option>
+                                    <option value="technology">Information Technology Roles</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Behavioral / Demographic Segment Checkboxes -->
+                        <div class="form-grid-2x1 alternative-demographics-row">
+                            <div class="form-field checkbox-card-toggle">
+                                <label class="checkbox-row-container">
+                                    <input type="checkbox" name="studentStatus" value="Yes">
+                                    <div class="custom-toggle-display">
+                                        <strong>Active Student Status</strong>
+                                        <span>Toggle if currently enrolled in academic modules</span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="form-field checkbox-card-toggle">
+                                <label class="checkbox-row-container">
+                                    <input type="checkbox" name="stayAtHomeParent" value="Yes">
+                                    <div class="custom-toggle-display">
+                                        <strong>Stay-at-Home Parent</strong>
+                                        <span>Toggle if seeking adaptive, modular scheduling frameworks</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- SECTION 4: COMMUNICATION PREFERENCES -->
+                    <fieldset class="form-step-group">
+                        <legend><i class="fas fa-comments"></i> Communication Preferences</legend>
+                        <div class="form-radio-flex-row">
+                            <label class="radio-card">
+                                <input type="radio" name="preferredCommunicationMethod" value="Website Chat" checked onclick="toggleGoogleEmailField(false)">
+                                <div class="radio-card-content">
+                                    <i class="fas fa-message"></i>
+                                    <span>Website Chat</span>
+                                </div>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="preferredCommunicationMethod" value="Email" onclick="toggleGoogleEmailField(false)">
+                                <div class="radio-card-content">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>Email Channels</span>
+                                </div>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="preferredCommunicationMethod" value="Google Chat" onclick="toggleGoogleEmailField(true)">
+                                <div class="radio-card-content">
+                                    <i class="fab fa-google"></i>
+                                    <span>Google Chat</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Dynamic Conditional Input Field Box -->
+                        <div id="conditional-google-chat-field" class="form-field full-width hidden-conditional-field">
+                            <label for="google-email-address">Google Chat Handle Email <span class="required">*</span></label>
+                            <input type="email" id="google-email-address" name="googleEmailAddress" placeholder="e.g., yourname@gmail.com">
+                            <p class="field-explanatory-note">Required to map operational notifications via custom Google Enterprise workspaces.</p>
+                        </div>
+                    </fieldset>
+
+                    <!-- SECTION 5: PROFILE UPLOADS -->
+                    <fieldset class="form-step-group">
+                        <legend><i class="fas fa-file-shield"></i> Verification & Asset Uploads</legend>
+                        <div class="form-grid-2x1">
+                            <div class="form-field">
+                                <label for="worker-resume">Professional Resume File <span class="required">*</span> <span class="label-format-info">(PDF, JPG, PNG)</span></label>
+                                <input type="file" id="worker-resume" name="resume" accept=".pdf, .jpg, .jpeg, .png" required class="file-custom-input">
+                            </div>
+                            <div class="form-field">
+                                <label for="worker-id">Government Issued Photo ID <span class="required">*</span> <span class="label-format-info">(Passport, Drivers Licence - PDF, JPG, PNG)</span></label>
+                                <input type="file" id="worker-id" name="governmentId" accept=".pdf, .jpg, .jpeg, .png" required class="file-custom-input">
+                            </div>
+                        </div>
+                        
+                        <!-- Internal System Status Tracking Visibility Mock -->
+                        <div class="form-field info-banner-system-status">
+                            <p><i class="fas fa-clock-rotate-left"></i> <strong>Initial Profile Status:</strong> Your digital verification record will default to <code>Pending Verification</code> upon database ingestion until our audit board executes checks.</p>
+                        </div>
+                    </fieldset>
+
+                    <!-- SECTION 6: ACCOUNT SECURITY -->
+                    <fieldset class="form-step-group">
+                        <legend><i class="fas fa-key"></i> Credentials Definition</legend>
+                        <div class="form-grid-2x1">
+                            <div class="form-field">
+                                <label for="password">Profile Password <span class="required">*</span></label>
+                                <input type="password" id="password" name="password" minlength="8" required placeholder="Minimum 8 characters, complex mix">
+                            </div>
+                            <div class="form-field">
+                                <label for="confirm-password">Confirm Password <span class="required">*</span></label>
+                                <input type="password" id="confirm-password" required placeholder="Re-enter password match string">
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- SECTION 7: AGREEMENTS & ANTI-BOT FIREWALL -->
+                    <fieldset class="form-step-group legal-agreements-panel">
+                        <legend><i class="fas fa-signature"></i> Compliance Certifications</legend>
+                        <div class="checkbox-stack">
+                            <label class="checkbox-row">
+                                <input type="checkbox" name="agreeToPrivacy" required>
+                                <span class="checkbox-text">I explicitly agree to the processing of my file assets under the <a href="/privacy.html" target="_blank">Privacy Policy</a> directives.</span>
+                            </label>
+                            <label class="checkbox-row">
+                                <input type="checkbox" name="agreeToTerms" required>
+                                <span class="checkbox-text">I accept the platform's standard operational <a href="/terms.html" target="_blank">Terms of Service</a> structures.</span>
+                            </label>
+                            <label class="checkbox-row">
+                                <input type="checkbox" name="confirmCanadianResidency" required>
+                                <span class="checkbox-text"><strong>I verify that I hold active Canadian residency status or hold legal, valid authorization to execute work inside Canada.</strong></span>
+                            </label>
+                        </div>
+
+                        <!-- Cloudflare Turnstile CAPTCHA Injection Matrix -->
+                        <div class="captcha-wrapper-container">
+                            <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="light"></div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Form Execution Core Actions Block -->
+                    <div class="form-submission-action-bar">
+                        <button type="submit" id="submit-btn" class="btn btn-secondary btn-xl">
+                            <span class="btn-text">Submit Verification & Open Profile</span>
+                            <span class="btn-spinner-icon hidden"><i class="fas fa-circle-notch fa-spin"></i></span>
+                        </button>
+                    </div>
+
+                </form>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-container">
+                <p>&copy; 2026 MableWork Canada. All Rights Reserved. Regulated Enterprise Hiring Platform.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Core Application Operational Logic Script Binding -->
+    <script src="../src/js/api.js"></script>
+    <script src="../src/js/utils/loader.js"></script>
+    <script src="../src/js/pages/worker-register.js"></script>
+    
+    <!-- Local inline visibility router to safeguard instant UI shifting -->
+    <script>
+        function toggleGoogleEmailField(showField) {
+            const container = document.getElementById('conditional-google-chat-field');
+            const inputElement = document.getElementById('google-email-address');
+            if (showField) {
+                container.classList.remove('hidden-conditional-field');
+                inputElement.setAttribute('required', 'true');
+            } else {
+                container.classList.add('hidden-conditional-field');
+                inputElement.removeAttribute('required');
+                inputElement.value = '';
+            }
+        }
+    </script>
+</body>
+</html>
