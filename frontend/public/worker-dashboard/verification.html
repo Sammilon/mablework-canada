@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliance & Verification | Candidate Dashboard | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../../src/css/variables.css">
+    <link rel="stylesheet" href="../../src/css/global.css">
+    <link rel="stylesheet" href="../../src/css/components/loader.css">
+    <link rel="stylesheet" href="../../src/css/components/dashboard-layout.css">
+    <link rel="stylesheet" href="../../src/css/pages/dashboard/verification.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Premium Visual Icons Vector Pack -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Loading Audit Parameters...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <div class="dashboard-wrapper">
+            
+            <!-- Internal Application Navigation Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <span class="brand-text">MableWork</span>
+                    <span class="brand-region">Canada</span>
+                </div>
+                <nav class="sidebar-menu">
+                    <a href="index.html" class="menu-item"><i class="fas fa-chart-pie"></i> Overview Hub</a>
+                    <a href="jobs.html" class="menu-item"><i class="fas fa-briefcase"></i> Remote Postings</a>
+                    <a href="timesheets.html" class="menu-item"><i class="fas fa-clock"></i> Hour Tracking</a>
+                    <a href="verification.html" class="menu-item active"><i class="fas fa-shield-check"></i> Compliance Audit</a>
+                    <a href="settings.html" class="menu-item"><i class="fas fa-sliders"></i> Security Setup</a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button id="sidebar-logout-trigger" class="btn btn-outline-danger btn-sm full-width"><i class="fas fa-power-off"></i> Terminate Session</button>
+                </div>
+            </aside>
+
+            <!-- Main Work Area Stream Layer -->
+            <main class="dashboard-main-content">
+                
+                <!-- Internal Context Header -->
+                <header class="dashboard-content-header">
+                    <div class="header-title-block">
+                        <h1>Canadian Regulatory Verification</h1>
+                        <p>Maintain your profile documentation to clear match metrics and ensure uninterrupted payroll direct deposits.</p>
+                    </div>
+                    <div class="header-profile-badge">
+                        <div class="user-avatar" id="nav-avatar-fallback">CN</div>
+                        <span id="user-display-name">Candidate</span>
+                    </div>
+                </header>
+
+                <!-- Alert Feedback System -->
+                <div id="verification-alert-center" class="alert-box-container hidden-alert"></div>
+
+                <!-- Main Grid Layout Stream -->
+                <div class="verification-dashboard-grid">
+                    
+                    <!-- Left: Upload Item Manifest Block -->
+                    <div class="verification-manifest-panel">
+                        
+                        <!-- Verification Block 1: Legal Identity -->
+                        <div class="audit-card-item" id="card-identity">
+                            <div class="audit-card-header">
+                                <div class="audit-meta">
+                                    <h3><i class="fas fa-id-card"></i> 1. Government Issued Photo Identity</h3>
+                                    <p>Submit a valid Canadian Driver's License, Provincial ID, or international passport data page.</p>
+                                </div>
+                                <span class="status-badge badge-pending" id="status-identity">Pending Review</span>
+                            </div>
+                            <div class="audit-card-body">
+                                <form class="document-upload-dropzone" data-doc-type="identity">
+                                    <input type="file" id="file-identity" class="hidden-file-input" accept="image/*,application/pdf">
+                                    <label for="file-identity" class="dropzone-label">
+                                        <i class="fas fa-cloud-arrow-up"></i>
+                                        <span>Drag asset or <strong>browse files</strong> to upload</span>
+                                        <small>Supported extensions: PDF, PNG, JPG (Max 5MB)</small>
+                                    </label>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Verification Block 2: Work/Study Permit Allocation -->
+                        <div class="audit-card-item" id="card-permit">
+                            <div class="audit-card-header">
+                                <div class="audit-meta">
+                                    <h3><i class="fas fa-passport"></i> 2. IRCC Legal Authorization Assets</h3>
+                                    <p>Mandatory for international student permit holders or temporary foreign workers.</p>
+                                </div>
+                                <span class="status-badge badge-missing" id="status-permit">Action Required</span>
+                            </div>
+                            <div class="audit-card-body">
+                                <form class="document-upload-dropzone" data-doc-type="permit">
+                                    <input type="file" id="file-permit" class="hidden-file-input" accept="image/*,application/pdf">
+                                    <label for="file-permit" class="dropzone-label">
+                                        <i class="fas fa-cloud-arrow-up"></i>
+                                        <span>Upload valid IRCC Document Stack</span>
+                                        <small>Ensure the section containing explicit conditions/remarks is perfectly legible</small>
+                                    </label>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Verification Block 3: Institutional Session Tracker -->
+                        <div class="audit-card-item" id="card-calendar">
+                            <div class="audit-card-header">
+                                <div class="audit-meta">
+                                    <h3><i class="fas fa-calendar-days"></i> 3. Academic Session Enrollment Calendar</h3>
+                                    <p>Required for student profiles to unlock full-time remote hour parameters during scheduled breaks.</p>
+                                </div>
+                                <span class="status-badge badge-verified" id="status-calendar"><i class="fas fa-circle-check"></i> Verified Status</span>
+                            </div>
+                            <div class="audit-card-body">
+                                <form class="document-upload-dropzone dropzone-disabled" data-doc-type="calendar">
+                                    <input type="file" id="file-calendar" class="hidden-file-input" disabled>
+                                    <div class="dropzone-label">
+                                        <i class="fas fa-lock-shield text-success"></i>
+                                        <span class="text-success">Asset successfully locked inside server data fields.</span>
+                                        <small>To make alterations, contact the privacy officer via email.</small>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right: Compliance Status Sidebar Panel -->
+                    <div class="verification-summary-sidebar">
+                        <div class="compliance-status-summary-card">
+                            <h4>Overall Profile Status</h4>
+                            <div class="profile-status-gauge text-center">
+                                <div class="gauge-icon icon-pending"><i class="fas fa-clock-rotate-left"></i></div>
+                                <h5>Conditional Restriction</h5>
+                                <p>Your identity documentation is currently parsing through our manual validation engine. Remote listing match routines remain active but direct contracts cannot execute until checks pass.</p>
+                            </div>
+                            
+                            <hr class="panel-divider">
+                            
+                            <div class="compliance-checklist-summary">
+                                <h5>Verification Checklist</h5>
+                                <ul class="mini-checklist">
+                                    <li class="checked"><i class="fas fa-circle-check"></i> Financial Banking Account</li>
+                                    <li class="checked"><i class="fas fa-circle-check"></i> Academic Calendar Stack</li>
+                                    <li class="pending"><i class="fas fa-spinner fa-spin"></i> Photo Identification Check</li>
+                                    <li class="missing"><i class="fas fa-circle-exclamation"></i> Valid IRCC Work / Study Permit</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Legal Info Alert Footer Box -->
+                        <div class="sidebar-legal-notice-box">
+                            <h5><i class="fas fa-user-shield"></i> PIPEDA Privacy Policy</h5>
+                            <p>All sensitive uploaded assets are instantly encrypted at rest using AES-256 protocols. These records are used strictly for legal onboarding checks and are never shared with outside marketing agencies.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../../src/js/api.js"></script>
+    <script src="../../src/js/utils/loader.js"></script>
+    <script src="../../src/js/pages/dashboard/verification.js"></script>
+</body>
+</html>
