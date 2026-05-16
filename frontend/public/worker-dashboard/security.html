@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Security & Privacy | Candidate Dashboard | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../../src/css/variables.css">
+    <link rel="stylesheet" href="../../src/css/global.css">
+    <link rel="stylesheet" href="../../src/css/components/loader.css">
+    <link rel="stylesheet" href="../../src/css/components/dashboard-layout.css">
+    <link rel="stylesheet" href="../../src/css/pages/dashboard/security.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Premium Visual Icons Vector Pack -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Loading Security Handshakes...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <div class="dashboard-wrapper">
+            
+            <!-- Internal Application Navigation Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <span class="brand-text">MableWork</span>
+                    <span class="brand-region">Canada</span>
+                </div>
+                <nav class="sidebar-menu">
+                    <a href="index.html" class="menu-item"><i class="fas fa-chart-pie"></i> Overview Hub</a>
+                    <a href="jobs.html" class="menu-item"><i class="fas fa-briefcase"></i> Remote Postings</a>
+                    <a href="timesheets.html" class="menu-item"><i class="fas fa-clock"></i> Hour Tracking</a>
+                    <a href="verification.html" class="menu-item"><i class="fas fa-shield-check"></i> Compliance Audit</a>
+                    <a href="security.html" class="menu-item active"><i class="fas fa-sliders"></i> Security Setup</a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button id="sidebar-logout-trigger" class="btn btn-outline-danger btn-sm full-width"><i class="fas fa-power-off"></i> Terminate Session</button>
+                </div>
+            </aside>
+
+            <!-- Main Work Area Stream Layer -->
+            <main class="dashboard-main-content">
+                
+                <!-- Internal Context Header -->
+                <header class="dashboard-content-header">
+                    <div class="header-title-block">
+                        <h1>Security Controls & Credentials</h1>
+                        <p>Manage access parameters, update encrypted authentication codes, and audit system entry points to shield your workspace data.</p>
+                    </div>
+                    <div class="header-profile-badge">
+                        <div class="user-avatar" id="nav-avatar-fallback">CN</div>
+                        <span id="user-display-name">Candidate</span>
+                    </div>
+                </header>
+
+                <!-- Feedback Banner Center -->
+                <div id="security-alert-center" class="alert-box-container hidden-alert"></div>
+
+                <!-- Split Configuration Layout Grid -->
+                <div class="security-dashboard-grid">
+                    
+                    <!-- Left Column: Credential Adaptation Matrices -->
+                    <div class="security-forms-column">
+                        
+                        <!-- Block A: Passcode Modifications -->
+                        <div class="premium-dashboard-card">
+                            <div class="card-title-row">
+                                <h3><i class="fas fa-key"></i> Modify Account Passcode</h3>
+                            </div>
+                            
+                            <form id="password-rotation-form" class="interactive-dashboard-form">
+                                <div class="form-field-group">
+                                    <label for="current-password">Current Access Code <span class="required">*</span></label>
+                                    <input type="password" id="current-password" name="currentPassword" required autocomplete="current-password">
+                                </div>
+                                
+                                <div class="form-field-group">
+                                    <label for="new-password">New Secure Passcode <span class="required">*</span></label>
+                                    <input type="password" id="new-password" name="newPassword" required autocomplete="new-password">
+                                    <small class="field-instruction">Minimum constraint: 8 units containing letters, values, and special tokens.</small>
+                                </div>
+
+                                <div class="form-field-group">
+                                    <label for="confirm-password">Confirm New Passcode <span class="required">*</span></label>
+                                    <input type="password" id="confirm-password" name="confirmPassword" required autocomplete="new-password">
+                                </div>
+
+                                <div class="form-action-group">
+                                    <button type="submit" id="update-password-btn" class="btn btn-primary">
+                                        <span class="btn-text">Update Encryption Passcode</span>
+                                        <span class="btn-spinner-icon hidden"><i class="fas fa-circle-notch fa-spin"></i></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Block B: MFA Factor Settings -->
+                        <div class="premium-dashboard-card">
+                            <div class="card-title-row">
+                                <h3><i class="fas fa-shield-halved"></i> Multi-Factor Authentication (MFA)</h3>
+                                <span class="badge badge-missing" id="mfa-status-tag">Inactive</span>
+                            </div>
+                            <div class="card-body-description">
+                                <p>Incorporate an additional security protective shell by verifying a temporary token via an authentication mobile program (Google Authenticator, Authy) whenever credentials clear entry gates.</p>
+                            </div>
+                            <div class="form-action-group">
+                                <button id="mfa-initiation-trigger" class="btn btn-secondary"><i class="fas fa-qrcode"></i> Initiate Verification Matrix</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Column: Environmental Audits & Trace Logs -->
+                    <div class="security-telemetry-column">
+                        
+                        <!-- System Identity Integrity Readout -->
+                        <div class="premium-dashboard-card PIPEDA-compliance-card">
+                            <h4><i class="fas fa-user-lock"></i> Data Protection Standards</h4>
+                            <p>MableWork matches candidate files under absolute isolation. Sensitive data components—specifically your Social Insurance Number (SIN) and banking routing arrays—are securely masked from basic viewing panels using enterprise encryption standards.</p>
+                        </div>
+
+                        <!-- Active Footprint Monitoring List -->
+                        <div class="premium-dashboard-card">
+                            <div class="card-title-row">
+                                <h3><i class="fas fa-desktop"></i> Active Connection Tracks</h3>
+                            </div>
+                            
+                            <div class="session-scroll-wrapper">
+                                <ul class="connection-log-list" id="active-sessions-hook">
+                                    <!-- Initial Baseline Node Rendered for Tracking -->
+                                    <li class="session-log-item current-session">
+                                        <div class="session-meta">
+                                            <i class="fas fa-laptop-code hardware-icon text-success"></i>
+                                            <div class="session-details">
+                                                <strong>Chrome Browser on ChromeOS Terminal</strong>
+                                                <span>IP: (Detecting Network Coordinates...) • Active Session Terminal</span>
+                                            </div>
+                                        </div>
+                                        <span class="badge badge-verified">Current</span>
+                                    </li>
+                                    <!-- Dynamic elements will override/add to this tracking block via JS -->
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../../src/js/api.js"></script>
+    <script src="../../src/js/utils/loader.js"></script>
+    <script src="../../src/js/pages/dashboard/security.js"></script>
+</body>
+</html>
