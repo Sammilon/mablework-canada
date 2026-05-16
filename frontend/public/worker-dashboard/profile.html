@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Profile Ledger | Candidate Dashboard | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../../src/css/variables.css">
+    <link rel="stylesheet" href="../../src/css/global.css">
+    <link rel="stylesheet" href="../../src/css/components/loader.css">
+    <link rel="stylesheet" href="../../src/css/components/dashboard-layout.css">
+    <link rel="stylesheet" href="../../src/css/pages/dashboard/profile.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Premium Visual Icons Vector Pack -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Loading Profile Parameters...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <div class="dashboard-wrapper">
+            
+            <!-- Internal Application Navigation Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <span class="brand-text">MableWork</span>
+                    <span class="brand-region">Canada</span>
+                </div>
+                <nav class="sidebar-menu">
+                    <a href="index.html" class="menu-item"><i class="fas fa-chart-pie"></i> Overview Hub</a>
+                    <a href="jobs.html" class="menu-item"><i class="fas fa-briefcase"></i> Remote Postings</a>
+                    <a href="timesheets.html" class="menu-item"><i class="fas fa-clock"></i> Hour Tracking</a>
+                    <a href="verification.html" class="menu-item"><i class="fas fa-shield-check"></i> Compliance Audit</a>
+                    <a href="security.html" class="menu-item"><i class="fas fa-sliders"></i> Security Setup</a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button id="sidebar-logout-trigger" class="btn btn-outline-danger btn-sm full-width"><i class="fas fa-power-off"></i> Terminate Session</button>
+                </div>
+            </aside>
+
+            <!-- Main Work Area Stream Layer -->
+            <main class="dashboard-main-content">
+                
+                <!-- Internal Context Header -->
+                <header class="dashboard-content-header">
+                    <div class="header-title-block">
+                        <h1>Candidate Profile Registry</h1>
+                        <p>Maintain precise personal, geographic, and academic fields to map matches with enterprise remote listings.</p>
+                    </div>
+                    <div class="header-profile-badge">
+                        <div class="user-avatar" id="nav-avatar-fallback">CN</div>
+                        <span id="user-display-name">Candidate</span>
+                    </div>
+                </header>
+
+                <!-- Feedback Banner Center -->
+                <div id="profile-alert-center" class="alert-box-container hidden-alert"></div>
+
+                <!-- Structured Dynamic Workspace Layout -->
+                <form id="candidate-profile-form" class="interactive-dashboard-form">
+                    <div class="profile-dashboard-grid">
+                        
+                        <!-- Left Column: Primary Data Matrix Fields -->
+                        <div class="profile-input-fields-column">
+                            
+                            <!-- Block 1: Contact Identity Data -->
+                            <div class="premium-dashboard-card">
+                                <div class="card-title-row">
+                                    <h3><i class="fas fa-user-gear"></i> Primary Personal Identity</h3>
+                                </div>
+                                <div class="card-form-inputs-grid dual-column">
+                                    <div class="form-field-group">
+                                        <label for="profile-first-name">Given Name(s) <span class="required">*</span></label>
+                                        <input type="text" id="profile-first-name" name="firstName" required placeholder="John">
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="profile-last-name">Family Surname <span class="required">*</span></label>
+                                        <input type="text" id="profile-last-name" name="lastName" required placeholder="Doe">
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="profile-email">Communication Email address <span class="required">*</span></label>
+                                        <input type="email" id="profile-email" name="email" required readonly class="readonly-input">
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="profile-phone">Mobile Phone Vector <span class="required">*</span></label>
+                                        <input type="tel" id="profile-phone" name="phone" required placeholder="+1 (555) 000-0000">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Block 2: Geographic Residency Location -->
+                            <div class="premium-dashboard-card">
+                                <div class="card-title-row">
+                                    <h3><i class="fas fa-map-location-dot"></i> Regional Residency Parameters</h3>
+                                </div>
+                                <div class="card-form-inputs-grid dynamic-layout">
+                                    <div class="form-field-group">
+                                        <label for="profile-street">Civic Street Address <span class="required">*</span></label>
+                                        <input type="text" id="profile-street" name="streetAddress" required placeholder="123 Maple Leaf Way">
+                                    </div>
+                                    <div class="card-form-inputs-grid triple-column">
+                                        <div class="form-field-group">
+                                            <label for="profile-city">City/Town <span class="required">*</span></label>
+                                            <input type="text" id="profile-city" name="city" required placeholder="Toronto">
+                                        </div>
+                                        <div class="form-field-group">
+                                            <label for="profile-province">Province/Territory <span class="required">*</span></label>
+                                            <select id="profile-province" name="province" required>
+                                                <option value="">Select Region...</option>
+                                                <option value="AB">Alberta (AB)</option>
+                                                <option value="BC">British Columbia (BC)</option>
+                                                <option value="MB">Manitoba (MB)</option>
+                                                <option value="NB">New Brunswick (NB)</option>
+                                                <option value="NL">Newfoundland & Labrador (NL)</option>
+                                                <option value="NS">Nova Scotia (NS)</option>
+                                                <option value="ON">Ontario (ON)</option>
+                                                <option value="PE">Prince Edward Island (PE)</option>
+                                                <option value="QC">Quebec (QC)</option>
+                                                <option value="SK">Saskatchewan (SK)</option>
+                                                <option value="NT">Northwest Territories (NT)</option>
+                                                <option value="NU">Nunavut (NU)</option>
+                                                <option value="YT">Yukon (YT)</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-field-group">
+                                            <label for="profile-postal">Postal Code <span class="required">*</span></label>
+                                            <input type="text" id="profile-postal" name="postalCode" required placeholder="M5V 2T6" pattern="^[A-Za-z]\d[A-Za-z]\s?\d[A-Za-z]\d$">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Block 3: Educational Context Tracking -->
+                            <div class="premium-dashboard-card" id="academic-context-panel">
+                                <div class="card-title-row">
+                                    <h3><i class="fas fa-graduation-cap"></i> Academic Enrollment Track</h3>
+                                </div>
+                                <div class="card-form-inputs-grid dual-column">
+                                    <div class="form-field-group">
+                                        <label for="profile-institution">Designated Learning Institution (DLI) Name</label>
+                                        <input type="text" id="profile-institution" name="institution" placeholder="University of Toronto">
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="profile-study-field">Program Major / Specialization</label>
+                                        <input type="text" id="profile-study-field" name="studyField" placeholder="Computer Science & Engineering">
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="profile-grad-date">Projected Completion / Graduation Timeline</label>
+                                        <input type="date" id="profile-grad-date" name="expectedGraduation">
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="profile-student-id">Institutional Student Reference Number</label>
+                                        <input type="text" id="profile-student-id" name="studentId" placeholder="100239481">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Right Column: Verification Metadata Summary Sidebar -->
+                        <div class="profile-metadata-sidebar-column">
+                            
+                            <!-- Static Compliance Summary Badge -->
+                            <div class="premium-dashboard-card compliance-verification-card text-center">
+                                <h4>Account Type Allocation</h4>
+                                <div id="account-type-display-badge" class="profile-badge-rendering badge-student">
+                                    <i class="fas fa-user-graduate"></i> Academic Student Profile
+                                </div>
+                                <p class="sidebar-help-text">Your profile classification locks strict system validations mapped to corresponding regional labor standards and IRCC hourly constraint ledgers.</p>
+                            </div>
+
+                            <!-- Core Matching Core Capabilities Tags Block -->
+                            <div class="premium-dashboard-card operational-tags-card">
+                                <h4>Professional Core Competencies</h4>
+                                <p class="sidebar-help-text">Input primary keywords separated by commas to align search profiles with matching corporate queues.</p>
+                                <div class="form-field-group">
+                                    <textarea id="profile-skills-tags" name="skills" rows="4" placeholder="e.g., Python, Remote Customer Support, Content Moderation, Billing Architecture"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Form Dispatch Action Card Sticky Box -->
+                            <div class="profile-form-sticky-action-box">
+                                <button type="submit" id="save-profile-action-btn" class="btn btn-primary full-width btn-lg">
+                                    <span class="btn-text"><i class="fas fa-floppy-disk"></i> Commit Profile Mutations</span>
+                                    <span class="btn-spinner-icon hidden"><i class="fas fa-circle-notch fa-spin"></i></span>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../../src/js/api.js"></script>
+    <script src="../../src/js/utils/loader.js"></script>
+    <script src="../../src/js/pages/dashboard/profile.js"></script>
+</body>
+</html>
