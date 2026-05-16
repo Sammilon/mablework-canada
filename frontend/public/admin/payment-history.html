@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historical Payment Ledger & Analytics Archive - Admin Panel</title>
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <!-- FontAwesome Core Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Administrative Access Impersonation Alert Ribbon -->
+    <div class="admin-impersonation-alert-ribbon" id="adminImpersonationRibbon" style="display: none;">
+        <div class="impersonation-meta-details">
+            <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            <span><strong>Security Alert:</strong> Accessing cold storage transaction logs under administrative impersonation mode. Data exports are tracked internally.</span>
+        </div>
+        <button class="btn-terminate-impersonation" onclick="terminateImpersonationSession()">Exit Session</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation Rail -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-top-group">
+                <div class="dashboard-content-header" style="border-bottom: 1px solid #2d3748; margin-bottom: 1.5rem; padding-bottom: 1rem;">
+                    <div class="header-title-block">
+                        <h1 style="color: #ffffff; font-size: 1.25rem; margin: 0;">MableWork HQ</h1>
+                        <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">Accounting Desk</p>
+                    </div>
+                </div>
+                <nav class="sidebar-links-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="dashboard.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i> Overview Control
+                    </a>
+                    <a href="payments.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-credit-card" style="width: 20px;"></i> Active Payments
+                    </a>
+                    <a href="payment-history.html" style="color: #ffffff; background-color: #1f2937; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem; font-weight: 600;">
+                        <i class="fa-solid fa-clock-rotate-left" style="width: 20px;"></i> Payment History
+                    </a>
+                    <a href="audit-logs.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-shield-halved" style="width: 20px;"></i> Security Audit Logs
+                    </a>
+                </nav>
+            </div>
+            <div class="sidebar-footer-group">
+                <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="executeAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Drop Access Gate
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Flow -->
+        <main class="dashboard-main-content animate-view-entry">
+            <!-- Content Header Context -->
+            <div class="dashboard-content-header">
+                <div class="header-title-block">
+                    <h1>Payment History &amp; Closed Transactions Archive</h1>
+                    <p>Review comprehensive historical receipts, filtered ledger distributions, processing metrics, and completed payroll operations.</p>
+                </div>
+                <div class="header-profile-badge">
+                    <span>Audit Desk Specialist</span>
+                    <div class="user-avatar" id="adminUserAvatarNode">AUD</div>
+                </div>
+            </div>
+
+            <!-- Global Action Intercept Alerts Layer -->
+            <div id="historyActionAlertFeedback" class="alert-box-container hidden-alert"></div>
+
+            <!-- Historical Scope Filter Dock -->
+            <div class="admin-action-filtering-dock">
+                <div class="filter-controls-group">
+                    <input type="text" id="historySearchInput" class="admin-dense-search-input" placeholder="Filter by transaction ref, profile name..." style="width: 300px;" onkeyup="evaluateHistoryClientFilter()">
+                    <select id="historyEventClassSelect" class="admin-dense-select" onchange="evaluateHistoryClientFilter()">
+                        <option value="ALL">All Completed Outcomes</option>
+                        <option value="SUCCESSFUL">Successful Settlements</option>
+                        <option value="REFUNDED">Authorized Adjustments / Refunds</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="btn btn-primary btn-sm" onclick="exportHistoricalLedgerCSV()"><i class="fa-solid fa-file-csv"></i> Export Data Matrix (.csv)</button>
+                </div>
+            </div>
+
+            <!-- Historical Transaction Ledger Records Card -->
+            <div class="premium-dashboard-card">
+                <div class="card-title-row">
+                    <h3><i class="fa-solid fa-database text-primary"></i> Historical Transaction Registry</h3>
+                </div>
+                <p class="card-body-description" style="margin-bottom: 1.5rem;">
+                    Immutable cold archive logs for cleared operations. Metadata changes are prevented here; any discrepancies must register through adjusting balance entries.
+                </p>
+
+                <div class="table-responsive-wrapper">
+                    <table class="admin-audit-log-table">
+                        <thead>
+                            <tr>
+                                <th>Settlement Date</th>
+                                <th>Transaction Hash Reference</th>
+                                <th>Source Account Context</th>
+                                <th>Target Recipient</th>
+                                <th>Disbursed Gross</th>
+                                <th>Result Matrix State</th>
+                                <th style="text-align: right;">Receipts</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historicalPaymentsDataRows">
+                            <tr class="historical-payment-row" data-outcome="SUCCESSFUL">
+                                <td>2026-05-14 11:15</td>
+                                <td><code>pstk_3301984z55</code></td>
+                                <td>
+                                    <strong>Calgary Tech Hub Inc</strong><br>
+                                    <span style="color: #6b7280; font-size: 0.75rem;">Placement Order #1002</span>
+                                </td>
+                                <td>Kweku Boateng</td>
+                                <td style="font-weight: 600; color: #111827;">$3,120.00 CAD</td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-active">Successful Settlement</span></td>
+                                <td style="text-align: right;">
+                                    <button class="btn btn-outline-primary btn-xs" onclick="viewHistoricalReceiptDetails('pstk_3301984z55')"><i class="fa-solid fa-receipt"></i> Inspect</button>
+                                </td>
+                            </tr>
+                            <tr class="historical-payment-row" data-outcome="REFUNDED">
+                                <td>2026-05-10 16:42</td>
+                                <td><code>pstk_2104928b10</code></td>
+                                <td>
+                                    <strong>Vancouver Hospitality Group</strong><br>
+                                    <span style="color: #6b7280; font-size: 0.75rem;">Contract Terminated Early</span>
+                                </td>
+                                <td>Employer Refund</td>
+                                <td style="font-weight: 600; color: #b91c1c;">$850.00 CAD</td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-revoked">Refunded Adjustment</span></td>
+                                <td style="text-align: right;">
+                                    <button class="btn btn-outline-primary btn-xs" onclick="viewHistoricalReceiptDetails('pstk_2104928b10')"><i class="fa-solid fa-receipt"></i> Inspect</button>
+                                </td>
+                            </tr>
+                            <tr class="historical-payment-row" data-outcome="SUCCESSFUL">
+                                <td>2026-05-08 09:24</td>
+                                <td><code>pstk_1194205w32</code></td>
+                                <td>
+                                    <strong>Toronto Care Corp</strong><br>
+                                    <span style="color: #6b7280; font-size: 0.75rem;">Timesheet Cycle #20</span>
+                                </td>
+                                <td>Fatima Bello</td>
+                                <td style="font-weight: 600; color: #111827;">$2,100.00 CAD</td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-active">Successful Settlement</span></td>
+                                <td style="text-align: right;">
+                                    <button class="btn btn-outline-primary btn-xs" onclick="viewHistoricalReceiptDetails('pstk_1194205w32')"><i class="fa-solid fa-receipt"></i> Inspect</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Core Interactive History Mechanics Script Framework -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            verifyAdministrativeSessionToken();
+        });
+
+        function verifyAdministrativeSessionToken() {
+            const activeToken = localStorage.getItem("mable_admin_session_jwt");
+            if (!activeToken) {
+                window.location.href = "login.html";
+                return;
+            }
+            if (localStorage.getItem("mable_impersonation_active") === "true") {
+                document.getElementById("adminImpersonationRibbon").style.display = "flex";
+            }
+        }
+
+        function displayActionFeedbackMessage(messageText, isErrorState = false) {
+            const feedbackContainer = document.getElementById("historyActionAlertFeedback");
+            feedbackContainer.className = "alert-box-container animate-toast-arrival " + 
+                (isErrorState ? "alert-danger-state" : "alert-success-state");
+            feedbackContainer.innerHTML = `<i class="fa-solid ${isErrorState ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> <span>${messageText}</span>`;
+            
+            setTimeout(() => {
+                feedbackContainer.className = "alert-box-container hidden-alert";
+            }, 4500);
+        }
+
+        function evaluateHistoryClientFilter() {
+            const searchToken = document.getElementById("historySearchInput").value.toLowerCase();
+            const outcomeFilter = document.getElementById("historyEventClassSelect").value;
+            
+            const tableRows = document.querySelectorAll(".historical-payment-row");
+            tableRows.forEach(row => {
+                const textContentMatches = row.innerText.toLowerCase().includes(searchToken);
+                const classMatches = (outcomeFilter === "ALL") || (row.getAttribute("data-outcome") === outcomeFilter);
+                
+                if (textContentMatches && classMatches) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
+        function viewHistoricalReceiptDetails(transactionHashId) {
+            displayActionFeedbackMessage(`Opening complete processing breakdown, ledger entries, and audit hashes for transaction: [${transactionHashId}].`);
+        }
+
+        function exportHistoricalLedgerCSV() {
+            displayActionFeedbackMessage("Compiling matching ledger frames into comma-separated layout values. Download dispatched.");
+        }
+
+        function terminateImpersonationSession() {
+            localStorage.removeItem("mable_impersonation_active");
+            document.getElementById("adminImpersonationRibbon").style.display = "none";
+            displayActionFeedbackMessage("Terminated user delegation framework. Restoring native audit desk privileges.");
+        }
+
+        function executeAdminLogout() {
+            localStorage.removeItem("mable_admin_session_jwt");
+            localStorage.removeItem("mable_impersonation_active");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
