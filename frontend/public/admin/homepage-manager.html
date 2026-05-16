@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Homepage Content &amp; Media Manager - Admin Panel</title>
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <!-- FontAwesome Core Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Administrative Access Impersonation Alert Ribbon -->
+    <div class="admin-impersonation-alert-ribbon" id="adminImpersonationRibbon" style="display: none;">
+        <div class="impersonation-meta-details">
+            <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            <span><strong>Security Alert:</strong> Altering root marketing copy blocks under administrative delegation parameters. Alterations record to your global configuration index.</span>
+        </div>
+        <button class="btn-terminate-impersonation" onclick="terminateImpersonationSession()">Exit Session</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation Rail -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-top-group">
+                <div class="dashboard-content-header" style="border-bottom: 1px solid #2d3748; margin-bottom: 1.5rem; padding-bottom: 1rem;">
+                    <div class="header-title-block">
+                        <h1 style="color: #ffffff; font-size: 1.25rem; margin: 0;">MableWork HQ</h1>
+                        <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">CMS Studio Engine</p>
+                    </div>
+                </div>
+                <nav class="sidebar-links-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="dashboard.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i> Overview Control
+                    </a>
+                    <a href="homepage-manager.html" style="color: #ffffff; background-color: #1f2937; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem; font-weight: 600;">
+                        <i class="fa-solid fa-window-maximize" style="width: 20px;"></i> Homepage Content
+                    </a>
+                    <a href="audit-logs.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-shield-halved" style="width: 20px;"></i> Security Audit Logs
+                    </a>
+                    <a href="workers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-gears" style="width: 20px;"></i> Engine Workers
+                    </a>
+                </nav>
+            </div>
+            <div class="sidebar-footer-group">
+                <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="executeAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Drop Access Gate
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Flow -->
+        <main class="dashboard-main-content animate-view-entry">
+            <!-- Content Header Context -->
+            <div class="dashboard-content-header">
+                <div class="header-title-block">
+                    <h1>Homepage CMS Matrix &amp; Copy Manager</h1>
+                    <p>Modify public layouts, update hero slogans, adjust key display statistics, and control functional component switches instantly.</p>
+                </div>
+                <div class="header-profile-badge">
+                    <span>Content Specialist</span>
+                    <div class="user-avatar" id="adminUserAvatarNode">CMS</div>
+                </div>
+            </div>
+
+            <!-- Global Action Intercept Alerts Layer -->
+            <div id="cmsActionAlertFeedback" class="alert-box-container hidden-alert"></div>
+
+            <div class="employer-dashboard-layout-grid" style="display: grid; grid-template-columns: 2fr 1.2fr; gap: 2rem;">
+                
+                <!-- Left Column: Dynamic Content Sections Editor Form -->
+                <div class="dashboard-main-stream-panel">
+                    <div class="premium-dashboard-card">
+                        <div class="card-title-row">
+                            <h3><i class="fa-solid fa-pen-to-square text-primary"></i> Main Content &amp; Layout Blocks</h3>
+                        </div>
+                        <p class="card-body-description" style="margin-bottom: 1.5rem;">
+                            Update core structural copy items. Changes are saved to system settings variables and render dynamically when public index frames resolve.
+                        </p>
+
+                        <form onsubmit="commitHomepageContentChanges(event)">
+                            <!-- Hero Copywriting Block -->
+                            <fieldset style="border: 1px solid #e5e7eb; border-radius: 6px; padding: 1.25rem; margin-bottom: 1.5rem;">
+                                <legend style="font-size: 0.8125rem; font-weight: 700; color: #1f2937; padding: 0 0.5rem; text-transform: uppercase;"><i class="fa-solid fa-star text-warning"></i> Primary Hero Canvas</legend>
+                                
+                                <div style="margin-bottom: 1rem;">
+                                    <label style="display: block; font-size: 0.75rem; font-weight: 600; color: #4b5563; margin-bottom: 0.25rem;">Hero Heading Slogan</label>
+                                    <input type="text" id="cmsHeroTitleInput" class="admin-dense-search-input" style="width: 100%;" value="Empowering International Students Across Canada">
+                                </div>
+
+                                <div>
+                                    <label style="display: block; font-size: 0.75rem; font-weight: 600; color: #4b5563; margin-bottom: 0.25rem;">Hero Subtext Narrative</label>
+                                    <textarea id="cmsHeroSubtitleInput" class="admin-dense-search-input" style="width: 100%; height: 70px; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 4px; resize: none;">Connect with verified employers, keep your timesheets compliant with IRCC rules, and lock in your escrow-protected salary rails smoothly.</textarea>
+                                </div>
+                            </fieldset>
+
+                            <!-- Dynamic Analytics Readouts Block -->
+                            <fieldset style="border: 1px solid #e5e7eb; border-radius: 6px; padding: 1.25rem; margin-bottom: 1.5rem;">
+                                <legend style="font-size: 0.8125rem; font-weight: 700; color: #1f2937; padding: 0 0.5rem; text-transform: uppercase;"><i class="fa-solid fa-chart-simple text-primary"></i> Front-Facing Statistical Indicators</legend>
+                                
+                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                                    <div>
+                                        <label style="display: block; font-size: 0.725rem; font-weight: 600; color: #4b5563; margin-bottom: 0.25rem;">Metric 1 (Placements)</label>
+                                        <input type="text" id="cmsMetricPlacementsInput" class="admin-dense-search-input" style="width: 100%;" value="12,450+ Matched">
+                                    </div>
+                                    <div>
+                                        <label style="display: block; font-size: 0.725rem; font-weight: 600; color: #4b5563; margin-bottom: 0.25rem;">Metric 2 (Employers)</label>
+                                        <input type="text" id="cmsMetricEmployersInput" class="admin-dense-search-input" style="width: 100%;" value="840 Companies">
+                                    </div>
+                                    <div>
+                                        <label style="display: block; font-size: 0.725rem; font-weight: 600; color: #4b5563; margin-bottom: 0.25rem;">Metric 3 (Settled Cash)</label>
+                                        <input type="text" id="cmsMetricVolumeInput" class="admin-dense-search-input" style="width: 100%;" value="$4.8M Payouts">
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <!-- Information Banner Ribbon Component -->
+                            <fieldset style="border: 1px solid #e5e7eb; border-radius: 6px; padding: 1.25rem; margin-bottom: 1.5rem;">
+                                <legend style="font-size: 0.8125rem; font-weight: 700; color: #1f2937; padding: 0 0.5rem; text-transform: uppercase;"><i class="fa-solid fa-bullhorn text-danger"></i> Portal Announcement Bar</legend>
+                                
+                                <div style="margin-bottom: 1rem;">
+                                    <label style="display: block; font-size: 0.75rem; font-weight: 600; color: #4b5563; margin-bottom: 0.25rem;">Banner Alert Context Text</label>
+                                    <input type="text" id="cmsBannerMessageInput" class="admin-dense-search-input" style="width: 100%;" value="Notice: Upstream processing synchronization scheduled for Paystack core payout channels at midnight.">
+                                </div>
+
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <input type="checkbox" id="cmsBannerToggleActiveCheckbox" checked style="width: 16px; height: 16px; cursor: pointer;">
+                                    <label for="cmsBannerToggleActiveCheckbox" style="font-size: 0.8125rem; color: #374151; font-weight: 600; cursor: pointer;">Render banner globally on landing container views</label>
+                                </div>
+                            </fieldset>
+
+                            <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="rollbackHomepageCopySettings()"><i class="fa-solid fa-rotate-left"></i> Revert Layout</button>
+                                <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i> Deploy CMS Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right Column: Live Feature Toggle switches & Configuration Data -->
+                <div class="profile-metadata-sidebar-column">
+                    <div class="premium-dashboard-card">
+                        <div class="card-title-row">
+                            <h3><i class="fa-solid fa-toggle-on text-success"></i> Engine Feature Gates</h3>
+                        </div>
+                        <p class="card-body-description" style="margin-bottom: 1.25rem;">
+                            Instantly toggle dynamic modules on the public homepage.
+                        </p>
+
+                        <div style="display: flex; flex-direction: column; gap: 1rem; border-top: 1px solid #e5e7eb; padding-top: 1rem;">
+                            <!-- Switch 1 -->
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <strong style="font-size: 13px; color: #111827; display: block;">Candidate Testimonial Scroll</strong>
+                                    <span style="font-size: 11px; color: #6b7280;">Render peer student success layout frames</span>
+                                </div>
+                                <input type="checkbox" id="gateTestimonialsSwitch" checked style="width: 36px; height: 20px; cursor: pointer;" onchange="toggleFeatureGateState('Testimonials')">
+                            </div>
+
+                            <!-- Switch 2 -->
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <strong style="font-size: 13px; color: #111827; display: block;">Partner Logo Ledger</strong>
+                                    <span style="font-size: 11px; color: #6b7280;">Display corporate brand trust vectors</span>
+                                </div>
+                                <input type="checkbox" id="gatePartnerLogosSwitch" checked style="width: 36px; height: 20px; cursor: pointer;" onchange="toggleFeatureGateState('Partner Logos')">
+                            </div>
+
+                            <!-- Switch 3 -->
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <strong style="font-size: 13px; color: #111827; display: block;">Trending Placements Feed</strong>
+                                    <span style="font-size: 11px; color: #6b7280;">Show active job board items dynamically</span>
+                                </div>
+                                <input type="checkbox" id="gateJobFeedSwitch" checked style="width: 36px; height: 20px; cursor: pointer;" onchange="toggleFeatureGateState('Trending Job Feed')">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Layout Presets Quick Box -->
+                    <div class="premium-dashboard-card" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                        <h4 style="margin: 0 0 0.5rem 0; font-size: 13px; color: #334155;"><i class="fa-solid fa-circle-info text-primary"></i> Content Distribution Note</h4>
+                        <p style="font-size: 11px; color: #64748b; margin: 0; line-height: 1.5;">
+                            When you save these updates, the platform flushes the Edge CDN page cache instantly. Public guests will see the updated configuration settings on their next session refresh loop.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Core CMS Configuration Infrastructure Implementation Script Layer -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            verifyAdministrativeSessionToken();
+        });
+
+        function verifyAdministrativeSessionToken() {
+            const activeToken = localStorage.getItem("mable_admin_session_jwt");
+            if (!activeToken) {
+                window.location.href = "login.html";
+                return;
+            }
+            if (localStorage.getItem("mable_impersonation_active") === "true") {
+                document.getElementById("adminImpersonationRibbon").style.display = "flex";
+            }
+        }
+
+        function displayActionFeedbackMessage(messageText, isErrorState = false) {
+            const feedbackContainer = document.getElementById("cmsActionAlertFeedback");
+            feedbackContainer.className = "alert-box-container animate-toast-arrival " + 
+                (isErrorState ? "alert-danger-state" : "alert-success-state");
+            feedbackContainer.innerHTML = `<i class="fa-solid ${isErrorState ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> <span>${messageText}</span>`;
+            
+            setTimeout(() => {
+                feedbackContainer.className = "alert-box-container hidden-alert";
+            }, 4500);
+        }
+
+        function commitHomepageContentChanges(event) {
+            event.preventDefault();
+            const headingTitle = document.getElementById("cmsHeroTitleInput").value.trim();
+            displayActionFeedbackMessage(`CMS content modifications pushed successfully. Main hero headline updated to: [${headingTitle}]. CDN flushed safely.`);
+        }
+
+        function toggleFeatureGateState(featureLabelName) {
+            displayActionFeedbackMessage(`Feature gate modifier updated: [${featureLabelName}] component availability state has been toggled dynamically.`);
+        }
+
+        function rollbackHomepageCopySettings() {
+            if (confirm("Revert your working changes back to the last production configuration state? All unsaved inputs will be dropped.")) {
+                document.getElementById("cmsHeroTitleInput").value = "Empowering International Students Across Canada";
+                document.getElementById("cmsHeroSubtitleInput").value = "Connect with verified employers, keep your timesheets compliant with IRCC rules, and lock in your escrow-protected salary rails smoothly.";
+                document.getElementById("cmsMetricPlacementsInput").value = "12,450+ Matched";
+                document.getElementById("cmsMetricEmployersInput").value = "840 Companies";
+                document.getElementById("cmsMetricVolumeInput").value = "$4.8M Payouts";
+                document.getElementById("cmsBannerMessageInput").value = "Notice: Upstream processing synchronization scheduled for Paystack core payout channels at midnight.";
+                document.getElementById("cmsBannerToggleActiveCheckbox").checked = true;
+                
+                displayActionFeedbackMessage("CMS forms reset to original production configuration variables.");
+            }
+        }
+
+        function terminateImpersonationSession() {
+            localStorage.removeItem("mable_impersonation_active");
+            document.getElementById("adminImpersonationRibbon").style.display = "none";
+            displayActionFeedbackMessage("Terminated user delegation framework. Restoring native marketing copy editing permissions.");
+        }
+
+        function executeAdminLogout() {
+            localStorage.removeItem("mable_admin_session_jwt");
+            localStorage.removeItem("mable_impersonation_active");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
