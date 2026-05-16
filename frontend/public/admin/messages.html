@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Communications Intercept &amp; Moderation - Admin Panel</title>
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <!-- FontAwesome Core Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Administrative Access Impersonation Alert Ribbon -->
+    <div class="admin-impersonation-alert-ribbon" id="adminImpersonationRibbon" style="display: none;">
+        <div class="impersonation-meta-details">
+            <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            <span><strong>Security Alert:</strong> Auditing user interaction streams under administrative delegation mode. Access footprints are logged continuously.</span>
+        </div>
+        <button class="btn-terminate-impersonation" onclick="terminateImpersonationSession()">Exit Session</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation Rail -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-top-group">
+                <div class="dashboard-content-header" style="border-bottom: 1px solid #2d3748; margin-bottom: 1.5rem; padding-bottom: 1rem;">
+                    <div class="header-title-block">
+                        <h1 style="color: #ffffff; font-size: 1.25rem; margin: 0;">MableWork HQ</h1>
+                        <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">Moderation Desk</p>
+                    </div>
+                </div>
+                <nav class="sidebar-links-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="dashboard.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i> Overview Control
+                    </a>
+                    <a href="messages.html" style="color: #ffffff; background-color: #1f2937; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem; font-weight: 600;">
+                        <i class="fa-solid fa-comments" style="width: 20px;"></i> Intercept Moderation
+                    </a>
+                    <a href="audit-logs.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-shield-halved" style="width: 20px;"></i> Security Audit Logs
+                    </a>
+                    <a href="workers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-gears" style="width: 20px;"></i> Engine Workers
+                    </a>
+                </nav>
+            </div>
+            <div class="sidebar-footer-group">
+                <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="executeAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Drop Access Gate
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Flow -->
+        <main class="dashboard-main-content animate-view-entry">
+            <!-- Content Header Context -->
+            <div class="dashboard-content-header">
+                <div class="header-title-block">
+                    <h1>Inter-Account Communications Oversight</h1>
+                    <p>Audit reported discussion paths, handle behavioral flag events, and review chat payload integrity constraints.</p>
+                </div>
+                <div class="header-profile-badge">
+                    <span>Moderation Lead</span>
+                    <div class="user-avatar" id="adminUserAvatarNode">MOD</div>
+                </div>
+            </div>
+
+            <!-- Global Action Intercept Alerts Layer -->
+            <div id="messagesActionAlertFeedback" class="alert-box-container hidden-alert"></div>
+
+            <!-- Thread Inspection Layout Structure -->
+            <div class="employer-dashboard-layout-grid" style="display: grid; grid-template-columns: 1fr 1.8fr; gap: 2rem;">
+                
+                <!-- Left Sidebar Column: Reported Conversation Streams -->
+                <div class="profile-metadata-sidebar-column">
+                    <div class="premium-dashboard-card" style="padding: 1.25rem;">
+                        <div class="card-title-row" style="margin-bottom: 1rem;">
+                            <h3>Flagged Threads</h3>
+                            <span class="admin-status-matrix-tag matrix-tag-revoked" style="font-size: 11px;">Action Required</span>
+                        </div>
+                        
+                        <div style="margin-bottom: 1rem;">
+                            <input type="text" id="threadSearchFilterInput" class="admin-dense-search-input" style="width: 100%;" placeholder="Filter threads..." onkeyup="filterFlaggedConversationThreads()">
+                        </div>
+
+                        <div id="flaggedThreadsListContainer" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <!-- Thread Item Node #1 -->
+                            <div class="premium-dashboard-card thread-summary-item active-thread-selection" style="margin: 0; cursor: pointer; padding: 0.75rem; border-left: 3px solid #dc2626; background: #f9fafb;" id="threadNode_1" onclick="loadActiveThreadContext('1')">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.25rem;">
+                                    <strong style="font-size: 13px; color: #111827;">Thread #CH-8821</strong>
+                                    <span style="font-size: 11px; color: #9ca3af;">2h ago</span>
+                                </div>
+                                <p style="font-size: 12px; margin: 0 0 0.5rem 0; color: #4b5563;"><strong>Participants:</strong> Apex Logistics vs Kofi Mensah</p>
+                                <span class="admin-status-matrix-tag matrix-tag-revoked" style="font-size: 10px; padding: 1px 4px;">Off-platform Payment Request</span>
+                            </div>
+
+                            <!-- Thread Item Node #2 -->
+                            <div class="premium-dashboard-card thread-summary-item" style="margin: 0; cursor: pointer; padding: 0.75rem; border-left: 3px solid #d97706;" id="threadNode_2" onclick="loadActiveThreadContext('2')">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.25rem;">
+                                    <strong style="font-size: 13px; color: #111827;">Thread #CH-4190</strong>
+                                    <span style="font-size: 11px; color: #9ca3af;">1d ago</span>
+                                </div>
+                                <p style="font-size: 12px; margin: 0 0 0.5rem 0; color: #4b5563;"><strong>Participants:</strong> Toronto Care vs Chen Wei</p>
+                                <span class="admin-status-matrix-tag matrix-tag-suspended" style="font-size: 10px; padding: 1px 4px;">Inappropriate Language Flag</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Stream Column: Active Intercept Chat Transcript Viewer -->
+                <div class="dashboard-main-stream-panel">
+                    <div class="premium-dashboard-card" style="display: flex; flex-direction: column; min-height: 500px;">
+                        <div class="card-title-row" style="border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; margin-bottom: 1.5rem;">
+                            <div>
+                                <h3 id="activeChatHeaderTitle">Auditing File Matrix: Thread #CH-8821</h3>
+                                <p style="font-size: 12px; color: #6b7280; margin: 0;" id="activeChatParticipantsSubtitle">Target: Apex Logistics Group (Employer) &lt;&gt; Kofi Mensah (Candidate)</p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="btn btn-outline-primary btn-xs" onclick="dismissBehavioralReportFlag()"><i class="fa-solid fa-circle-check"></i> Dismiss Flag</button>
+                                <button class="btn btn-danger btn-xs" onclick="escalateToComplianceRestriction()"><i class="fa-solid fa-user-slash"></i> Sanction Target</button>
+                            </div>
+                        </div>
+
+                        <!-- Chat Message History Container -->
+                        <div id="transcriptMessagesPayloadContainer" style="flex-grow: 1; display: flex; flex-direction: column; gap: 1rem; overflow-y: auto; padding-right: 0.5rem; margin-bottom: 1.5rem;">
+                            <!-- Employer Message Box -->
+                            <div style="background: #f3f4f6; padding: 0.75rem 1rem; border-radius: 8px; max-width: 85%; align-self: flex-start;">
+                                <div style="display: flex; gap: 0.5rem; font-size: 11px; margin-bottom: 0.25rem;">
+                                    <strong style="color: #1f2937;">Apex Logistics Group (HR)</strong>
+                                    <span style="color: #9ca3af;">2026-05-15 14:10</span>
+                                </div>
+                                <p style="font-size: 13px; margin: 0; color: #111827;">We reviewed your application documents for the Shift Supervisor vacancy. Everything appears matching.</p>
+                            </div>
+
+                            <!-- Candidate Flagged Message Box -->
+                            <div style="background: #fee2e2; border: 1px solid #fca5a5; padding: 0.75rem 1rem; border-radius: 8px; max-width: 85%; align-self: flex-end;">
+                                <div style="display: flex; gap: 0.5rem; font-size: 11px; margin-bottom: 0.25rem; justify-content: flex-end;">
+                                    <strong style="color: #991b1b;"><i class="fa-solid fa-flag text-danger"></i> Kofi Mensah</strong>
+                                    <span style="color: #9ca3af;">2026-05-15 14:15</span>
+                                </div>
+                                <p style="font-size: 13px; margin: 0; color: #111827;">Excellent. Can you instead complete the processing payments outside the MableWork system directly via wire transaction to bypass the platform contract management commission split fees?</p>
+                            </div>
+                        </div>
+
+                        <!-- Compliance Enforcement Footer Info Box -->
+                        <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 1rem; border-radius: 6px;">
+                            <span style="font-size: 12px; font-weight: 600; color: #334155; display: block; margin-bottom: 0.25rem;"><i class="fa-solid fa-shield-halved text-primary"></i> Automator Analysis Summary Log</span>
+                            <p style="font-size: 11px; color: #64748b; margin: 0;">String match interception triggered for regex configuration `(outside the platform|bypass|wire transaction)`. Context confirms systemic leakage evasion target matching.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Core Messaging Intercept Handling Implementation Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            verifyAdministrativeSessionToken();
+        });
+
+        function verifyAdministrativeSessionToken() {
+            const activeToken = localStorage.getItem("mable_admin_session_jwt");
+            if (!activeToken) {
+                window.location.href = "login.html";
+                return;
+            }
+            if (localStorage.getItem("mable_impersonation_active") === "true") {
+                document.getElementById("adminImpersonationRibbon").style.display = "flex";
+            }
+        }
+
+        function displayActionFeedbackMessage(messageText, isErrorState = false) {
+            const feedbackContainer = document.getElementById("messagesActionAlertFeedback");
+            feedbackContainer.className = "alert-box-container animate-toast-arrival " + 
+                (isErrorState ? "alert-danger-state" : "alert-success-state");
+            feedbackContainer.innerHTML = `<i class="fa-solid ${isErrorState ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> <span>${messageText}</span>`;
+            
+            setTimeout(() => {
+                feedbackContainer.className = "alert-box-container hidden-alert";
+            }, 4500);
+        }
+
+        function filterFlaggedConversationThreads() {
+            const pattern = document.getElementById("threadSearchFilterInput").value.toLowerCase();
+            const threadCards = document.querySelectorAll(".thread-summary-item");
+            
+            threadCards.forEach(card => {
+                if (card.innerText.toLowerCase().includes(pattern)) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        function loadActiveThreadContext(threadId) {
+            document.querySelectorAll(".thread-summary-item").forEach(item => {
+                item.classList.remove("active-thread-selection");
+                item.style.background = "#ffffff";
+            });
+            
+            const selectedItem = document.getElementById(`threadNode_${threadId}`);
+            if (selectedItem) {
+                selectedItem.classList.add("active-thread-selection");
+                selectedItem.style.background = "#f9fafb";
+            }
+
+            const heading = document.getElementById("activeChatHeaderTitle");
+            const sub = document.getElementById("activeChatParticipantsSubtitle");
+            const container = document.getElementById("transcriptMessagesPayloadContainer");
+
+            if (threadId === '1') {
+                heading.innerText = "Auditing File Matrix: Thread #CH-8821";
+                sub.innerText = "Target: Apex Logistics Group (Employer) && Kofi Mensah (Candidate)";
+                container.innerHTML = `
+                    <div style="background: #f3f4f6; padding: 0.75rem 1rem; border-radius: 8px; max-width: 85%; align-self: flex-start;">
+                        <div style="display: flex; gap: 0.5rem; font-size: 11px; margin-bottom: 0.25rem;">
+                            <strong style="color: #1f2937;">Apex Logistics Group (HR)</strong>
+                            <span style="color: #9ca3af;">2026-05-15 14:10</span>
+                        </div>
+                        <p style="font-size: 13px; margin: 0; color: #111827;">We reviewed your application documents for the Shift Supervisor vacancy. Everything appears matching.</p>
+                    </div>
+                    <div style="background: #fee2e2; border: 1px solid #fca5a5; padding: 0.75rem 1rem; border-radius: 8px; max-width: 85%; align-self: flex-end;">
+                        <div style="display: flex; gap: 0.5rem; font-size: 11px; margin-bottom: 0.25rem; justify-content: flex-end;">
+                            <strong style="color: #991b1b;"><i class="fa-solid fa-flag text-danger"></i> Kofi Mensah</strong>
+                            <span style="color: #9ca3af;">2026-05-15 14:15</span>
+                        </div>
+                        <p style="font-size: 13px; margin: 0; color: #111827;">Excellent. Can you instead complete the processing payments outside the MableWork system directly via wire transaction to bypass the platform contract management commission split fees?</p>
+                    </div>`;
+            } else {
+                heading.innerText = "Auditing File Matrix: Thread #CH-4190";
+                sub.innerText = "Target: Toronto Care Corp (Employer) && Chen Wei (Candidate)";
+                container.innerHTML = `
+                    <div style="background: #f3f4f6; padding: 0.75rem 1rem; border-radius: 8px; max-width: 85%; align-self: flex-start;">
+                        <div style="display: flex; gap: 0.5rem; font-size: 11px; margin-bottom: 0.25rem;">
+                            <strong style="color: #1f2937;">Toronto Care Corp</strong>
+                            <span style="color: #9ca3af;">2026-05-14 09:30</span>
+                        </div>
+                        <p style="font-size: 13px; margin: 0; color: #111827;">Please update your certification documents before Monday or the schedule assignment drops automatically.</p>
+                    </div>
+                    <div style="background: #fef3c7; border: 1px solid #fcd34d; padding: 0.75rem 1rem; border-radius: 8px; max-width: 85%; align-self: flex-end;">
+                        <div style="display: flex; gap: 0.5rem; font-size: 11px; margin-bottom: 0.25rem; justify-content: flex-end;">
+                            <strong style="color: #92400e;"><i class="fa-solid fa-flag text-warning"></i> Chen Wei</strong>
+                            <span style="color: #9ca3af;">2026-05-14 10:02</span>
+                        </div>
+                        <p style="font-size: 13px; margin: 0; color: #111827;">Your timeline is completely unreasonable and unhelpful. Please stop sending these alerts.</p>
+                    </div>`;
+            }
+        }
+
+        function dismissBehavioralReportFlag() {
+            displayActionFeedbackMessage("Conversation thread flag successfully cleared. Conversation marked as compliant.");
+        }
+
+        function escalateToComplianceRestriction() {
+            window.location.href = "restrictions.html";
+        }
+
+        function terminateImpersonationSession() {
+            localStorage.removeItem("mable_impersonation_active");
+            document.getElementById("adminImpersonationRibbon").style.display = "none";
+            displayActionFeedbackMessage("Terminated user delegation framework. Restoring native communication moderation privileges.");
+        }
+
+        function executeAdminLogout() {
+            localStorage.removeItem("mable_admin_session_jwt");
+            localStorage.removeItem("mable_impersonation_active");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
