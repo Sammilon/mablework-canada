@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Engine Broadcast Deck - Admin Panel</title>
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <!-- FontAwesome Core Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Administrative Access Impersonation Alert Ribbon -->
+    <div class="admin-impersonation-alert-ribbon" id="adminImpersonationRibbon" style="display: none;">
+        <div class="impersonation-meta-details">
+            <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            <span><strong>Security Alert:</strong> Dispatching system-wide notifications under administrative impersonation mode. All broad targets are audited.</span>
+        </div>
+        <button class="btn-terminate-impersonation" onclick="terminateImpersonationSession()">Exit Session</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation Rail -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-top-group">
+                <div class="dashboard-content-header" style="border-bottom: 1px solid #2d3748; margin-bottom: 1.5rem; padding-bottom: 1rem;">
+                    <div class="header-title-block">
+                        <h1 style="color: #ffffff; font-size: 1.25rem; margin: 0;">MableWork HQ</h1>
+                        <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">Notification Router</p>
+                    </div>
+                </div>
+                <nav class="sidebar-links-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="dashboard.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i> Overview Control
+                    </a>
+                    <a href="notifications.html" style="color: #ffffff; background-color: #1f2937; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem; font-weight: 600;">
+                        <i class="fa-solid fa-bullhorn" style="width: 20px;"></i> Broadcast Center
+                    </a>
+                    <a href="audit-logs.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-shield-halved" style="width: 20px;"></i> Security Audit Logs
+                    </a>
+                    <a href="workers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-gears" style="width: 20px;"></i> Engine Workers
+                    </a>
+                </nav>
+            </div>
+            <div class="sidebar-footer-group">
+                <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="executeAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Drop Access Gate
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Flow -->
+        <main class="dashboard-main-content animate-view-entry">
+            <!-- Content Header Context -->
+            <div class="dashboard-content-header">
+                <div class="header-title-block">
+                    <h1>Communication Channels &amp; Broadcast Engine</h1>
+                    <p>Dispatch real-time global portal announcements, test dynamic alert template injections, and review communication queue performance metrics.</p>
+                </div>
+                <div class="header-profile-badge">
+                    <span>Communications Admin</span>
+                    <div class="user-avatar" id="adminUserAvatarNode">NOT</div>
+                </div>
+            </div>
+
+            <!-- Global Action Intercept Alerts Layer -->
+            <div id="notificationActionAlertFeedback" class="alert-box-container hidden-alert"></div>
+
+            <div class="employer-dashboard-layout-grid" style="display: grid; grid-template-columns: 1.2fr 2fr; gap: 2rem;">
+                
+                <!-- Left Column: Global Dispatch Engine Form -->
+                <div class="profile-metadata-sidebar-column">
+                    <div class="premium-dashboard-card">
+                        <div class="card-title-row">
+                            <h3><i class="fa-solid fa-paper-plane text-primary"></i> Live Broadcast Terminal</h3>
+                        </div>
+                        <p class="card-body-description" style="margin-bottom: 1.25rem;">
+                            Directly push emergency, system maintenance, or generic portal notifications to active user dashboards instantly.
+                        </p>
+
+                        <form onsubmit="dispatchSystemWideBroadcast(event)">
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; font-size: 0.75rem; font-weight: 600; color: #374151; margin-bottom: 0.25rem;">Target Recipient Segment</label>
+                                <select id="broadcastRecipientGroupSelect" class="admin-dense-select" style="width: 100%;">
+                                    <option value="ALL">All Platform Users</option>
+                                    <option value="CANDIDATES">Active Candidates Only</option>
+                                    <option value="EMPLOYERS">Registered Employers Only</option>
+                                </select>
+                            </div>
+
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; font-size: 0.75rem; font-weight: 600; color: #374151; margin-bottom: 0.25rem;">Alert Classification Profile</label>
+                                <select id="broadcastAlertSeveritySelect" class="admin-dense-select" style="width: 100%;">
+                                    <option value="INFO">Information (Standard Blue)</option>
+                                    <option value="WARNING">Warning Hold (Amber Alert)</option>
+                                    <option value="CRITICAL">Critical Intercept (Immediate Crimson)</option>
+                                </select>
+                            </div>
+
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; font-size: 0.75rem; font-weight: 600; color: #374151; margin-bottom: 0.25rem;">Announcement Header Title</label>
+                                <input type="text" id="broadcastPayloadTitleInput" class="admin-dense-search-input" style="width: 100%;" placeholder="e.g. Scheduled Gateway Interruption" required>
+                            </div>
+
+                            <div style="margin-bottom: 1.25rem;">
+                                <label style="display: block; font-size: 0.75rem; font-weight: 600; color: #374151; margin-bottom: 0.25rem;">Message Body Payload String</label>
+                                <textarea id="broadcastPayloadBodyInput" class="admin-dense-search-input" style="width: 100%; height: 100px; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 4px; resize: none;" placeholder="Provide comprehensive notification markdown content context..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-sm full-width"><i class="fa-solid fa-bullhorn"></i> Commit Channel Broadcast</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right Column: Dispatch Logs Queue & Status Matrix -->
+                <div class="dashboard-main-stream-panel">
+                    <div class="premium-dashboard-card">
+                        <div class="card-title-row">
+                            <h3><i class="fa-solid fa-clock-rotate-left text-success"></i> Notification Event Dispatch Queue</h3>
+                            <button class="btn btn-outline-primary btn-xs" onclick="flushStaleNotificationQueue()"><i class="fa-solid fa-broom"></i> Flush Retries</button>
+                        </div>
+                        <p class="card-body-description" style="margin-bottom: 1.5rem;">
+                            Monitors systemic template compilation runs and transactional webhooks. Fails automatic processing retries when upstream delivery endpoints fail.
+                        </p>
+
+                        <div class="table-responsive-wrapper">
+                            <table class="admin-audit-log-table">
+                                <thead>
+                                    <tr>
+                                        <th>Target Scope</th>
+                                        <th>Channel / Template</th>
+                                        <th>Subject Brief Payload Context</th>
+                                        <th>Queue Metric Status</th>
+                                        <th style="text-align: right;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="notificationQueueDataRows">
+                                    <tr id="notifyRow_1">
+                                        <td style="font-weight: 600;">
+                                            <span>Oluwaseun A.</span><br>
+                                            <span style="color: #6b7280; font-size: 0.725rem; font-weight: 400;">Candidate</span>
+                                        </td>
+                                        <td>
+                                            <span class="admin-status-matrix-tag matrix-tag-system"><i class="fa-solid fa-envelope"></i> Email</span><br>
+                                            <code style="font-size: 11px;">doc_rejected_v1</code>
+                                        </td>
+                                        <td>
+                                            <strong>Work Permit Clarification Required</strong><br>
+                                            <span style="font-size: 11px; color: #4b5563;">Resolution needed for document validation.</span>
+                                        </td>
+                                        <td><span class="admin-status-matrix-tag matrix-tag-active">DELIVERED</span></td>
+                                        <td style="text-align: right;">
+                                            <button class="btn btn-outline-primary btn-xs" onclick="resendTargetedNotification('1', 'Oluwaseun A.')"><i class="fa-solid fa-rotate-left"></i> Re-queue</button>
+                                        </td>
+                                    </tr>
+                                    <tr id="notifyRow_2">
+                                        <td style="font-weight: 600;">
+                                            <span>Global Stream</span><br>
+                                            <span style="color: #6b7280; font-size: 0.725rem; font-weight: 400;">All Sessions</span>
+                                        </td>
+                                        <td>
+                                            <span class="admin-status-matrix-tag matrix-tag-premium"><i class="fa-solid fa-window-maximize"></i> Portal</span><br>
+                                            <code style="font-size: 11px;">sys_broadcast</code>
+                                        </td>
+                                        <td>
+                                            <strong>Paystack Integration Sync Window</strong><br>
+                                            <span style="font-size: 11px; color: #4b5563;">Automated clearing locks updated at midnight.</span>
+                                        </td>
+                                        <td><span class="admin-status-matrix-tag matrix-tag-active">BROADCASTING</span></td>
+                                        <td style="text-align: right;">
+                                            <button class="btn btn-outline-danger btn-xs" onclick="cancelActiveBroadcastRule('2')"><i class="fa-solid fa-ban"></i> Drop</button>
+                                        </td>
+                                    </tr>
+                                    <tr id="notifyRow_3">
+                                        <td style="font-weight: 600;">
+                                            <span>David Smith</span><br>
+                                            <span style="color: #6b7280; font-size: 0.725rem; font-weight: 400;">Employer</span>
+                                        </td>
+                                        <td>
+                                            <span class="admin-status-matrix-tag matrix-tag-system"><i class="fa-solid fa-envelope"></i> Email</span><br>
+                                            <code style="font-size: 11px;">escrow_received</code>
+                                        </td>
+                                        <td>
+                                            <strong>Payroll Deposit Confirmed</strong><br>
+                                            <span style="font-size: 11px; color: #4b5563;">Paystack callback reference processed safely.</span>
+                                        </td>
+                                        <td><span class="admin-status-matrix-tag matrix-tag-suspended">QUEUED (RETRY)</span></td>
+                                        <td style="text-align: right;">
+                                            <button class="btn btn-outline-primary btn-xs" onclick="resendTargetedNotification('3', 'David Smith')"><i class="fa-solid fa-bolt"></i> Force</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Core Interactive Notification Dispatch Control Logic -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            verifyAdministrativeSessionToken();
+        });
+
+        function verifyAdministrativeSessionToken() {
+            const activeToken = localStorage.getItem("mable_admin_session_jwt");
+            if (!activeToken) {
+                window.location.href = "login.html";
+                return;
+            }
+            if (localStorage.getItem("mable_impersonation_active") === "true") {
+                document.getElementById("adminImpersonationRibbon").style.display = "flex";
+            }
+        }
+
+        function displayActionFeedbackMessage(messageText, isErrorState = false) {
+            const feedbackContainer = document.getElementById("notificationActionAlertFeedback");
+            feedbackContainer.className = "alert-box-container animate-toast-arrival " + 
+                (isErrorState ? "alert-danger-state" : "alert-success-state");
+            feedbackContainer.innerHTML = `<i class="fa-solid ${isErrorState ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> <span>${messageText}</span>`;
+            
+            setTimeout(() => {
+                feedbackContainer.className = "alert-box-container hidden-alert";
+            }, 4500);
+        }
+
+        function dispatchSystemWideBroadcast(event) {
+            event.preventDefault();
+            const scopeGroup = document.getElementById("broadcastRecipientGroupSelect").value;
+            const contextTitle = document.getElementById("broadcastPayloadTitleInput").value.trim();
+            
+            document.getElementById("broadcastPayloadTitleInput").value = "";
+            document.getElementById("broadcastPayloadBodyInput").value = "";
+            
+            displayActionFeedbackMessage(`Dispatched portal wide message alert [${contextTitle}] targeting demographic [${scopeGroup}].`);
+        }
+
+        function resendTargetedNotification(rowIdentifierId, usernameTarget) {
+            displayActionFeedbackMessage(`Forced compilation recalculation payload re-queued for [${usernameTarget}] matching template context.`);
+            const targetRow = document.getElementById(`notifyRow_${rowIdentifierId}`);
+            if (targetRow) {
+                const badge = targetRow.querySelector("[data-status='QUEUED (RETRY)']") || targetRow.cells[3].querySelector(".admin-status-matrix-tag");
+                if (badge) {
+                    badge.className = "admin-status-matrix-tag matrix-tag-active";
+                    badge.innerText = "DELIVERED";
+                }
+            }
+        }
+
+        function cancelActiveBroadcastRule(rowIdentifierId) {
+            if (confirm("Evict active global announcement thread parameters instantly?")) {
+                const matchingRow = document.getElementById(`notifyRow_${rowIdentifierId}`);
+                if (matchingRow) {
+                    matchingRow.remove();
+                }
+                displayActionFeedbackMessage("Global notification segment withdrawn safely from matching sessions.");
+            }
+        }
+
+        function flushStaleNotificationQueue() {
+            displayActionFeedbackMessage("Cleared pending structural failure items across routing pipelines.");
+        }
+
+        function terminateImpersonationSession() {
+            localStorage.removeItem("mable_impersonation_active");
+            document.getElementById("adminImpersonationRibbon").style.display = "none";
+            displayActionFeedbackMessage("Terminated user delegation framework. Restoring native communication privileges.");
+        }
+
+        function executeAdminLogout() {
+            localStorage.removeItem("mable_admin_session_jwt");
+            localStorage.removeItem("mable_impersonation_active");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
