@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Notification Matrices | Employer Dashboard | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../../src/css/variables.css">
+    <link rel="stylesheet" href="../../src/css/global.css">
+    <link rel="stylesheet" href="../../src/css/components/loader.css">
+    <link rel="stylesheet" href="../../src/css/components/dashboard-layout.css">
+    <link rel="stylesheet" href="../../src/css/pages/dashboard/employer-notifications.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Premium Visual Icons Vector Pack -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Loading Dispatch Gates...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <div class="dashboard-wrapper">
+            
+            <!-- Internal Employer Navigation Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <span class="brand-text">MableWork</span>
+                    <span class="brand-region">Corporate</span>
+                </div>
+                <nav class="sidebar-menu">
+                    <a href="index.html" class="menu-item"><i class="fas fa-chart-line"></i> Operations Center</a>
+                    <a href="workforce-request.html" class="menu-item"><i class="fas fa-layer-plus"></i> Request Workforce</a>
+                    <a href="active-placements.html" class="menu-item"><i class="fas fa-users-gear"></i> Active Rosters</a>
+                    <a href="billing.html" class="menu-item"><i class="fas fa-credit-card-blank"></i> Corporate Invoicing</a>
+                    <a href="compliance-vault.html" class="menu-item"><i class="fas fa-building-shield"></i> Risk Mitigation</a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button id="sidebar-logout-trigger" class="btn btn-outline-danger btn-sm full-width"><i class="fas fa-power-off"></i> Terminate Portal Session</button>
+                </div>
+            </aside>
+
+            <!-- Main Work Area Stream Layer -->
+            <main class="dashboard-main-content">
+                
+                <!-- Internal Context Header -->
+                <header class="dashboard-content-header">
+                    <div class="header-title-block">
+                        <h1>Enterprise Routing Settings</h1>
+                        <p>Configure automated ingestion rules and alert distribution endpoints across your corporate administrative directory.</p>
+                    </div>
+                    <div class="header-profile-badge">
+                        <div class="user-avatar" id="nav-avatar-fallback">HQ</div>
+                        <span id="user-display-name">Enterprise Admin</span>
+                    </div>
+                </header>
+
+                <!-- Feedback Banner Center -->
+                <div id="notifications-alert-center" class="alert-box-container hidden-alert"></div>
+
+                <!-- Split Matrix Preference Layout Form -->
+                <form id="employer-notifications-rules-form" class="interactive-dashboard-form">
+                    <div class="notifications-dashboard-grid">
+                        
+                        <!-- Left Layout Area: Configuration Nodes -->
+                        <div class="notifications-main-settings-panel">
+                            
+                            <!-- Box 1: Sourcing & Intake Logs -->
+                            <div class="premium-dashboard-card">
+                                <div class="card-title-row">
+                                    <h3><i class="fas fa-user-magnifying-glass text-primary"></i> Intake & Matching Telemetry</h3>
+                                </div>
+                                <div class="card-body-description">
+                                    <p>Control communication parameters when candidates pass through automated filtering locks or when direct match scores hit target compliance parameters.</p>
+                                </div>
+                                
+                                <div class="toggle-control-list">
+                                    <div class="toggle-row-item">
+                                        <div class="toggle-meta">
+                                            <strong>Immediate Pipeline Match (Email)</strong>
+                                            <span>Fires an instant alert summary containing verified candidates who clear open requirements.</span>
+                                        </div>
+                                        <label class="switch-toggle-component">
+                                            <input type="checkbox" name="matchAlertEmail" id="notif-match-email" checked>
+                                            <span class="slider-round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="toggle-row-item">
+                                        <div class="toggle-meta">
+                                            <strong>Interview Completion Track</strong>
+                                            <span>Notifies coordinators when automated background test arrays run to completion.</span>
+                                        </div>
+                                        <label class="switch-toggle-component">
+                                            <input type="checkbox" name="interviewCompleted" id="notif-interview-track">
+                                            <span class="slider-round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Box 2: Timesheets & Statutory Regulatory Controls -->
+                            <div class="premium-dashboard-card">
+                                <div class="card-title-row">
+                                    <h3><i class="fas fa-shield-circle-exclamation text-warning"></i> Operational Hours & Statutory Alerts</h3>
+                                </div>
+                                <div class="card-body-description">
+                                    <p>Critical tracking boundaries configured to protect operations from labor variances. Email notices for extreme statutory items cannot be modified.</p>
+                                </div>
+                                
+                                <div class="toggle-control-list">
+                                    <div class="toggle-row-item disabled-toggle">
+                                        <div class="toggle-meta">
+                                            <strong>IRCC Student 20-Hour Threshold Warning</strong>
+                                            <span>Fires instantly via core webhooks if an academic profile logs over 18 hours in an active cycle.</span>
+                                        </div>
+                                        <label class="switch-toggle-component">
+                                            <input type="checkbox" checked disabled>
+                                            <span class="slider-round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="toggle-row-item">
+                                        <div class="toggle-meta">
+                                            <strong>Timesheet Submittal Reminders</strong>
+                                            <span>Notifies managers when pending employee log sequences clear their candidate layout portals at the end of the week.</span>
+                                        </div>
+                                        <label class="switch-toggle-component">
+                                            <input type="checkbox" name="timesheetPendingApproval" id="notif-timesheet-remind" checked>
+                                            <span class="slider-round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Box 3: Invoicing and Clearing Protocols -->
+                            <div class="premium-dashboard-card">
+                                <div class="card-title-row">
+                                    <h3><i class="fas fa-credit-card text-success"></i> Corporate Ledger Receipts & Billing</h3>
+                                </div>
+                                <div class="card-body-description">
+                                    <p>Manage notification pathways for multi-resource statements, corporate statements, and funding clearance intervals.</p>
+                                </div>
+                                
+                                <div class="toggle-control-list">
+                                    <div class="toggle-row-item">
+                                        <div class="toggle-meta">
+                                            <strong>Monthly Billing Ledger (PDF)</strong>
+                                            <span>Routes copies of clearing statements directly to accounting endpoints.</span>
+                                        </div>
+                                        <label class="switch-toggle-component">
+                                            <input type="checkbox" name="billingLedgerEmail" id="notif-billing-email" checked>
+                                            <span class="slider-round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="toggle-row-item">
+                                        <div class="toggle-meta">
+                                            <strong>Pre-Authorized Escrow Replenishment Alerts</strong>
+                                            <span>Notifies administrators when remaining retainer pools slide past low balance bounds.</span>
+                                        </div>
+                                        <label class="switch-toggle-component">
+                                            <input type="checkbox" name="lowBalanceEscrow" id="notif-escrow-alert">
+                                            <span class="slider-round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Right Layout Area: Persistent Actions Sidebar -->
+                        <div class="notifications-action-sidebar">
+                            <div class="premium-dashboard-card sticky-action-card">
+                                <h4>Apply Notification Model</h4>
+                                <p class="sidebar-help-text">Updating these distribution points synchronizes communication rules across active account subgroups instantly.</p>
+                                
+                                <button type="submit" id="save-employer-notif-btn" class="btn btn-primary full-width mt-3">
+                                    <span class="btn-text"><i class="fas fa-floppy-disk"></i> Lock Communication Rules</span>
+                                    <span class="btn-spinner-icon hidden"><i class="fas fa-circle-notch fa-spin"></i></span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../../src/js/api.js"></script>
+    <script src="../../src/js/utils/loader.js"></script>
+    <script src="../../src/js/pages/dashboard/employer-notifications.js"></script>
+</body>
+</html>
