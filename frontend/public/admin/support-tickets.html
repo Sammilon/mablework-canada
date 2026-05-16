@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Ticket Desk - Admin Control Panel</title>
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <!-- FontAwesome Core Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Administrative Access Impersonation Alert Ribbon -->
+    <div class="admin-impersonation-alert-ribbon" id="adminImpersonationRibbon" style="display: none;">
+        <div class="impersonation-meta-details">
+            <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            <span><strong>Security Alert:</strong> You are operating inside administrative impersonation mode. All ticket resolutions and comment logs are audited.</span>
+        </div>
+        <button class="btn-terminate-impersonation" onclick="terminateImpersonationSession()">Exit Session</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation Rail -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-top-group">
+                <div class="dashboard-content-header" style="border-bottom: 1px solid #2d3748; margin-bottom: 1.5rem; padding-bottom: 1rem;">
+                    <div class="header-title-block">
+                        <h1 style="color: #ffffff; font-size: 1.25rem; margin: 0;">MableWork HQ</h1>
+                        <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">Operations Desk</p>
+                    </div>
+                </div>
+                <nav class="sidebar-links-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="dashboard.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i> Overview Control
+                    </a>
+                    <a href="audit-logs.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-shield-halved" style="width: 20px;"></i> Security Audit Logs
+                    </a>
+                    <a href="workers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-gears" style="width: 20px;"></i> Engine Workers
+                    </a>
+                    <a href="support-tickets.html" style="color: #ffffff; background-color: #1f2937; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem; font-weight: 600;">
+                        <i class="fa-solid fa-ticket" style="width: 20px;"></i> Support Desk
+                    </a>
+                    <a href="settings.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-sliders" style="width: 20px;"></i> System Settings
+                    </a>
+                </nav>
+            </div>
+            <div class="sidebar-footer-group">
+                <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="executeAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Drop Access Gate
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Flow -->
+        <main class="dashboard-main-content animate-view-entry">
+            <!-- Content Header Context -->
+            <div class="dashboard-content-header">
+                <div class="header-title-block">
+                    <h1>Support Ticket Matrix</h1>
+                    <p>Audit system inquiries, resolve Paystack billing complaints, and manage system access appeals.</p>
+                </div>
+                <div class="header-profile-badge">
+                    <span>Helpdesk Agent</span>
+                    <div class="user-avatar" id="adminUserAvatarNode">OPS</div>
+                </div>
+            </div>
+
+            <!-- Global Action Intercept Alerts Layer -->
+            <div id="ticketActionAlertFeedback" class="alert-box-container hidden-alert"></div>
+
+            <!-- Ticket Desk Metrics Summary Strips -->
+            <section class="metrics-summary-ribbon id-metrics-row-margin" style="margin-bottom: 2rem;">
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-danger-soft text-danger">
+                        <i class="fa-solid fa-folder-open"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Unresolved Tickets</span>
+                        <span class="metric-value" id="unresolvedTicketsCount">14</span>
+                    </div>
+                </div>
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-warning-soft text-warning">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Pending Callback</span>
+                        <span class="metric-value" id="pendingCallbackCount">6</span>
+                    </div>
+                </div>
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-success-soft text-success">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Resolved (Today)</span>
+                        <span class="metric-value" id="resolvedTodayCount">31</span>
+                    </div>
+                </div>
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-primary-soft text-primary">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Avg Response Time</span>
+                        <span class="metric-value" id="avgResponseTimeMetrics">14m</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- High Density Control Actions Panel & Advanced Filtering -->
+            <div class="admin-action-filtering-dock">
+                <div class="filter-controls-group">
+                    <input type="text" id="ticketSearchInput" class="admin-dense-search-input" placeholder="Search by Ticket ID, Email, Keyword..." style="width: 260px;" onkeyup="evaluateTicketClientFilter()">
+                    <select id="priorityFilterSelect" class="admin-dense-select" onchange="evaluateTicketClientFilter()">
+                        <option value="ALL">All Priorities</option>
+                        <option value="CRITICAL">Critical Priority</option>
+                        <option value="HIGH">High Priority</option>
+                        <option value="NORMAL">Normal Priority</option>
+                    </select>
+                    <select id="statusFilterSelect" class="admin-dense-select" onchange="evaluateTicketClientFilter()">
+                        <option value="ALL">All Operational Statuses</option>
+                        <option value="OPEN">Open / Active</option>
+                        <option value="PENDING">Pending Action</option>
+                        <option value="CLOSED">Closed / Resolved</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="btn btn-outline-primary btn-sm" onclick="syncTicketDataStream()">
+                        <i class="fa-solid fa-rotate"></i> Sync Live Desk
+                    </button>
+                </div>
+            </div>
+
+            <!-- Master Ticket Matrix Board -->
+            <div class="premium-dashboard-card">
+                <div class="card-title-row">
+                    <h3><i class="fa-solid fa-list-check text-primary"></i> Live Client Inquiries Queue</h3>
+                    <span class="admin-status-matrix-tag matrix-tag-active">All Channels Online</span>
+                </div>
+                <p class="card-body-description" style="margin-bottom: 1.5rem;">
+                    Lists active system operational exceptions, account management requests, and transaction disputes routing from client portals.
+                </p>
+
+                <div class="table-responsive-wrapper">
+                    <table class="admin-audit-log-table" id="supportTicketMasterTable">
+                        <thead>
+                            <tr>
+                                <th>Ticket ID</th>
+                                <th>Reporter Context</th>
+                                <th>Category Scope</th>
+                                <th>Issue Subject Summary</th>
+                                <th>Priority</th>
+                                <th>State</th>
+                                <th>Registered On</th>
+                                <th style="text-align: right;">Operational Interventions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="supportTicketDataRows">
+                            <tr class="ticket-data-row-item" data-priority="CRITICAL" data-status="OPEN">
+                                <td style="font-weight: 600;">TCK-77291-A</td>
+                                <td>
+                                    <strong>Afolabi Balogun</strong><br>
+                                    <span style="color: #6b7280; font-size: 0.75rem;">afolabi@atwopat.org.ng</span>
+                                </td >
+                                <td><span class="admin-status-matrix-tag matrix-tag-revoked">Paystack Billing</span></td>
+                                <td>
+                                    <span style="font-weight: 600;">Double deduction during system registration fee transaction frame</span><br>
+                                    <span style="color: #6b7280; font-size: 0.75rem;">Transaction Hash Ref: PSTK-99021-MBL</span>
+                                </td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-revoked">Critical</span></td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-suspended">Open</span></td>
+                                <td>2026-05-16 01:12</td>
+                                <td style="text-align: right; white-space: nowrap;">
+                                    <button class="btn btn-primary btn-xs" onclick="openTicketInterventionModal('TCK-77291-A', 'Afolabi Balogun', 'Paystack Billing', 'Double deduction during system registration fee transaction frame')"><i class="fa-solid fa-reply"></i> Update</button>
+                                    <button class="btn btn-success btn-xs" onclick="dispatchDirectTicketResolution('TCK-77291-A')"><i class="fa-solid fa-check"></i> Close</button>
+                                </td>
+                            </tr>
+                            <tr class="ticket-data-row-item" data-priority="HIGH" data-status="PENDING">
+                                <td style="font-weight: 600;">TCK-77304-B</td>
+                                <td>
+                                    <strong>Sarah Jenkins</strong><br>
+                                    <span style="color: #6b7280; font-size: 0.75rem;">s.jenkins@mablework.ca</span>
+                                </td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-premium">Corporate Access</span></td>
+                                <td>
+                                    <span style="font-weight: 600;">Private repository tracking hook fails on profile parsing index loops</span>
+                                </td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-suspended">High</span></td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-premium">Pending</span></td>
+                                <td>2026-05-15 18:44</td>
+                                <td style="text-align: right; white-space: nowrap;">
+                                    <button class="btn btn-primary btn-xs" onclick="openTicketInterventionModal('TCK-77304-B', 'Sarah Jenkins', 'Corporate Access', 'Private repository tracking hook fails on profile parsing index loops')"><i class="fa-solid fa-reply"></i> Update</button>
+                                    <button class="btn btn-success btn-xs" onclick="dispatchDirectTicketResolution('TCK-77304-B')"><i class="fa-solid fa-check"></i> Close</button>
+                                </td>
+                            </tr>
+                            <tr class="ticket-data-row-item" data-priority="NORMAL" data-status="CLOSED">
+                                <td style="font-weight: 600;">TCK-77112-F</td>
+                                <td>
+                                    <strong>Chidi Egwu</strong><br>
+                                    <span style="color: #6b7280; font-size: 0.75rem;">chidi@egwudev.net</span>
+                                </td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-system">Account Security</span></td>
+                                <td>
+                                    <span>Reset token payload multi-factor verification configuration delivery latency</span>
+                                </td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-system">Normal</span></td>
+                                <td><span class="admin-status-matrix-tag matrix-tag-active">Closed</span></td>
+                                <td>2026-05-14 11:05</td>
+                                <td style="text-align: right; white-space: nowrap;">
+                                    <button class="btn btn-outline-primary btn-xs" disabled><i class="fa-solid fa-lock"></i> Resolved</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Intervention Dialogue Overlay Modal Enclosure -->
+    <div class="modal-backdrop-shield" id="ticketInterventionBackdropFrame" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1200; align-items: center; justify-content: center;">
+        <div class="premium-dashboard-card animate-modal-entry" style="width: 100%; max-width: 550px; background: #ffffff; padding: 2rem; border-radius: 8px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0;">
+            <div class="card-title-row" style="margin-bottom: 1rem;">
+                <h3 id="modalTargetTicketIdHeader">Ticket Intervention Console</h3>
+                <button style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #6b7280;" onclick="closeTicketInterventionModal()">&times;</button>
+            </div>
+            
+            <div style="background: #f3f4f6; padding: 1rem; border-radius: 6px; margin-bottom: 1.25rem; font-size: 0.875rem;">
+                <div style="margin-bottom: 0.25rem;"><strong>Reporter:</strong> <span id="modalTargetReporterName">--</span></div>
+                <div style="margin-bottom: 0.25rem;"><strong>Scope Context:</strong> <span id="modalTargetCategory">--</span></div>
+                <div><strong>Subject:</strong> <span id="modalTargetSubject" style="color: #374151;">--</span></div>
+            </div>
+
+            <div style="margin-bottom: 1.25rem;">
+                <label style="display: block; font-size: 0.8125rem; font-weight: 600; color: #374151; margin-bottom: 0.5rem;">Append Internal Agent Audit Note / Client Message Response</label>
+                <textarea id="agentInterventionNotePayload" class="admin-dense-search-input" style="width: 100%; height: 100px; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 4px; resize: none;" placeholder="Type message updates here..."></textarea>
+            </div>
+
+            <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem;">
+                <div style="flex: 1;">
+                    <label style="display: block; font-size: 0.8125rem; font-weight: 600; color: #374151; margin-bottom: 0.375rem;">Reassign Priority</label>
+                    <select id="modalReassignPriority" class="admin-dense-select" style="width: 100%;">
+                        <option value="CRITICAL">Critical</option>
+                        <option value="HIGH">High</option>
+                        <option value="NORMAL">Normal</option>
+                    </select>
+                </div>
+                <div style="flex: 1;">
+                    <label style="display: block; font-size: 0.8125rem; font-weight: 600; color: #374151; margin-bottom: 0.375rem;">Update Action State</label>
+                    <select id="modalReassignStatus" class="admin-dense-select" style="width: 100%;">
+                        <option value="OPEN">Open</option>
+                        <option value="PENDING">Pending</option>
+                        <option value="CLOSED">Closed / Resolved</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+                <button class="btn btn-outline-primary btn-sm" onclick="closeTicketInterventionModal()">Abort Changes</button>
+                <button class="btn btn-primary btn-sm" onclick="executeTicketStateMutationCommit()">Commit Update Entry</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Core Interactive Support Desk Scripts Execution Framework -->
+    <script>
+        let currentActiveInterventionTicketId = null;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            verifyAdministrativeSessionToken();
+        });
+
+        function verifyAdministrativeSessionToken() {
+            const activeToken = localStorage.getItem("mable_admin_session_jwt");
+            if (!activeToken) {
+                window.location.href = "login.html";
+                return;
+            }
+            if (localStorage.getItem("mable_impersonation_active") === "true") {
+                document.getElementById("adminImpersonationRibbon").style.display = "flex";
+            }
+        }
+
+        function displayActionFeedbackMessage(messageText, isErrorState = false) {
+            const feedbackContainer = document.getElementById("ticketActionAlertFeedback");
+            feedbackContainer.className = "alert-box-container animate-toast-arrival " + 
+                (isErrorState ? "alert-danger-state" : "alert-success-state");
+            feedbackContainer.innerHTML = `<i class="fa-solid ${isErrorState ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> <span>${messageText}</span>`;
+            
+            setTimeout(() => {
+                feedbackContainer.className = "alert-box-container hidden-alert";
+            }, 4500);
+        }
+
+        function syncTicketDataStream() {
+            displayActionFeedbackMessage("Synchronized operational workspace channel entries. Support ticket index database frames are fully current.");
+        }
+
+        function evaluateTicketClientFilter() {
+            const queryToken = document.getElementById("ticketSearchInput").value.toLowerCase();
+            const selectedPriority = document.getElementById("priorityFilterSelect").value;
+            const selectedStatus = document.getElementById("statusFilterSelect").value;
+            
+            const rows = document.querySelectorAll(".ticket-data-row-item");
+            
+            rows.forEach(row => {
+                const textMatch = row.innerText.toLowerCase().includes(queryToken);
+                const priorityMatch = (selectedPriority === "ALL") || (row.getAttribute("data-priority") === selectedPriority);
+                const statusMatch = (selectedStatus === "ALL") || (row.getAttribute("data-status") === selectedStatus);
+                
+                if (textMatch && priorityMatch && statusMatch) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
+        function dispatchDirectTicketResolution(ticketIdentifier) {
+            displayActionFeedbackMessage(`Ticket operational reference context [${ticketIdentifier}] muted and marked CLOSED successfully.`);
+            // Implement status cell updating logic natively for UX reactivity tracking
+        }
+
+        function openTicketInterventionModal(ticketId, reporter, category, subject) {
+            currentActiveInterventionTicketId = ticketId;
+            document.getElementById("modalTargetTicketIdHeader").innerText = `Intervention Desk: ${ticketId}`;
+            document.getElementById("modalTargetReporterName").innerText = reporter;
+            document.getElementById("modalTargetCategory").innerText = category;
+            document.getElementById("modalTargetSubject").innerText = subject;
+            document.getElementById("agentInterventionNotePayload").value = "";
+            
+            document.getElementById("ticketInterventionBackdropFrame").style.display = "flex";
+        }
+
+        function closeTicketInterventionModal() {
+            document.getElementById("ticketInterventionBackdropFrame").style.display = "none";
+            currentActiveInterventionTicketId = null;
+        }
+
+        function executeTicketStateMutationCommit() {
+            const notes = document.getElementById("agentInterventionNotePayload").value.trim();
+            if (!notes) {
+                displayActionFeedbackMessage("Failed to commit modification: Action comment node payload context cannot remain empty.", true);
+                return;
+            }
+            
+            closeTicketInterventionModal();
+            displayActionFeedbackMessage(`Dispatched system update state configurations for entry parameters [${currentActiveInterventionTicketId}]. Audit logging initialized.`);
+        }
+
+        function terminateImpersonationSession() {
+            localStorage.removeItem("mable_impersonation_active");
+            document.getElementById("adminImpersonationRibbon").style.display = "none";
+            displayActionFeedbackMessage("Terminated delegation parameters. Native administration privileges restored.");
+        }
+
+        function executeAdminLogout() {
+            localStorage.removeItem("mable_admin_session_jwt");
+            localStorage.removeItem("mable_impersonation_active");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
