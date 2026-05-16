@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global System Settings & Strategy Control | Admin Panel</title>
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/forms.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="admin-impersonation-alert-ribbon" id="adminImpersonationRibbon" style="display: none;">
+        <div class="impersonation-meta-details">
+            <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            <span><strong>Security Alert:</strong> Modifying structural engine constants inside administrative impersonation parameters. All changes register to your secure master signature.</span>
+        </div>
+        <button class="btn-terminate-impersonation" onclick="terminateImpersonationSession()">Exit Session</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-top-group">
+                <div class="dashboard-content-header" style="border-bottom: 1px solid #2d3748; margin-bottom: 1.5rem; padding-bottom: 1rem;">
+                    <div class="header-title-block">
+                        <h1 style="color: #ffffff; font-size: 1.25rem; margin: 0;">MableWork HQ</h1>
+                        <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">System Configuration Rail</p>
+                    </div>
+                </div>
+                <nav class="sidebar-links-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="dashboard.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i> Overview Control
+                    </a>
+                    <a href="audit-logs.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-shield-halved" style="width: 20px;"></i> Security Audit Logs
+                    </a>
+                    <a href="workers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-gears" style="width: 20px;"></i> Engine Workers
+                    </a>
+                    <a href="settings.html" style="color: #ffffff; background-color: #1f2937; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem; font-weight: 600;">
+                        <i class="fa-solid fa-sliders" style="width: 20px;"></i> System Settings
+                    </a>
+                </nav>
+            </div>
+            <div class="sidebar-footer-group">
+                <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="executeAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Drop Access Gate
+                </button>
+            </div>
+        </aside>
+
+        <main class="dashboard-main-content animate-view-entry">
+            <div class="dashboard-content-header">
+                <div class="header-title-block">
+                    <h1>Global Architecture Settings</h1>
+                    <p>Enforce compliance ceilings, modify regional escrow constraints, manage API access hooks, and manage system states.</p>
+                </div>
+                <div class="header-profile-badge">
+                    <span>Root Architecture</span>
+                    <div class="user-avatar" id="adminUserAvatarNode">SYS</div>
+                </div>
+            </div>
+
+            <div id="settingsActionAlertFeedback" class="alert-box-container hidden-alert"></div>
+
+            <div class="employer-dashboard-layout-grid" style="grid-template-columns: 2fr 1fr; gap: 2rem;">
+                
+                <div class="dashboard-main-stream-panel">
+                    
+                    <div class="premium-dashboard-card">
+                        <div class="card-title-row">
+                            <h3><i class="fa-solid fa-scale-balanced text-primary"></i> IRCC Compliance &amp; Regulatory Tracking Parameters</h3>
+                        </div>
+                        <p class="card-body-description" style="margin-bottom: 1.5rem;">
+                            These variables govern runtime tracking rules for international student visa configurations. Mutations update active placement timesheet parsing calculations instantly.
+                        </p>
+
+                        <form id="statutoryRulesConfigForm" onsubmit="saveStatutorySystemParameters(event)">
+                            <div class="card-form-inputs-grid dual-column" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                                <div class="form-field-group">
+                                    <label for="intlStudentWeeklyCap">International Student Hour Cap (Standard)</label>
+                                    <select id="intlStudentWeeklyCap" class="admin-dense-select" style="width: 100%; height: 38px;">
+                                        <option value="20" selected>20 Hours per Week (Historical Norm)</option>
+                                        <option value="24">24 Hours per Week (Revised Policy Cap)</option>
+                                        <option value="40">40 Hours per Week (Special Session Waiver)</option>
+                                    </select>
+                                </div>
+                                <div class="form-field-group">
+                                    <label for="timesheetGraceInterval">Employer Auto-Signoff Period (Days)</label>
+                                    <input type="number" id="timesheetGraceInterval" class="admin-dense-search-input" style="width: 100%; height: 38px;" value="3" min="1" max="14">
+                                </div>
+                                <div class="form-field-group">
+                                    <label for="minimumHourlyWageCad">System Base Minimum Sourcing Wage (CAD/hr)</label>
+                                    <input type="number" id="minimumHourlyWageCad" class="admin-dense-search-input" style="width: 100%; height: 38px;" value="17.30" step="0.05">
+                                </div>
+                                <div class="form-field-group">
+                                    <label for="platformEscrowFeePercent">Platform Escrow Transaction Fee (%)</label>
+                                    <input type="number" id="platformEscrowFeePercent" class="admin-dense-search-input" style="width: 100%; height: 38px;" value="2.5" step="0.1" min="0" max="15">
+                                </div>
+                            </div>
+                            <div style="margin-top: 1.5rem; text-align: right;">
+                                <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i> Commit Regulatory Matrix</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="premium-dashboard-card">
+                        <div class="card-title-row">
+                            <h3><i class="fa-solid fa-plug text-info"></i> Third-Party Ecosystem Integrations &amp; Rail Hooks</h3>
+                        </div>
+                        <p class="card-body-description" style="margin-bottom: 1.25rem;">
+                            Manages transactional gateways and payment verification channels. Access codes must correspond strictly to encrypted key structures.
+                        </p>
+
+                        <div class="table-responsive-wrapper">
+                            <table class="admin-audit-log-table">
+                                <thead>
+                                    <tr>
+                                        <th>Integration Target</th>
+                                        <th>Configured Webhook Callback Endpoint</th>
+                                        <th>Active Mode</th>
+                                        <th>System Integrity Check</th>
+                                        <th style="text-align: right;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight: 600;"><i class="fa-solid fa-credit-card" style="margin-right: 0.5rem; color: #0d9488;"></i> Paystack API</td>
+                                        <td><code>https://api.mablework.ca/v1/webhooks/paystack</code></td>
+                                        <td><span class="admin-status-matrix-tag matrix-tag-active">Live Production</span></td>
+                                        <td><span style="color: #16a34a; font-weight: 500;"><i class="fa-solid fa-circle-check"></i> Connected</span></td>
+                                        <td style="text-align: right;">
+                                            <button class="btn btn-outline-primary btn-xs" onclick="triggerThirdPartyPingDiagnostics('Paystack API')">Ping</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;"><i class="fa-solid fa-building-columns" style="margin-right: 0.5rem; color: #0056b3;"></i> TransUnion Credit / SIN</td>
+                                        <td><code>https://api.mablework.ca/v1/verify/sin-identity</code></td>
+                                        <td><span class="admin-status-matrix-tag matrix-tag-active">Live Production</span></td>
+                                        <td><span style="color: #16a34a; font-weight: 500;"><i class="fa-solid fa-circle-check"></i> Connected</span></td>
+                                        <td style="text-align: right;">
+                                            <button class="btn btn-outline-primary btn-xs" onclick="triggerThirdPartyPingDiagnostics('TransUnion API Framework')">Ping</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;"><i class="fa-solid fa-envelope" style="margin-right: 0.5rem; color: #d97706;"></i> Postmark Mail Delivery</td>
+                                        <td><code>Internal SMTP Pipeline</code></td>
+                                        <td><span class="admin-status-matrix-tag matrix-tag-active">Live Production</span></td>
+                                        <td><span style="color: #16a34a; font-weight: 500;"><i class="fa-solid fa-circle-check"></i> Connected</span></td>
+                                        <td style="text-align: right;">
+                                            <button class="btn btn-outline-primary btn-xs" onclick="triggerThirdPartyPingDiagnostics('Postmark Mailer Rail')">Ping</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="profile-metadata-sidebar-column">
+                    
+                    <div class="premium-dashboard-card text-center" style="border-top: 4px solid #d97706;">
+                        <h4>System Maintenance Matrix</h4>
+                        <p class="sidebar-help-text mt-2" style="font-size: 0.8125rem; color: #4b5563; margin-bottom: 1.25rem;">
+                            Activating global application throttling isolates the database layer, restricting public registration pipelines while preserving internal administrative command execution.
+                        </p>
+                        
+                        <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
+                            <label class="custom-toggle-switch-wrapper">
+                                <input type="checkbox" id="masterMaintenanceSwitchInput" class="hidden-toggle-input" onchange="toggleMasterMaintenanceCircuitBreaker()">
+                                <div class="toggle-slider-track">
+                                    <div class="toggle-slider-handle"></div>
+                                </div>
+                                <span id="maintenanceSwitchFeedbackLabel" style="font-weight: 600; font-size: 0.875rem; color: #b45309;">Platform Online</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="premium-dashboard-card">
+                        <h4><i class="fa-solid fa-key text-muted" style="margin-right: 0.375rem;"></i> Security Key Management</h4>
+                        <p class="sidebar-help-text" style="font-size: 0.75rem; color: #6b7280; line-height: 1.4; margin-bottom: 1.25rem;">
+                            Force real-time rotation of transactional JWT signature keys. Initiating rotation drops active public client auth frames, forcing users to renew authorization cookies.
+                        </p>
+                        <button class="btn btn-outline-danger btn-xs full-width" onclick="executeSecuritySignatureRotation()"><i class="fa-solid fa-arrows-spin"></i> Rotate JWT Keys</button>
+                    </div>
+
+                    <div class="premium-dashboard-card statutory-guardrails-notice-card" style="background-color: #f8fafc; border-color: #cbd5e1;">
+                        <h4 style="font-size: 0.875rem; color: #334155;"><i class="fa-solid fa-circle-info" style="margin-right: 0.25rem;"></i> Cluster Metadata</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0.5rem 0 0 0; font-size: 0.75rem; color: #475569; line-height: 1.6;">
+                            <li><strong>Cluster Instance:</strong> cluster-ca-east-01</li>
+                            <li><strong>Runtime Node Stack:</strong> Node.js Engine v20.11</li>
+                            <li><strong>Data Storage Layer:</strong> PostgreSQL Distributed Mesh</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            verifyAdministrativeSessionToken();
+        });
+
+        function verifyAdministrativeSessionToken() {
+            const activeToken = localStorage.getItem("mable_admin_session_jwt");
+            if (!activeToken) {
+                window.location.href = "login.html";
+                return;
+            }
+            if (localStorage.getItem("mable_impersonation_active") === "true") {
+                document.getElementById("adminImpersonationRibbon").style.display = "flex";
+            }
+        }
+
+        function displayActionFeedbackMessage(messageText, isErrorState = false) {
+            const feedbackContainer = document.getElementById("settingsActionAlertFeedback");
+            feedbackContainer.className = "alert-box-container animate-toast-arrival " + 
+                (isErrorState ? "alert-danger-state" : "alert-success-state");
+            feedbackContainer.innerHTML = `<i class="fa-solid ${isErrorState ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> <span>${messageText}</span>`;
+            
+            setTimeout(() => {
+                feedbackContainer.className = "alert-box-container hidden-alert";
+            }, 4500);
+        }
+
+        function saveStatutorySystemParameters(event) {
+            event.preventDefault();
+            const capValue = document.getElementById("intlStudentWeeklyCap").value;
+            displayActionFeedbackMessage(`Successfully updated compliance configurations. International student tracking thresholds adjusted to [${capValue} hrs/wk].`);
+        }
+
+        function triggerThirdPartyPingDiagnostics(apiTargetLabel) {
+            displayActionFeedbackMessage(`Sent diagnostic signal to [${apiTargetLabel}]. Roundtrip performance check completed in 42ms with status code 200.`);
+        }
+
+        function toggleMasterMaintenanceCircuitBreaker() {
+            const isChecked = document.getElementById("masterMaintenanceSwitchInput").checked;
+            const labelNode = document.getElementById("maintenanceSwitchFeedbackLabel");
+            
+            if (isChecked) {
+                labelNode.innerText = "MAINTENANCE ACTIVE";
+                labelNode.style.color = "#dc2626";
+                displayActionFeedbackMessage("System-wide maintenance activated. Public endpoints are now routing behind HTTP 503 fallback layers.", true);
+            } else {
+                labelNode.innerText = "Platform Online";
+                labelNode.style.color = "#b45309";
+                displayActionFeedbackMessage("Maintenance mode deactivated. Production routing endpoints restored.");
+            }
+        }
+
+        function executeSecuritySignatureRotation() {
+            if (confirm("CRITICAL WARNING: This action forces immediate rotation of active master encryption keys. All public client portal instances will require re-authentication. Proceed?")) {
+                displayActionFeedbackMessage("Dispatched global token signature key rotation protocols. Cluster authorization indices refreshed successfully.");
+            }
+        }
+
+        function terminateImpersonationSession() {
+            localStorage.removeItem("mable_impersonation_active");
+            document.getElementById("adminImpersonationRibbon").style.display = "none";
+            displayActionFeedbackMessage("Terminated user delegation parameters. Restoring native system administrator privileges.");
+        }
+
+        function executeAdminLogout() {
+            localStorage.removeItem("mable_admin_session_jwt");
+            localStorage.removeItem("mable_impersonation_active");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
