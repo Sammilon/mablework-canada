@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Security Orchestration Deck - Admin Panel</title>
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/buttons.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <!-- FontAwesome Core Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Administrative Access Impersonation Alert Ribbon -->
+    <div class="admin-impersonation-alert-ribbon" id="adminImpersonationRibbon" style="display: none;">
+        <div class="impersonation-meta-details">
+            <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+            <span><strong>Security Alert:</strong> Modifying active network firewall perimeters inside administrative impersonation mode. All rule commits are cryptographically verified.</span>
+        </div>
+        <button class="btn-terminate-impersonation" onclick="terminateImpersonationSession()">Exit Session</button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation Rail -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-top-group">
+                <div class="dashboard-content-header" style="border-bottom: 1px solid #2d3748; margin-bottom: 1.5rem; padding-bottom: 1rem;">
+                    <div class="header-title-block">
+                        <h1 style="color: #ffffff; font-size: 1.25rem; margin: 0;">MableWork HQ</h1>
+                        <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">Security Gateway Control</p>
+                    </div>
+                </div>
+                <nav class="sidebar-links-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a href="dashboard.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-chart-pie" style="width: 20px;"></i> Overview Control
+                    </a>
+                    <a href="audit-logs.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-shield-halved" style="width: 20px;"></i> Security Audit Logs
+                    </a>
+                    <a href="security-center.html" style="color: #ffffff; background-color: #1f2937; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem; font-weight: 600;">
+                        <i class="fa-solid fa-vault" style="width: 20px;"></i> Security Center
+                    </a>
+                    <a href="workers.html" style="color: #9ca3af; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; border-radius: 6px; font-size: 0.9375rem;">
+                        <i class="fa-solid fa-gears" style="width: 20px;"></i> Engine Workers
+                    </a>
+                </nav>
+            </div>
+            <div class="sidebar-footer-group">
+                <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="executeAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Drop Access Gate
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Flow -->
+        <main class="dashboard-main-content animate-view-entry">
+            <!-- Content Header Context -->
+            <div class="dashboard-content-header">
+                <div class="header-title-block">
+                    <h1>Security Orchestration &amp; Threat Defense</h1>
+                    <p>Manage application perimeter firewalls, isolate compromised IP ranges, audit authorization failures, and adjust rate-limiting scopes.</p>
+                </div>
+                <div class="header-profile-badge">
+                    <span>SecOps Administrator</span>
+                    <div class="user-avatar" id="adminUserAvatarNode">SEC</div>
+                </div>
+            </div>
+
+            <!-- Global Action Intercept Alerts Layer -->
+            <div id="securityActionAlertFeedback" class="alert-box-container hidden-alert"></div>
+
+            <!-- Real-time Security Metrics Strip -->
+            <section class="metrics-summary-ribbon id-metrics-row-margin" style="margin-bottom: 2rem;">
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-success-soft text-success">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Firewall Status</span>
+                        <span class="metric-value" id="firewallStateStatusLabel">Active</span>
+                    </div>
+                </div>
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-danger-soft text-danger">
+                        <i class="fa-solid fa-ban"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Blocked IP Addr</span>
+                        <span class="metric-value" id="totalBlockedIpsCounter">42</span>
+                    </div>
+                </div>
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-warning-soft text-warning">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">Auth Alerts (24h)</span>
+                        <span class="metric-value" id="authAnomalyDailyCounter">7</span>
+                    </div>
+                </div>
+                <div class="metric-card-node">
+                    <div class="metric-icon-box bg-primary-soft text-primary">
+                        <i class="fa-solid fa-fingerprint"></i>
+                    </div>
+                    <div class="metric-data-block">
+                        <span class="metric-label">MFA Enforcement</span>
+                        <span class="metric-value" id="mfaEnforcementRatio">100%</span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="employer-dashboard-layout-grid" style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                
+                <!-- Left Column: Active Interceptions & Firewall Rules -->
+                <div class="dashboard-main-stream-panel">
+                    
+                    <!-- Core Firewall Rules Grid Block -->
+                    <div class="premium-dashboard-card">
+                        <div class="card-title-row">
+                            <h3><i class="fa-solid fa-network-wired text-primary"></i> Edge Network Rule Policy</h3>
+                            <button class="btn btn-primary btn-sm" onclick="openCreateFirewallRuleModal()"><i class="fa-solid fa-plus"></i> Append Policy Rule</button>
+                        </div>
+                        <p class="card-body-description" style="margin-bottom: 1.5rem;">
+                            Defines explicit rate thresholds, token checking rules, and explicit IP ban blocks handled at the API routing gateway level.
+                        </p>
+
+                        <div class="table-responsive-wrapper">
+                            <table class="admin-audit-log-table">
+                                <thead>
+                                    <tr>
+                                        <th>Target Scope / IP Frame</th>
+                                        <th>Interception Context Rule</th>
+                                        <th>Matching Strategy</th>
+                                        <th>Enforcement Action</th>
+                                        <th style="text-align: right;">Revocation</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="networkFirewallRulesDataRows">
+                                    <tr id="firewallRuleRow_1">
+                                        <td style="font-weight: 600;"><code>198.51.100.72</code></td>
+                                        <td>Brute force attempts observed on administrative login pathways</td>
+                                        <td><span class="admin-status-matrix-tag matrix-tag-revoked">Explicit Static IP</span></td>
+                                        <td><span class="admin-status-matrix-tag matrix-tag-revoked">DROP PACKET</span></td>
+                                        <td style="text-align: right;">
+                                            <button class="btn btn-outline-danger btn-xs" onclick="deleteFirewallPolicyRule('1', '198.51.100.72')"><i class="fa-solid fa-trash"></i> Release</button>
+                                        </td>
+                                    </tr>
+                                    <tr id="firewallRuleRow_2">
+                                        <td style="font-weight: 600;"><code>203.0.113.0/24</code></td>
+                                        <td>Malicious web scrapers running repetitive directory scans</td>
+                                        <td><span class="admin-status-matrix-tag matrix-tag-suspended">CIDR Range Block</span></td>
+                                        <td><span class="admin-status-matrix-tag matrix-tag-revoked">403 FORBIDDEN</span></td>
+                                        <td style="text-align: right;">
+                                            <button class="btn btn-outline-danger btn-xs" onclick="deleteFirewallPolicyRule('2', '203.0.113.0/24')"><i class="fa-solid fa-trash"></i> Release</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Security Anomalies Detection Log -->
+                    <div class="premium-dashboard-card">
+                        <div class="card-title-row">
+                            <h3><i class="fa-solid fa-radar text-warning"></i> Real-Time Intrusive Anomaly Radar Stream</h3>
+                        </div>
+                        <p class="card-body-description" style="margin-bottom: 1.25rem;">
+                            Identifies active request mismatches, expired cryptographic JWT payloads, or tampered Paystack webhook verification headers.
+                        </p>
+
+                        <div class="table-responsive-wrapper">
+                            <table class="admin-audit-log-table">
+                                <thead>
+                                    <tr>
+                                        <th>Event Hash Reference</th>
+                                        <th>Subsystem Domain</th>
+                                        <th>Identified Anomaly Vector Description</th>
+                                        <th>Origin Metric</th>
+                                        <th>Registered Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight: 600;">sec-err-992x</td>
+                                        <td><span class="admin-status-matrix-tag matrix-tag-revoked">auth_api</span></td>
+                                        <td><span style="color: #dc2626; font-weight: 500;">JWT Signature Verification Failure</span></td>
+                                        <td><code>IP: 192.0.2.55</code></td>
+                                        <td>2026-05-16 02:44:12</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">sec-err-994c</td>
+                                        <td><span class="admin-status-matrix-tag matrix-tag-system">paystack_webhook</span></td>
+                                        <td><span>Missing X-Paystack-Signature Authentication Header</span></td>
+                                        <td><code>IP: 52.214.14.9</code></td>
+                                        <td>2026-05-15 21:10:05</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Defensive Configuration Adjustments -->
+                <div class="profile-metadata-sidebar-column">
+                    
+                    <!-- Global Rate Limiting Controls -->
+                    <div class="premium-dashboard-card">
+                        <h4>Defensive Threshold Adjustments</h4>
+                        <p class="sidebar-help-text" style="font-size: 0.8125rem; color: #4b5563; margin-bottom: 1.25rem;">
+                            Adjust operational threat thresholds across structural API routes. Modifications update the load balancer state instantly.
+                        </p>
+                        
+                        <form onsubmit="updateRateLimitingDefenses(event)">
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; font-size: 0.75rem; font-weight: 600; color: #374151; margin-bottom: 0.25rem;">Public API Request Ceiling (Req/min)</label>
+                                <input type="number" id="apiRateCeilingLimitInput" class="admin-dense-search-input" style="width: 100%;" value="120">
+                            </div>
+                            <div style="margin-bottom: 1.25rem;">
+                                <label style="display: block; font-size: 0.75rem; font-weight: 600; color: #374151; margin-bottom: 0.25rem;">Max Administrative Auth Failures Allowed</label>
+                                <input type="number" id="adminBruteForceCeilingInput" class="admin-dense-search-input" style="width: 100%;" value="5">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-xs full-width"><i class="fa-solid fa-shield-halved"></i> Apply Threat Profiles</button>
+                        </form>
+                    </div>
+
+                    <!-- Direct Access Emergency Isolation Lock -->
+                    <div class="premium-dashboard-card" style="border-top: 4px solid #dc2626;">
+                        <h4 style="color: #dc2626;"><i class="fa-solid fa-bolt"></i> Perimeter Lockout Rule</h4>
+                        <p class="sidebar-help-text" style="font-size: 0.75rem; color: #475569; margin-bottom: 1rem; line-height: 1.4;">
+                            Immediately enforce strict MFA authorization verification rules across all user accounts, dropping open active session layers across non-vetted public nodes instantly.
+                        </p>
+                        <button class="btn btn-danger btn-xs full-width" onclick="triggerEmergencyPerimeterLockout()"><i class="fa-solid fa-triangle-exclamation"></i> Invoke Emergency Isolation</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Append Firewall Policy Rule Overlay Dialogue Modal Box -->
+    <div class="modal-backdrop-shield" id="firewallRuleCreationBackdropFrame" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1200; align-items: center; justify-content: center;">
+        <div class="premium-dashboard-card animate-modal-entry" style="width: 100%; max-width: 480px; background: #ffffff; padding: 2rem; border-radius: 8px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0;">
+            <div class="card-title-row" style="margin-bottom: 1rem;">
+                <h3>Add Perimeter Firewall Policy</h3>
+                <button style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #6b7280;" onclick="closeCreateFirewallRuleModal()">&times;</button>
+            </div>
+            
+            <form onsubmit="commitNewFirewallPolicyRule(event)">
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.8125rem; font-weight: 600; color: #374151; margin-bottom: 0.375rem;">Target Network Value (IP Address or CIDR Scope)</label>
+                    <input type="text" id="modalFirewallTargetInput" class="admin-dense-search-input" style="width: 100%; font-family: monospace;" placeholder="e.g. 192.0.2.1 or 192.0.2.0/24" required>
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.8125rem; font-weight: 600; color: #374151; margin-bottom: 0.375rem;">Policy Strategy Action Profile</label>
+                    <select id="modalFirewallActionSelect" class="admin-dense-select" style="width: 100%;">
+                        <option value="DROP">DROP PACKET (Silent Discard)</option>
+                        <option value="REJECT">403 FORBIDDEN (Explicit Refusal)</option>
+                        <option value="THROTTLE">RATE LIMIT (Enforce Heavy Throttling)</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; font-size: 0.8125rem; font-weight: 600; color: #374151; margin-bottom: 0.375rem;">Audit Trailing Description Note</label>
+                    <input type="text" id="modalFirewallReasonInput" class="admin-dense-search-input" style="width: 100%;" placeholder="e.g. Credential stuffing anomaly block" required>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="closeCreateFirewallRuleModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Inject Network Rule</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Security Administration Execution Controller Framework Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            verifyAdministrativeSessionToken();
+        });
+
+        function verifyAdministrativeSessionToken() {
+            const activeToken = localStorage.getItem("mable_admin_session_jwt");
+            if (!activeToken) {
+                window.location.href = "login.html";
+                return;
+            }
+            if (localStorage.getItem("mable_impersonation_active") === "true") {
+                document.getElementById("adminImpersonationRibbon").style.display = "flex";
+            }
+        }
+
+        function displayActionFeedbackMessage(messageText, isErrorState = false) {
+            const feedbackContainer = document.getElementById("securityActionAlertFeedback");
+            feedbackContainer.className = "alert-box-container animate-toast-arrival " + 
+                (isErrorState ? "alert-danger-state" : "alert-success-state");
+            feedbackContainer.innerHTML = `<i class="fa-solid ${isErrorState ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> <span>${messageText}</span>`;
+            
+            setTimeout(() => {
+                feedbackContainer.className = "alert-box-container hidden-alert";
+            }, 4500);
+        }
+
+        function openCreateFirewallRuleModal() {
+            document.getElementById("modalFirewallTargetInput").value = "";
+            document.getElementById("modalFirewallReasonInput").value = "";
+            document.getElementById("firewallRuleCreationBackdropFrame").style.display = "flex";
+        }
+
+        function closeCreateFirewallRuleModal() {
+            document.getElementById("firewallRuleCreationBackdropFrame").style.display = "none";
+        }
+
+        function commitNewFirewallPolicyRule(event) {
+            event.preventDefault();
+            const targetNetworkValue = document.getElementById("modalFirewallTargetInput").value.trim();
+            closeCreateFirewallRuleModal();
+            displayActionFeedbackMessage(`Injected new network policy rule intercept parameters for [${targetNetworkValue}] across balancing boundaries.`);
+        }
+
+        function deleteFirewallPolicyRule(ruleRowIdentifierId, ruleValueLabel) {
+            if (confirm(`Evict and drop the active firewall perimeter restrictions for rule value [${ruleValueLabel}]?`)) {
+                const rowElement = document.getElementById(`firewallRuleRow_${ruleRowIdentifierId}`);
+                if (rowElement) {
+                    rowElement.remove();
+                }
+                displayActionFeedbackMessage(`Successfully cleared edge policy rule mappings for target value: [${ruleValueLabel}].`);
+            }
+        }
+
+        type="text"
+        function updateRateLimitingDefenses(event) {
+            event.preventDefault();
+            const rateCeiling = document.getElementById("apiRateCeilingLimitInput").value;
+            displayActionFeedbackMessage(`Successfully calibrated API defense metrics. Traffic constraints bound at [${rateCeiling} requests/min].`);
+        }
+
+        function triggerEmergencyPerimeterLockout() {
+            if (confirm("CRITICAL INTERVENTION: This drops application tokens across public sessions, forcing 100% MFA validation protocols globally. Confirm network quarantine?")) {
+                displayActionFeedbackMessage("Quarantine parameters dispatched. Application perimeters secured.", true);
+            }
+        }
+
+        function terminateImpersonationSession() {
+            localStorage.removeItem("mable_impersonation_active");
+            document.getElementById("adminImpersonationRibbon").style.display = "none";
+            displayActionFeedbackMessage("Terminated user delegation framework. Restoring native system administrator privileges.");
+        }
+
+        function executeAdminLogout() {
+            localStorage.removeItem("mable_admin_session_jwt");
+            localStorage.removeItem("mable_impersonation_active");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
