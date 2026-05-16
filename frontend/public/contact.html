@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Support & Sales | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../src/css/variables.css">
+    <link rel="stylesheet" href="../src/css/global.css">
+    <link rel="stylesheet" href="../src/css/components/loader.css">
+    <link rel="stylesheet" href="../src/css/components/navbar.css">
+    <link rel="stylesheet" href="../src/css/pages/contact.css">
+    <link rel="stylesheet" href="../src/css/components/footer.css">
+    
+    <!-- Google Fonts & Vector Packs -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- CRITICAL LOGO PRELOADER LAYER -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Loading Communication Routing...</p>
+        </div>
+    </div>
+
+    <div id="app-content" class="content-hidden">
+        
+        <header class="main-header">
+            <nav class="nav-container">
+                <div class="nav-brand">
+                    <a href="/index.html" class="brand-link">
+                        <span class="brand-text">MableWork</span>
+                        <span class="brand-region">Canada</span>
+                    </a>
+                </div>
+                <div class="nav-links">
+                    <a href="/index.html" class="nav-item">Home</a>
+                    <a href="/about.html" class="nav-item">About Us</a>
+                    <a href="/register.html" class="btn btn-primary">Get Started</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="contact-layout-main">
+            <div class="section-container contact-split-grid">
+                
+                <!-- Left: Office Meta Info & Channels -->
+                <section class="contact-channels-info">
+                    <span class="badge">Connect With Us</span>
+                    <h1>We're here to optimize your deployments</h1>
+                    <p>Have structural integration questions, compliance inquiries, or profile access dilemmas? Reach our centralized help desks directly.</p>
+                    
+                    <div class="channel-card-list">
+                        <div class="channel-item">
+                            <i class="fas fa-envelope-open-text channel-icon"></i>
+                            <div class="channel-details">
+                                <strong>General Operations Desk</strong>
+                                <a href="mailto:ops@mablework.ca">ops@mablework.ca</a>
+                            </div>
+                        </div>
+                        <div class="channel-item">
+                            <i class="fas fa-shield-halved channel-icon"></i>
+                            <div class="channel-details">
+                                <strong>Privacy & Audits Office</strong>
+                                <a href="mailto:privacy@mablework.ca">privacy@mablework.ca</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right: Interactive Lead/Ticket Intake Form -->
+                <section class="contact-form-wrapper">
+                    <div id="contact-alert-center" class="alert-box-container hidden-alert"></div>
+                    
+                    <form id="platform-contact-form" class="premium-contact-form">
+                        <div class="form-row-two-cells">
+                            <div class="form-field-group">
+                                <label for="contact-name">Full Legal Name <span class="required">*</span></label>
+                                <input type="text" id="contact-name" name="name" required placeholder="e.g., Jean Tremblay">
+                            </div>
+                            <div class="form-field-group">
+                                <label for="contact-email">Email Address <span class="required">*</span></label>
+                                <input type="email" id="contact-email" name="email" required placeholder="e.g., j.tremblay@enterprise.ca">
+                            </div>
+                        </div>
+
+                        <div class="form-field-group">
+                            <label for="contact-subject">Inquiry Classification <span class="required">*</span></label>
+                            <select id="contact-subject" name="subject" required>
+                                <option value="">Select organizational stream...</option>
+                                <option value="Enterprise Sales">Corporate Hiring & Sales Procurement</option>
+                                <option value="Candidate Verification">Candidate Credential Verification Status</option>
+                                <option value="Technical Support">Technical Portal/API Anomalies</option>
+                                <option value="Compliance Request">PIPEDA / Legal Compliance Ledger Request</option>
+                            </select>
+                        </div>
+
+                        <div class="form-field-group">
+                            <label for="contact-message">Detailed Core Message Context <span class="required">*</span></label>
+                            <textarea id="contact-message" name="message" rows="5" required placeholder="Provide clear procedural details regarding your deployment needs..."></textarea>
+                        </div>
+
+                        <div class="form-action-group">
+                            <button type="submit" id="contact-submit-btn" class="btn btn-primary full-width">
+                                <span class="btn-text">Dispatch Request Securely</span>
+                                <span class="btn-spinner-icon hidden"><i class="fas fa-circle-notch fa-spin"></i></span>
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+            </div>
+        </main>
+
+        <footer class="main-footer">
+            <div class="footer-container">
+                <p>&copy; 2026 MableWork Canada. All Rights Reserved. Regulated Enterprise Hiring Platform.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../src/js/api.js"></script>
+    <script src="../src/js/utils/loader.js"></script>
+    <script src="../src/js/pages/contact.js"></script>
+</body>
+</html>
