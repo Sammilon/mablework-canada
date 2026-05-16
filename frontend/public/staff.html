@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet Our Team | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../src/css/variables.css">
+    <link rel="stylesheet" href="../src/css/global.css">
+    <link rel="stylesheet" href="../src/css/components/loader.css">
+    <link rel="stylesheet" href="../src/css/components/navbar.css">
+    <link rel="stylesheet" href="../src/css/pages/staff.css">
+    <link rel="stylesheet" href="../src/css/components/footer.css">
+    
+    <!-- Google Fonts & Typography Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Vector Icons for Social Links -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Loading Corporate Directory...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <!-- Platform Navigation Bar Header -->
+        <header class="main-header">
+            <nav class="nav-container">
+                <div class="nav-brand">
+                    <a href="/index.html" class="brand-link">
+                        <span class="brand-text">MableWork</span>
+                        <span class="brand-region">Canada</span>
+                    </a>
+                </div>
+                <div class="nav-links" id="nav-menu">
+                    <a href="/index.html" class="nav-item">Home</a>
+                    <a href="/workforce.html" class="nav-item">Find Workforce</a>
+                    <a href="/jobs.html" class="nav-item">Browse Jobs</a>
+                    <div class="nav-auth-group" id="auth-actions">
+                        <a href="/login.html" class="btn btn-secondary">Sign In</a>
+                        <a href="/register.html" class="btn btn-primary">Join Platform</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Executive & Operational Staff Grid Framework -->
+        <main class="staff-directory-layout">
+            <section class="staff-hero-banner">
+                <div class="section-container">
+                    <span class="badge">Our Leadership</span>
+                    <h1>The Minds Behind MableWork Canada</h1>
+                    <p>Connecting elite Canadian workforce specialists with forward-thinking enterprise institutions.</p>
+                </div>
+            </section>
+
+            <section class="staff-grid-section">
+                <div class="section-container">
+                    <!-- Target root node where our JS can pull and inject staff metrics dynamically -->
+                    <div id="staff-cards-container" class="staff-cards-grid">
+                        
+                        <!-- Core Staff Profile Card 1: Executive Management -->
+                        <div class="staff-card">
+                            <div class="staff-image-wrapper">
+                                <img src="/assets/images/staff/team-1.jpg" alt="Jean-François Tremblay" class="staff-avatar" onerror="this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400';">
+                            </div>
+                            <div class="staff-info-block">
+                                <h3 class="staff-fullname">Jean-François Tremblay</h3>
+                                <p class="staff-position">Chief Executive Officer & Founder</p>
+                                <p class="staff-bio">Over 18 years driving enterprise operations and corporate compliance strategy across Canadian tech sectors.</p>
+                                
+                                <hr class="card-separator">
+                                
+                                <div class="staff-social-channels">
+                                    <a href="https://facebook.com/mablework" target="_blank" rel="noopener noreferrer" class="social-icon facebook" title="Connect on Facebook">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="mailto:jf.tremblay@mablework.ca" class="social-icon email" title="Send direct Email">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                    <a href="https://google.com" target="_blank" rel="noopener noreferrer" class="social-icon google" title="View Verified Google Profile">
+                                        <i class="fab fa-google"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Core Staff Profile Card 2: Operations Management -->
+                        <div class="staff-card">
+                            <div class="staff-image-wrapper">
+                                <img src="/assets/images/staff/team-2.jpg" alt="Sarah Jenkins" class="staff-avatar" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400';">
+                            </div>
+                            <div class="staff-info-block">
+                                <h3 class="staff-fullname">Sarah Jenkins, CHRP</h3>
+                                <p class="staff-position">Director of Workforce Compliance</p>
+                                <p class="staff-bio">Human resources specialist managing multi-provincial labor safety configurations and credential validation pipelines.</p>
+                                
+                                <hr class="card-separator">
+                                
+                                <div class="staff-social-channels">
+                                    <a href="https://facebook.com/mablework" target="_blank" rel="noopener noreferrer" class="social-icon facebook" title="Connect on Facebook">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="mailto:s.jenkins@mablework.ca" class="social-icon email" title="Send direct Email">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                    <a href="https://google.com" target="_blank" rel="noopener noreferrer" class="social-icon google" title="View Verified Google Profile">
+                                        <i class="fab fa-google"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Core Staff Profile Card 3: Systems Architecture -->
+                        <div class="staff-card">
+                            <div class="staff-image-wrapper">
+                                <img src="/assets/images/staff/team-3.jpg" alt="Marcus Vance" class="staff-avatar" onerror="this.src='https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400';">
+                            </div>
+                            <div class="staff-info-block">
+                                <h3 class="staff-fullname">Marcus Vance</h3>
+                                <p class="staff-position">Head of Security & Core Infrastructure</p>
+                                <p class="staff-bio">Oversees continuous optimization protocols, geographic network boundary matrices, and encrypted data safety layers.</p>
+                                
+                                <hr class="card-separator">
+                                
+                                <div class="staff-social-channels">
+                                    <a href="https://facebook.com/mablework" target="_blank" rel="noopener noreferrer" class="social-icon facebook" title="Connect on Facebook">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="mailto:m.vance@mablework.ca" class="social-icon email" title="Send direct Email">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                    <a href="https://google.com" target="_blank" rel="noopener noreferrer" class="social-icon google" title="View Verified Google Profile">
+                                        <i class="fab fa-google"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Professional Platform Corporate Footer Layout -->
+        <footer class="main-footer">
+            <div class="footer-container">
+                <p>&copy; 2026 MableWork Canada. All Rights Reserved. Regulated Enterprise Hiring Platform.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../src/js/api.js"></script>
+    <script src="../src/js/utils/loader.js"></script>
+</body>
+</html>
