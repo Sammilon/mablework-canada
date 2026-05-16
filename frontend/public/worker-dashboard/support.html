@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operations & Compliance Help Desk | MableWork Canada</title>
+    
+    <!-- Core Structural Stylesheets -->
+    <link rel="stylesheet" href="../../src/css/variables.css">
+    <link rel="stylesheet" href="../../src/css/global.css">
+    <link rel="stylesheet" href="../../src/css/components/loader.css">
+    <link rel="stylesheet" href="../../src/css/components/dashboard-layout.css">
+    <link rel="stylesheet" href="../../src/css/pages/dashboard/support.css">
+    
+    <!-- Google Fonts Framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Premium Visual Icons Vector Pack -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- CRITICAL LOGO PRELOADER LAYER                      -->
+    <!-- ================================================== -->
+    <div id="global-preloader" class="preloader-overlay">
+        <div class="preloader-container">
+            <div class="logo-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-leaf">🍁</div>
+            </div>
+            <p class="preloader-text">Connecting Help Desk Matrix...</p>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- MAIN PLATFORM APPLICATION CONTAINER               -->
+    <!-- ================================================== -->
+    <div id="app-content" class="content-hidden">
+        
+        <div class="dashboard-wrapper">
+            
+            <!-- Internal Application Navigation Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <span class="brand-text">MableWork</span>
+                    <span class="brand-region">Canada</span>
+                </div>
+                <nav class="sidebar-menu">
+                    <a href="index.html" class="menu-item"><i class="fas fa-chart-pie"></i> Overview Hub</a>
+                    <a href="jobs.html" class="menu-item"><i class="fas fa-briefcase"></i> Remote Postings</a>
+                    <a href="timesheets.html" class="menu-item"><i class="fas fa-clock"></i> Hour Tracking</a>
+                    <a href="verification.html" class="menu-item"><i class="fas fa-shield-check"></i> Compliance Audit</a>
+                    <a href="settings.html" class="menu-item"><i class="fas fa-sliders"></i> Security Setup</a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button id="sidebar-logout-trigger" class="btn btn-outline-danger btn-sm full-width"><i class="fas fa-power-off"></i> Terminate Session</button>
+                </div>
+            </aside>
+
+            <!-- Main Work Area Stream Layer -->
+            <main class="dashboard-main-content">
+                
+                <!-- Internal Context Header -->
+                <header class="dashboard-content-header">
+                    <div class="header-title-block">
+                        <h1>Operations & Compliance Desk</h1>
+                        <p>File real-time queries regarding contract auditing parameters, direct deposit lags, or IRCC work hour tracking caps.</p>
+                    </div>
+                    <div class="header-profile-badge">
+                        <div class="user-avatar" id="nav-avatar-fallback">CN</div>
+                        <span id="user-display-name">Candidate</span>
+                    </div>
+                </header>
+
+                <!-- Feedback Banner Center -->
+                <div id="support-alert-center" class="alert-box-container hidden-alert"></div>
+
+                <!-- Split Workspace Layout Grid -->
+                <div class="support-dashboard-grid">
+                    
+                    <!-- Left: Ticket Generation Form Module -->
+                    <section class="ticket-creation-panel">
+                        <div class="premium-dashboard-card">
+                            <div class="card-title-row">
+                                <h3><i class="fas fa-headset"></i> Open New Support Case</h3>
+                            </div>
+                            
+                            <form id="support-ticket-form" class="interactive-dashboard-form">
+                                <div class="form-field-group">
+                                    <label for="ticket-category">Core Query Classification <span class="required">*</span></label>
+                                    <select id="ticket-category" name="category" required>
+                                        <option value="">Select an operational node...</option>
+                                        <option value="Compliance Audit">Verification File Status / IRCC Permit Caps</option>
+                                        <option value="Payroll & Taxes">Direct Deposit Ledger / T4 & T4A Issues</option>
+                                        <option value="Time Logging">Timesheet Overlap / Hardware Clock Anomalies</option>
+                                        <option value="Match Engine">Profile Status Discrepancies / Filter Routing</option>
+                                        <option value="Technical Bug">UI Render Crash / Session Dropouts</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-field-group">
+                                    <label for="ticket-subject">Subject Header Summary <span class="required">*</span></label>
+                                    <input type="text" id="ticket-subject" name="subject" required placeholder="Brief title of the operational roadblock">
+                                </div>
+
+                                <div class="form-field-group">
+                                    <label for="ticket-message">Detailed Descriptive Breakdown <span class="required">*</span></label>
+                                    <textarea id="ticket-message" name="message" required rows="6" placeholder="Provide explicit contextual data points (e.g., precise error codes, transaction numbers, or affected shift timestamps)"></textarea>
+                                </div>
+
+                                <div class="form-action-group">
+                                    <button type="submit" id="submit-ticket-btn" class="btn btn-primary full-width">
+                                        <span class="btn-text"><i class="fas fa-paper-plane"></i> Dispatch Ticket to Operations Desk</span>
+                                        <span class="btn-spinner-icon hidden"><i class="fas fa-circle-notch fa-spin"></i></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+
+                    <!-- Right: Historical Inquiries Matrix -->
+                    <section class="ticket-history-panel">
+                        <div class="premium-dashboard-card">
+                            <div class="card-title-row">
+                                <h3><i class="fas fa-folder-open"></i> Logged Tickets & Updates</h3>
+                                <span class="badge active-cases-badge" id="cases-count-tag">0 Active</span>
+                            </div>
+
+                            <!-- Interactive Ticket History List Hook -->
+                            <div class="tickets-scroll-wrapper">
+                                <div class="empty-tickets-state" id="empty-tickets-trigger">
+                                    <i class="fas fa-comments-question"></i>
+                                    <h4>No Support Cases Logged</h4>
+                                    <p>Your workspace is completely free of compliance restrictions or ticket reports.</p>
+                                </div>
+
+                                <ul class="active-tickets-list hidden" id="live-tickets-matrix">
+                                    <!-- Dynamic markup injected by dashboard script engine -->
+                                    <!-- Reference Structure:
+                                    <li class="ticket-row-item">
+                                        <div class="ticket-header-meta">
+                                            <strong>#MW-94021 - Shift Time Dispute</strong>
+                                            <span class="status-badge badge-resolved">Resolved</span>
+                                        </div>
+                                        <p class="ticket-excerpt">Hour entries for May 12th split error states...</p>
+                                        <div class="ticket-footer-meta">
+                                            <span>Classification: Time Logging</span>
+                                            <small>Last Action: Today 08:14</small>
+                                        </div>
+                                    </li>
+                                    -->
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Core Runtime Execution Pipeline Scripts -->
+    <script src="../../src/js/api.js"></script>
+    <script src="../../src/js/utils/loader.js"></script>
+    <script src="../../src/js/pages/dashboard/support.js"></script>
+</body>
+</html>
